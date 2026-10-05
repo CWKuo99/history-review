@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>歷史大探險：商周至隋唐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky header with chapter tabs; each tab is one study station built from the textbook (序章、第1課、第2課). */
+:root{
+  --bg:#faf5ec; --paper:#fffdf8; --ink:#2a2118; --muted:#75685a; --line:#e6d9c6;
+  --accent:#b4471a; --accent-ink:#fff; --accent-soft:#f9e4d4; --gold:#9c6f16; --gold-soft:#f7ecd2;
+  --good:#2c7a4b; --good-soft:#e0f1e6; --bad:#b3362c; --bad-soft:#f9e1dc;
+  --c-pol:#b3362c; --c-sel:#2f5f9e; --c-peo:#2c7a4b; --c-cul:#7a4b99;
+  --sea:#d9e7ee; --land:#f5edda; --coast:#9fb8c6; --river:#5f93bd; --wall:#5b4a3a; --region:#b4471a;
+  --f-body:'Noto Sans TC',-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;
+  --f-disp:'Noto Serif TC','Songti TC','PMingLiU',serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a1612; --paper:#241f19; --ink:#efe6d8; --muted:#b2a492; --line:#3d342a;
+  --accent:#ec8a52; --accent-ink:#1a1612; --accent-soft:#40291b; --gold:#dcb15b; --gold-soft:#3a2f1a;
+  --good:#6cc28f; --good-soft:#1d3326; --bad:#f08072; --bad-soft:#3e221e;
+  --c-pol:#f08072; --c-sel:#86ade3; --c-peo:#6cc28f; --c-cul:#c69ee2;
+  --sea:#1b2a33; --land:#2c261e; --coast:#4c6676; --river:#5d93bf; --wall:#d3c2aa; --region:#ec8a52;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1612; --paper:#241f19; --ink:#efe6d8; --muted:#b2a492; --line:#3d342a;
+  --accent:#ec8a52; --accent-ink:#1a1612; --accent-soft:#40291b; --gold:#dcb15b; --gold-soft:#3a2f1a;
+  --good:#6cc28f; --good-soft:#1d3326; --bad:#f08072; --bad-soft:#3e221e;
+  --c-pol:#f08072; --c-sel:#86ade3; --c-peo:#6cc28f; --c-cul:#c69ee2;
+  --sea:#1b2a33; --land:#2c261e; --coast:#4c6676; --river:#5d93bf; --wall:#d3c2aa; --region:#ec8a52;
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;margin:0}
+h1,h2,h3,h4{font-family:var(--f-disp);text-wrap:balance;margin:0;line-height:1.3}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+.brand{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-block:14px 8px;flex-wrap:wrap}
+.brand h1{font-size:1.6rem;font-weight:900;color:var(--accent);letter-spacing:.06em}
+.brand p{margin:0;color:var(--muted);font-size:.9rem}
+.unit-pill{font-size:.78rem;font-weight:700;color:var(--gold);background:var(--gold-soft);padding:3px 10px;border-radius:99px;letter-spacing:.05em}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 12px 10px;white-space:nowrap;color:var(--muted);font-weight:500;display:flex;gap:6px;align-items:center}
+nav.tabs button .ch{font-size:.7rem;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:0 5px;color:var(--muted)}
+nav.tabs button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+nav.tabs button[aria-selected="true"] .ch{border-color:var(--accent);color:var(--accent)}
+main{padding-block:24px 60px}
+section.station{display:flex;flex-direction:column;gap:22px}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.panel-head{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.panel-head h2{font-size:1.45rem;font-weight:900}
+.panel-head h3{font-size:1.15rem;font-weight:900}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;font-weight:700;color:var(--gold)}
+.hint{color:var(--muted);font-size:.92rem;margin:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:22px}
+.btn{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 14px;font-weight:600}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.small{padding:4px 10px;font-size:.88rem}
+.btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;padding:1px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent)}
+.src{font-size:.78rem;color:var(--muted)}
+b,strong{font-weight:700}
+.feedback{border-radius:10px;padding:12px 14px;margin-top:12px;font-size:.95rem}
+.feedback.ok{background:var(--good-soft);color:var(--ink);border:1px solid var(--good)}
+.feedback.no{background:var(--bad-soft);color:var(--ink);border:1px solid var(--bad)}
+
+/* ---------- map ---------- */
+.mapbox{position:relative;background:var(--sea);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.m-sea{fill:var(--sea)} .m-landbg{fill:var(--land)}
+.m-coast{fill:none;stroke:var(--coast);stroke-width:1.2}
+.m-island{fill:var(--land);stroke:var(--coast);stroke-width:1}
+.m-lake{fill:var(--sea);stroke:var(--coast);stroke-width:1}
+.m-river{fill:none;stroke:var(--river);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:.85}
+.m-rlabel{fill:var(--river);font-size:13px;font-weight:700;font-style:italic}
+.m-sealabel{fill:var(--coast);font-size:15px;font-weight:700;letter-spacing:.3em}
+.m-txt{fill:var(--ink);font-size:13px;font-weight:700;paint-order:stroke;stroke:var(--land);stroke-width:4px;stroke-linejoin:round}
+.m-big{font-family:var(--f-disp);font-size:22px;font-weight:900;fill:var(--accent)}
+.m-tribe{fill:var(--c-peo);font-size:14px;font-weight:700;letter-spacing:.15em}
+.m-note{fill:var(--muted);font-size:12px;font-weight:700}
+.m-city{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.m-cap{fill:var(--bad);stroke:var(--paper);stroke-width:1.6}
+.m-wall{fill:none;stroke:var(--wall);stroke-width:5;stroke-dasharray:2 3;stroke-linecap:butt}
+.m-wall2{fill:none;stroke:var(--wall);stroke-width:1.6}
+.m-road{fill:none;stroke:var(--gold);stroke-width:2.6;stroke-dasharray:7 4}
+.m-silk{fill:none;stroke:var(--accent);stroke-width:3.4;stroke-dasharray:10 6;animation:dash 1.4s linear infinite}
+.m-sear{fill:none;stroke:var(--c-sel);stroke-width:2.8;stroke-dasharray:9 5;animation:dash 1.6s linear infinite}
+.m-canal{fill:none;stroke:var(--river);stroke-width:2.6;stroke-dasharray:3 3}
+.m-arrow{fill:none;stroke-width:4;stroke-linecap:round}
+.m-arrow.red{stroke:var(--bad)} .m-arrow.blue{stroke:var(--c-sel)} .m-arrow.gold{stroke:var(--gold)} .m-arrow.purple{stroke:var(--c-cul)} .m-arrow.green{stroke:var(--c-peo)}
+.m-zone{stroke-width:2;stroke-dasharray:5 4;fill-opacity:.18}
+.m-zone.y{fill:var(--gold);stroke:var(--gold)} .m-zone.g{fill:var(--c-peo);stroke:var(--c-peo)} .m-zone.o{fill:var(--accent);stroke:var(--accent)}
+.m-state{font-family:var(--f-disp);font-size:17px;font-weight:900;fill:var(--accent);paint-order:stroke;stroke:var(--land);stroke-width:4px}
+.m-pulse{fill:none;stroke:var(--accent);stroke-width:3;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out infinite}
+.m-hot{cursor:pointer}
+.m-hot:hover .m-txt{fill:var(--accent)}
+@keyframes dash{to{stroke-dashoffset:-32}}
+@keyframes pulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.8);opacity:0}}
+@media (prefers-reduced-motion:reduce){.m-silk,.m-sear,.m-pulse{animation:none}}
+.legend{position:absolute;left:8px;bottom:8px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:.68rem;line-height:1.5;opacity:.94;display:flex;flex-direction:column;gap:2px;max-width:48%}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.map-tools{position:absolute;right:10px;top:10px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:640px){.legend{position:static;max-width:none;flex-direction:row;flex-wrap:wrap;gap:4px 12px;border:0;border-top:1px solid var(--line);border-radius:0;opacity:1}.map-caption{display:none}}
+.map-caption{position:absolute;right:10px;bottom:8px;font-size:.7rem;color:var(--muted);font-weight:700}
+
+/* ---------- time machine ---------- */
+.tm{display:grid;grid-template-columns:200px minmax(0,1fr) 330px;gap:18px;align-items:start}
+.era-list{display:flex;flex-direction:column;gap:6px;position:relative}
+.era-list button{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:center;text-align:left;background:none;border:1.5px solid transparent;border-radius:12px;padding:8px}
+.era-list button .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);font-weight:900;font-family:var(--f-disp);background:var(--paper);color:var(--muted)}
+.era-list button .nm{font-family:var(--f-disp);font-weight:900;font-size:1.08rem;display:block;line-height:1.2}
+.era-list button .pd{font-size:.74rem;color:var(--muted);display:block}
+.era-list button[aria-selected="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.era-list button[aria-selected="true"] .n{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.cards{display:flex;flex-direction:column;gap:12px;min-width:0}
+.kcard{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 14px;border-left:5px solid var(--kc)}
+.kcard h4{font-family:var(--f-body);font-size:.82rem;letter-spacing:.08em;color:var(--kc);margin-bottom:4px}
+.kcard p{margin:0;font-size:.93rem}
+.kcard.pol{--kc:var(--c-pol)} .kcard.sel{--kc:var(--c-sel)} .kcard.peo{--kc:var(--c-peo)} .kcard.cul{--kc:var(--c-cul)}
+.era-years{display:flex;flex-wrap:wrap;gap:6px}
+.era-years span{font-size:.8rem;background:var(--gold-soft);color:var(--gold);border-radius:6px;padding:1px 8px;font-weight:700;font-variant-numeric:tabular-nums}
+@media (max-width:1020px){
+  .tm{grid-template-columns:1fr}
+  .era-list{flex-direction:row;overflow-x:auto;padding-bottom:4px}
+  .era-list button{grid-template-columns:28px auto;white-space:nowrap}
+  .era-list button .n{width:28px;height:28px}
+}
+
+/* ---------- 序章 ---------- */
+.dyn-scroll{overflow-x:auto;padding-bottom:6px}
+.dyn{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(54px,auto);min-width:980px;gap:3px}
+.dyn button{border:1px solid var(--line);background:var(--land);border-radius:6px;padding:8px 4px;font-weight:700;font-size:.88rem;line-height:1.25;text-align:center}
+.dyn button.g-pre{background:var(--paper)}
+.dyn button.g-a{background:var(--accent-soft)}
+.dyn button.g-b{background:var(--gold-soft)}
+.dyn button.g-c{background:var(--good-soft)}
+.dyn button.on{outline:3px solid var(--accent);outline-offset:-1px}
+.dyn small{display:block;font-weight:500;font-size:.7rem;color:var(--muted)}
+.dyn .split{display:flex;flex-direction:column;gap:3px}
+.dyn .split button{flex:1}
+.dyn-info{margin-top:12px;background:var(--bg);border-radius:12px;padding:14px;min-height:110px}
+.dyn-info h4{font-size:1.15rem;margin-bottom:4px}
+.tool-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.tool-row input[type=number]{width:120px;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);font-size:1.05rem;font-variant-numeric:tabular-nums}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{border:0;background:var(--paper);padding:8px 12px;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.readout{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
+.readout div{background:var(--bg);border-radius:12px;padding:10px 12px}
+.readout .k{font-size:.75rem;color:var(--muted);font-weight:700;letter-spacing:.08em}
+.readout .v{font-family:var(--f-disp);font-size:1.3rem;font-weight:900;color:var(--accent)}
+.readout .x{font-size:.8rem;color:var(--muted)}
+.order-pool{display:flex;flex-wrap:wrap;gap:8px}
+.order-pool button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:6px 12px;font-weight:600}
+.order-pool button.done{background:var(--good-soft);border-color:var(--good);opacity:.7;cursor:default}
+.order-pool button.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.order-line{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;min-height:40px;align-items:center}
+.order-line span{background:var(--gold-soft);border-radius:8px;padding:4px 10px;font-size:.88rem;font-weight:700}
+.order-line span em{font-style:normal;color:var(--gold);font-variant-numeric:tabular-nums;margin-right:4px}
+
+/* ---------- 封建郡縣 ---------- */
+table.cmp{width:100%;border-collapse:collapse;font-size:.95rem}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+table.cmp thead th{font-family:var(--f-disp);font-size:1.05rem}
+table.cmp th:first-child{color:var(--muted);font-size:.85rem;width:22%}
+.col-f{color:var(--c-pol)} .col-j{color:var(--c-sel)}
+.match-item{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--paper)}
+.match-item p{margin:0;font-size:.95rem}
+.match-item .ab{display:flex;gap:8px}
+.match-item.ok{border-color:var(--good);background:var(--good-soft)}
+.match-item.no{border-color:var(--bad);background:var(--bad-soft)}
+.pyr{display:flex;flex-direction:column;align-items:center;gap:4px}
+.pyr button{border:0;border-radius:6px;padding:8px;font-weight:700;color:var(--ink)}
+.pyr button[aria-pressed="true"]{outline:3px solid var(--accent)}
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.flip{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);text-align:left;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.flip .face-b{display:none}
+.flip[aria-expanded="true"] .face-a{display:none}
+.flip[aria-expanded="true"] .face-b{display:flex;flex-direction:column;gap:6px}
+.flip h4{font-size:1.1rem}
+.flip .coins{display:flex;flex-wrap:wrap;gap:6px}
+.flip .coins span{font-size:.8rem;border:1px solid var(--line);border-radius:6px;padding:1px 6px;background:var(--paper)}
+
+/* ---------- career ---------- */
+.career{max-width:720px;margin:0 auto;width:100%}
+.steps{display:flex;justify-content:space-between;gap:4px;font-size:.85rem;color:var(--muted);font-weight:700;margin-bottom:6px}
+.steps span.on{color:var(--accent)}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.bar div{height:100%;background:var(--accent);transition:width .4s}
+.opt-list{display:flex;flex-direction:column;gap:10px}
+.opt{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:12px 14px;text-align:left;font-weight:500;font-size:1.02rem}
+.opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.no{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+
+/* ---------- 胡漢 ---------- */
+.pair-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair-cols .col{display:flex;flex-direction:column;gap:6px}
+.pair-cols button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:8px;font-weight:700;font-size:1.05rem;font-family:var(--f-disp)}
+.pair-cols button.sel{border-color:var(--accent);background:var(--accent-soft)}
+.pair-cols button.done{border-color:var(--good);background:var(--good-soft);cursor:default}
+.pair-cols button.shake{animation:shake .35s;border-color:var(--bad)}
+.buckets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.bucket{border:2px dashed var(--line);border-radius:12px;padding:10px;min-height:120px;text-align:left;background:var(--bg);display:flex;flex-direction:column;gap:6px}
+.bucket h4{font-size:1rem}
+.bucket .got{display:flex;flex-wrap:wrap;gap:6px}
+.bucket .got span{font-size:.85rem;background:var(--good-soft);border:1px solid var(--good);border-radius:8px;padding:2px 8px}
+.bucket.armed{border-color:var(--accent)}
+.pool{display:flex;flex-wrap:wrap;gap:8px}
+.pool button{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:5px 12px;font-weight:600;font-size:.92rem}
+.pool button.sel{border-color:var(--accent);background:var(--accent-soft)}
+.pool button.shake{animation:shake .35s;border-color:var(--bad)}
+.ea-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px}
+.ea{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--paper);display:flex;flex-direction:column;gap:6px}
+.ea h4{font-size:1.2rem}
+.ea p{margin:0;font-size:.92rem}
+.kana{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.kana button{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.kana .big{font-size:1.7rem;font-family:var(--f-disp);font-weight:900;line-height:1.1}
+.kana .sm{font-size:.75rem;color:var(--muted)}
+.poems{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
+.poem{background:var(--bg);border-radius:12px;padding:12px 14px}
+.poem h4{font-size:1rem}
+.poem .au{font-size:.8rem;color:var(--muted)}
+.poem p{margin:6px 0 0;font-family:var(--f-disp);font-size:1.05rem;line-height:1.9}
+.poem .w{cursor:pointer;border-radius:4px;padding:0 1px}
+.poem .w:hover{background:var(--accent-soft)}
+.poem .w.hit{background:var(--good-soft);color:var(--good);box-shadow:inset 0 -2px 0 var(--good)}
+.poem .w.miss{background:var(--bad-soft)}
+.poem .note{font-size:.75rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.ca-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:760px){.ca-wrap{grid-template-columns:1fr}}
+.ca svg{width:100%;height:auto;display:block}
+.ca rect,.ca path{cursor:pointer}
+.ca .blk{fill:var(--land);stroke:var(--line)}
+.ca .zone{stroke:var(--ink);stroke-width:1.5}
+.ca .z-palace{fill:var(--accent-soft)} .ca .z-imp{fill:var(--gold-soft)} .ca .z-mkt{fill:var(--good-soft)} .ca .z-park{fill:var(--good-soft);opacity:.6}
+.ca .road{fill:none;stroke:var(--gold);stroke-width:5}
+.ca .sel{stroke:var(--accent);stroke-width:3.5}
+.ca text{font-size:13px;font-weight:700;fill:var(--ink);pointer-events:none}
+.mini-q{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.mini-q label{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--paper);cursor:pointer;font-size:.93rem}
+
+/* ---------- quiz ---------- */
+.qset{display:flex;flex-direction:column;gap:14px}
+.qset h3{font-size:1.1rem;margin-top:8px}
+.src-box{background:var(--bg);border-radius:12px;padding:12px 14px;font-size:.93rem;display:flex;flex-direction:column;gap:6px}
+.src-box p{margin:0}
+.q{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--paper)}
+.q h4{font-family:var(--f-body);font-size:1rem;font-weight:700;margin-bottom:8px;line-height:1.6}
+.q h4 .qn{color:var(--accent);margin-right:6px}
+.q label{display:flex;gap:8px;align-items:flex-start;border:1.5px solid var(--line);border-radius:10px;padding:7px 10px;margin-top:6px;cursor:pointer;font-size:.95rem}
+.q label:hover{border-color:var(--accent)}
+.q label.ok{border-color:var(--good);background:var(--good-soft)}
+.q label.no{border-color:var(--bad);background:var(--bad-soft)}
+.q .why{display:none;margin-top:10px;font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.q.graded .why{display:block}
+.score{font-family:var(--f-disp);font-size:1.3rem;font-weight:900;text-align:center;padding:14px;border-radius:12px;background:var(--accent-soft);color:var(--accent)}
+footer{color:var(--muted);font-size:.8rem;text-align:center;padding-block:10px 30px}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div>
+        <h1>歷史大探險</h1>
+        <p>商周至隋唐的國家、社會、民族與文化</p>
+      </div>
+      <span class="unit-pill">第二單元 中國與東亞(上)</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="學習站">
+      <button role="tab" id="tab-intro" aria-selected="true" data-tab="intro"><span class="ch">序章</span>紀年與朝代</button>
+      <button role="tab" id="tab-tm" aria-selected="false" data-tab="tm"><span class="ch">1・2</span>時光地圖</button>
+      <button role="tab" id="tab-fj" aria-selected="false" data-tab="fj"><span class="ch">1-1</span>封建與郡縣</button>
+      <button role="tab" id="tab-career" aria-selected="false" data-tab="career"><span class="ch">1-2</span>我的當官之路</button>
+      <button role="tab" id="tab-hu" aria-selected="false" data-tab="hu"><span class="ch">2</span>胡漢交流</button>
+      <button role="tab" id="tab-quiz" aria-selected="false" data-tab="quiz"><span class="ch">會考</span>學習會考挑戰</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= 序章 ================= -->
+<section class="station" id="sec-intro" role="tabpanel" aria-labelledby="tab-intro">
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">序章・朝代歌</span>
+      <h2>從部落到國家，一路到中華民國</h2>
+      <p class="hint">點選朝代看年代與時期重點。色塊依課本分成四個時期，寬度為示意，不按時間比例。</p>
+    </div>
+    <div class="dyn-scroll"><div class="dyn" id="dyn"></div></div>
+    <div class="dyn-info" id="dyn-info"></div>
+    <div class="tool-row" style="margin-top:10px">
+      <button class="btn small" id="dyn-play">▶ 依序播放朝代歌</button>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">序章・歷史紀年小工具</span>
+        <h3>輸入一個年份，換算世紀、年代與干支</h3>
+      </div>
+      <div class="tool-row">
+        <div class="seg" role="group" aria-label="西元前或西元後">
+          <button id="era-bc" aria-pressed="true">西元前 B.C.</button>
+          <button id="era-ad" aria-pressed="false">西元後 A.D.</button>
+        </div>
+        <input type="number" id="yr" min="1" max="2100" value="221" aria-label="年份">
+        <span>年</span>
+      </div>
+      <div class="chips" style="margin-top:10px" id="yr-presets"></div>
+      <div class="readout" id="yr-out"></div>
+      <p class="src" style="margin-top:10px">世紀：每一百年為一個世紀，西元元年到100年為「一世紀」。年代：連續十年的區間，例如一八五○年代即西元1850～1859年。干支：天干與地支配對，每對一年，六十年一周期。年號：以皇帝年號紀年，例如清代的「道光」、「光緒」。</p>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">紀年挑戰</span>
+        <h3>依時間先後，由早到晚點選事件</h3>
+        <p class="hint">事件取自第1課篇章頁的時間軸。</p>
+      </div>
+      <div class="order-pool" id="order-pool"></div>
+      <div class="order-line" id="order-line"></div>
+      <div id="order-msg"></div>
+      <button class="btn small" id="order-reset" style="margin-top:10px">重新挑戰</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">序章・地圖</span>
+      <h3>東亞在哪裡？史前文化在哪裡？</h3>
+      <p class="hint">切換圖層。點地圖上的遺址看說明。</p>
+    </div>
+    <div class="tool-row" style="margin-bottom:10px">
+      <div class="seg" role="group" aria-label="圖層">
+        <button id="lay-pre" aria-pressed="true">中國史前文化重要遺址</button>
+        <button id="lay-ea" aria-pressed="false">東亞的範圍</button>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="mapbox"><svg id="map-intro" viewBox="0 0 800 560" role="img" aria-label="序章地圖"></svg><div class="legend" id="leg-intro"></div></div>
+      <div class="dyn-info" id="intro-info" style="margin-top:0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 時光地圖 ================= -->
+<section class="station" id="sec-tm" role="tabpanel" aria-labelledby="tab-tm" hidden>
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">第1課＋第2課</span>
+      <h2>時光地圖：從封建到帝國，從胡漢到東亞</h2>
+      <p class="hint">選一個時期。地圖顯示當時的空間，右側四張卡片對應課本的政治、選才、民族互動與文化交流。</p>
+    </div>
+    <div class="tm">
+      <div class="era-list" id="era-list" role="tablist" aria-label="時期"></div>
+      <div>
+        <div class="mapbox">
+          <svg id="map-tm" viewBox="0 0 800 560" role="img" aria-label="歷史地圖"></svg>
+          <div class="legend" id="leg-tm"></div>
+          <div class="map-tools" id="tools-tm"></div>
+          <div class="map-caption">示意圖，位置為概略</div>
+        </div>
+        <div class="era-years" id="era-years" style="margin-top:10px"></div>
+      </div>
+      <div class="cards" id="era-cards"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 封建與郡縣 ================= -->
+<section class="station" id="sec-fj" role="tabpanel" aria-labelledby="tab-fj" hidden>
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">1-1 觀念釐清</span>
+        <h3>封建與郡縣，統治方式有何不同？</h3>
+      </div>
+      <div style="overflow-x:auto">
+      <table class="cmp">
+        <thead><tr><th>項目</th><th class="col-f">封建</th><th class="col-j">郡縣</th></tr></thead>
+        <tbody>
+          <tr><th>統治者</th><td>周王（名義上的共主）</td><td>皇帝（中央集權）</td></tr>
+          <tr><th>管理方式</th><td>周王分封諸侯，<b>間接</b>管理地方</td><td>皇帝派任郡縣長官，<b>直接</b>管理地方</td></tr>
+          <tr><th>官吏來源</th><td>分封、世襲</td><td>中央派任</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <svg viewBox="0 0 520 190" style="width:100%;height:auto;margin-top:12px" role="img" aria-label="封建與郡縣示意圖">
+        <g font-weight="700" font-size="14" text-anchor="middle">
+          <text x="130" y="18" fill="var(--c-pol)" font-size="15">封建</text>
+          <circle cx="130" cy="95" r="26" fill="var(--accent-soft)" stroke="var(--c-pol)" stroke-width="2"/>
+          <text x="130" y="100" fill="var(--ink)">周王</text>
+          <g fill="var(--paper)" stroke="var(--c-pol)" stroke-width="1.5">
+            <rect x="20" y="30" width="60" height="30" rx="6"/><rect x="180" y="30" width="60" height="30" rx="6"/>
+            <rect x="20" y="130" width="60" height="30" rx="6"/><rect x="180" y="130" width="60" height="30" rx="6"/>
+          </g>
+          <g fill="var(--ink)"><text x="50" y="50">諸侯</text><text x="210" y="50">諸侯</text><text x="50" y="150">諸侯</text><text x="210" y="150">諸侯</text></g>
+          <g stroke="var(--c-pol)" stroke-width="2"><line x1="110" y1="80" x2="80" y2="58"/><line x1="150" y1="80" x2="180" y2="58"/><line x1="110" y1="112" x2="80" y2="132"/><line x1="150" y1="112" x2="180" y2="132"/></g>
+          <g fill="var(--c-pol)" font-size="11"><text x="88" y="78">分封</text><text x="172" y="78">分封</text><text x="88" y="124">分封</text><text x="172" y="124">分封</text></g>
+          <text x="390" y="18" fill="var(--c-sel)" font-size="15">郡縣</text>
+          <rect x="350" y="30" width="80" height="34" rx="6" fill="var(--accent-soft)" stroke="var(--c-sel)" stroke-width="2"/>
+          <text x="390" y="52" fill="var(--ink)">皇帝</text>
+          <rect x="350" y="88" width="80" height="30" rx="6" fill="var(--paper)" stroke="var(--c-sel)" stroke-width="1.5"/><text x="390" y="108" fill="var(--ink)">郡守</text>
+          <rect x="350" y="142" width="80" height="30" rx="6" fill="var(--paper)" stroke="var(--c-sel)" stroke-width="1.5"/><text x="390" y="162" fill="var(--ink)">縣令</text>
+          <path d="M455 47 Q490 100 432 157" fill="none" stroke="var(--c-sel)" stroke-width="2"/>
+          <line x1="390" y1="64" x2="390" y2="88" stroke="var(--c-sel)" stroke-width="2"/>
+          <text x="488" y="100" fill="var(--c-sel)" font-size="11">派任</text>
+          <text x="404" y="80" fill="var(--c-sel)" font-size="11" text-anchor="start">派任</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">1-1 想一想</span>
+        <h3>這段說明屬於封建，還是郡縣？</h3>
+      </div>
+      <div class="flip-grid" id="fj-match" style="grid-template-columns:1fr"></div>
+      <div id="fj-match-msg"></div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">圖 2-1-2 宗法與禮樂</span>
+        <h3>西周社會階層關係</h3>
+        <p class="hint">點選每一層，看看宗法如何依血緣親疏決定身分。</p>
+      </div>
+      <div class="pyr" id="pyr"></div>
+      <div class="dyn-info" id="pyr-info"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">圖 2-1-5 秦代：中央集權的建立</span>
+        <h3>秦始皇統一了什麼？翻開卡片看看</h3>
+      </div>
+      <div class="flip-grid" id="qin-flip"></div>
+      <p class="src" style="margin-top:10px">課本：統一文字、貨幣、車軌、度量衡等，有助於各地經濟與文化交流。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 當官之路 ================= -->
+<section class="station" id="sec-career" role="tabpanel" aria-labelledby="tab-career" hidden>
+  <div class="panel">
+    <div class="panel-head" style="text-align:center;align-items:center">
+      <span class="eyebrow">1-2 選才制度的演變</span>
+      <h2>我的當官之路</h2>
+      <p class="hint">你是一位想進朝廷做事的年輕人。穿越五個時代，選出當時最可能的任官途徑。</p>
+    </div>
+    <div class="career">
+      <div class="steps" id="car-steps"></div>
+      <div class="bar"><div id="car-bar" style="width:20%"></div></div>
+      <div id="car-card">
+        <span class="tag" id="car-era"></span>
+        <h3 id="car-q" style="font-size:1.25rem;margin:10px 0 14px"></h3>
+        <div class="opt-list" id="car-opts"></div>
+        <div id="car-fb"></div>
+        <div style="margin-top:12px;text-align:right"><button class="btn primary" id="car-next" hidden>前往下個時代</button></div>
+      </div>
+      <div id="car-final" hidden>
+        <h3 style="font-size:1.4rem;text-align:center;margin-bottom:10px">體驗完成！你走過了中國選才制度的演變</h3>
+        <div class="dyn-info">
+          <ul style="margin:0;padding-left:1.2em">
+            <li><b>西周</b>：貴族獨占受教育之權，身分世代相襲</li>
+            <li><b>東周</b>：平民任官機會增加，布衣卿相開始出現</li>
+            <li><b>漢代</b>：察舉（地方政府向中央推舉孝廉）、太學</li>
+            <li><b>魏晉南北朝</b>：九品官人之法，以家世背景、才能、品德為標準，後來「上品無寒門，下品無世族」</li>
+            <li><b>隋到清末</b>：以科舉考試選才，促進社會階層流動</li>
+          </ul>
+        </div>
+        <h4 style="margin:16px 0 8px">世族興衰趨勢（圖 2-1-9）</h4>
+        <div style="overflow-x:auto">
+        <table class="cmp">
+          <thead><tr><th>時期</th><th>東漢</th><th>魏晉南北朝</th><th>隋～唐末年</th></tr></thead>
+          <tbody>
+            <tr><th>發展</th><td>世族形成</td><td>世族鼎盛</td><td>世族沒落</td></tr>
+            <tr><th>特色</th><td>經學傳家、累世當官</td><td>上品無寒門，下品無世族</td><td>世族逐漸退出政治舞臺</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <div style="text-align:center;margin-top:14px"><button class="btn" id="car-reset">重新體驗</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 胡漢交流 ================= -->
+<section class="station" id="sec-hu" role="tabpanel" aria-labelledby="tab-hu" hidden>
+  <div class="grid2">
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">2-1 圖 2-2-3 北魏孝文帝的漢化措施</span>
+        <h3>改漢姓配對：先點鮮卑姓，再點對應的漢姓</h3>
+        <p class="hint">孝文帝將首都從平城遷至洛陽，規定鮮卑人改用漢姓、穿漢服，並鼓勵與漢人通婚。</p>
+      </div>
+      <div class="pair-cols">
+        <div class="col" id="xb-col"><strong class="src">鮮卑姓</strong></div>
+        <div class="col" id="han-col"><strong class="src">漢姓</strong></div>
+      </div>
+      <div id="xb-msg"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <span class="eyebrow">2-2 民族互動下的文化交流</span>
+        <h3>傳進來，還是傳出去？</h3>
+        <p class="hint">先點一個項目，再點它所屬的方向。</p>
+      </div>
+      <div class="pool" id="cx-pool"></div>
+      <div class="buckets">
+        <button class="bucket" id="bk-in"><h4>外來文化的傳入</h4><span class="src">傳入中國</span><div class="got"></div></button>
+        <button class="bucket" id="bk-out"><h4>中國文化的外傳</h4><span class="src">由中國傳出</span><div class="got"></div></button>
+      </div>
+      <div id="cx-msg"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">2-2 中國文化的外傳</span>
+      <h3>隋唐與東亞：日本、新羅、吐蕃、大食</h3>
+      <p class="hint">日本、朝鮮等地廣受中國文化影響，逐漸形成「東亞文化圈」。點卡片可在時光地圖的隋唐圖上看位置。</p>
+    </div>
+    <div class="ea-cards" id="ea-cards"></div>
+    <div class="grid2" style="margin-top:18px">
+      <div>
+        <h4 style="margin-bottom:6px">圖 2-2-9 假名的由來</h4>
+        <div class="seg" role="group" aria-label="假名種類" style="margin-bottom:10px">
+          <button id="kana-h" aria-pressed="true">平假名（摹仿草書）</button>
+          <button id="kana-k" aria-pressed="false">片假名（楷書偏旁）</button>
+        </div>
+        <div class="kana" id="kana"></div>
+        <p class="src" style="margin-top:6px">點一下字卡，看漢字如何變成假名。</p>
+      </div>
+      <div>
+        <h4 style="margin-bottom:6px">充電站：天可汗</h4>
+        <p style="margin:0;font-size:.95rem">「可汗」原是草原民族領袖的稱呼。唐太宗滅了北方草原的強權東突厥後，被尊為「天可汗」，代表其地位高於西北各民族領袖，是各族的共同君長，亦即東亞國際盟主。</p>
+        <h4 style="margin:12px 0 6px">充電站：永嘉之禍</h4>
+        <p style="margin:0;font-size:.95rem">西元311年，匈奴攻進西晉首都洛陽，皇帝被俘。不久西晉滅亡，北方成為胡人的天下；晉人南遷長江流域，史稱「東晉」。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">課後閱讀</span>
+      <h3>國際城市長安城</h3>
+      <p class="hint">點選城中的區域。長安是唐代政治權力的中心，也是絲路的東方起點。</p>
+    </div>
+    <div class="ca-wrap">
+      <div class="ca" id="ca"></div>
+      <div class="dyn-info" id="ca-info" style="margin-top:0"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">探究活動・穿越時空到唐代</span>
+      <h3>唐詩偵探：找出詩中「胡風」的證據</h3>
+      <p class="hint">點選你認為能證明胡人文化流行的詞。共有 3 個證據。</p>
+    </div>
+    <div class="poems" id="poems"></div>
+    <div id="poem-msg"></div>
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h4>資料二（摘要）唐代女性的貞節觀</h4>
+        <p class="src" style="font-size:.88rem;margin-top:6px">東周出現與封建相應的禮法；秦代官方開始要求婦女守節；漢代鼓勵守節，儒者提出「夫為妻綱」，並著《列女傳》。魏晉南北朝時，北方胡人政權統治地區的貞節觀念表現出放鬆的一面。到了唐代，離婚成為常事：唐律規定夫婦可協議離婚（和離），唐代前期再嫁的公主有23人、三嫁的有4人。<br>改寫自牛志平（1995）。從離婚與再嫁看唐代婦女的貞節觀。</p>
+      </div>
+      <div>
+        <h4>根據資料二，可以推論出下列何者？（複選）</h4>
+        <div class="mini-q" id="tang-q"></div>
+        <button class="btn small" id="tang-check" style="margin-top:8px">檢查</button>
+        <div id="tang-msg"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 會考 ================= -->
+<section class="station" id="sec-quiz" role="tabpanel" aria-labelledby="tab-quiz" hidden>
+  <div class="panel">
+    <div class="panel-head">
+      <span class="eyebrow">學習會考</span>
+      <h2>學習會考挑戰</h2>
+      <p class="hint">前兩組為課本「學習會考」原題；第三組為依課文內容設計的延伸練習。作答後按「交卷」看分數與解析。</p>
+    </div>
+    <div class="qset" id="quiz"></div>
+    <div style="text-align:center;margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn primary" id="quiz-submit">交卷看成績</button>
+      <button class="btn" id="quiz-reset">重新作答</button>
+    </div>
+    <div id="quiz-score" style="margin-top:14px"></div>
+  </div>
+</section>
+</main>
+<footer class="wrap">內容依據：康軒版國中歷史第三冊（115學年）第二單元 序章、第1課、第2課。地圖為教學示意。</footer>
+
+<script>
+/* =========================================================
+   MAP ENGINE — equirectangular projection from lon/lat
+   ========================================================= */
+const VIEWS = {
+  north:{c:[113.5,35],s:42},   // 商周、春秋戰國
+  cn:{c:[110,33],s:20},        // 中國本部
+  ea:{c:[114,36],s:14},        // 東亞
+  asia:{c:[92,35],s:8.5}       // 絲路、唐代對外交通
+};
+const W=800,H=560;
+function P(v,lon,lat){const V=VIEWS[v];const k=Math.cos(V.c[1]*Math.PI/180);return [W/2+(lon-V.c[0])*V.s*k, H/2-(lat-V.c[1])*V.s];}
+function path(v,pts,close){return pts.map((p,i)=>{const [x,y]=P(v,p[0],p[1]);return (i?'L':'M')+x.toFixed(1)+','+y.toFixed(1)}).join(' ')+(close?' Z':'');}
+function smooth(v,pts){ // Catmull-Rom to cubic for rivers and arrows
+  const q=pts.map(p=>P(v,p[0],p[1]));
+  if(q.length<3) return path(v,pts);
+  let d='M'+q[0][0].toFixed(1)+','+q[0][1].toFixed(1);
+  for(let i=0;i<q.length-1;i++){
+    const p0=q[i-1]||q[i],p1=q[i],p2=q[i+1],p3=q[i+2]||p2;
+    const c1=[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],c2=[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6];
+    d+=` C${c1[0].toFixed(1)},${c1[1].toFixed(1)} ${c2[0].toFixed(1)},${c2[1].toFixed(1)} ${p2[0].toFixed(1)},${p2[1].toFixed(1)}`;
+  }
+  return d;
+}
+// Mainland coast from the Russian Far East, around Korea, China, Indochina, India, Arabia, back down East Africa.
+const COAST=[[141,53],[140.5,48],[138,46],[135.5,43.5],[132,43],[130.7,42.3],[129.7,41],[128.4,38.6],[129.4,36],[129.2,35.2],[127.5,34.6],[126.3,34.6],[126.5,36],[126,37.6],[124.7,38],[125,39.5],[124,40],[122,40.8],[121,40.8],[119.5,39.8],[118,39],[117.6,38.6],[118,38],[119,37.2],[120.5,37.8],[122.5,37.3],[121,36.6],[120,35.8],[119.3,35],[120.3,34.3],[120.9,32.5],[121.8,31],[121.9,30],[121.4,28.5],[120.5,27.2],[119.5,26],[118.6,24.6],[117,23.5],[115.5,22.8],[114,22.3],[113,22],[111,21.5],[110.3,20.3],[109.7,21.5],[108,21.6],[106.7,20.5],[105.8,19],[106.5,17.5],[108.8,15.5],[109.2,12],[106.5,9],[105,8.6],[104.8,10.5],[103,10.5],[100.8,12.7],[100,13.5],[99.2,10],[100.5,7],[102,6],[103.4,4],[103.5,1.5],[101,2.8],[98.5,7.9],[98.3,10],[97.5,16.5],[94.5,16],[94.3,18.8],[92.3,20.7],[91.8,22.5],[90.5,22],[88,21.6],[86.9,20.8],[85,19.3],[82.3,17],[80.3,15.5],[80.2,13],[79.8,10.3],[77.5,8.1],[76.3,9.8],[74.8,12.8],[73.4,16],[72.8,19.2],[72.6,21.5],[70.3,20.8],[68.8,22.5],[67.2,24.8],[66.5,25.4],[61.6,25.2],[57.3,25.7],[56.3,27.1],[54,26.7],[51.5,27.9],[50.2,30],[48,30],[48.5,28],[50,26],[51.6,25.3],[51.6,24],[54.5,24.2],[56.3,26.2],[56.4,24.8],[58.7,23.6],[59.8,22.4],[57.8,19],[55,17],[52,16],[48.7,14],[45,12.8],[43.5,12.7],[42.8,15],[39,21.5],[36,26],[34.5,28],[32.5,30],[33.5,27],[35.5,23.5],[37.3,19],[39,15.5],[41.7,13.2],[43.3,11.5],[44.5,10.4],[51.2,11.8],[50.8,9.5],[48.5,5],[45.5,2],[42,-1],[40,-3],[39,-6]];
+const SEA_CLOSE=[[39,-40],[200,-40],[200,70],[141,70]];
+const ISLANDS=[
+  [[130.9,34],[131.4,34.4],[132.5,35.4],[133.5,35.5],[135.2,35.7],[136,35.9],[136.8,37.3],[137.3,36.8],[138.5,37.4],[139.5,38.4],[140,39.8],[140,40.8],[141.4,41.4],[142,39.5],[141,38.3],[140.9,36.9],[140.8,35.7],[139.8,35],[138.8,34.6],[137,34.6],[136.8,34.3],[135.8,33.5],[135.1,34.3],[134,34.5],[132.5,34.2],[131,33.9]],
+  [[129.8,33.5],[130.9,33.9],[131.7,33.2],[131.4,31.4],[130.7,31],[130.2,31.4],[130.1,32.4],[129.6,33]],
+  [[132.5,33.9],[133.6,34.2],[134.6,34.2],[134.7,33.8],[133.9,33.5],[133,32.8],[132.4,33.3]],
+  [[140,41.5],[140.5,42.5],[140.3,43.3],[141.4,43.6],[141.7,45.3],[143.2,44.3],[145.3,43.5],[143.3,42],[141,41.8]],
+  [[121,25],[121.9,25],[121.4,23],[120.8,21.9],[120.1,23],[120.3,24.4]],
+  [[108.6,19.2],[110,20.1],[111,19.6],[110,18.3],[109,18.4]],
+  [[79.9,9.6],[81.3,8.5],[81.8,7],[81,6.1],[80.1,6.2],[79.8,8]]
+];
+const LAKES=[
+  [[47,45],[50,46.5],[53,45],[51,41],[53.5,39],[54,37],[50.5,37],[49,38.5],[49.5,40.5],[47.5,43]],
+  [[58.5,46.2],[61.5,46.6],[61.3,44],[59,44.4]]
+];
+const RIVERS={
+  黃河:[[96,35],[98.5,34.6],[101.5,36],[103.8,36.1],[105.5,37.5],[106.5,39.5],[107,40.8],[109,40.6],[111,40.3],[111.4,39.5],[110.6,37.5],[110.4,35.5],[110.3,34.6],[111.5,34.8],[112.5,34.8],[113.7,34.9],[115,35.5],[116.5,36.2],[117,36.7],[118.5,37.5],[119.2,37.8]],
+  長江:[[91,33.5],[95,33],[97.5,31.5],[99,28.5],[100.2,26.8],[102,26.2],[104.6,28.8],[106.5,29.5],[108.5,30.8],[110.5,30.9],[111.3,30.7],[112.2,30.3],[113.1,29.4],[114.3,30.6],[116,29.7],[117.5,30.6],[118.8,32],[120,32.2],[121.5,31.6]],
+  淮河:[[113.4,32.4],[115.5,32.5],[117,32.9],[118.5,33.3],[119.6,33.8]],
+  珠江:[[104,24.8],[106.5,23.6],[108.3,22.9],[110.5,23.4],[112.4,23.2],[113.4,22.8]]
+};
+const RIVER_LABEL={黃河:[[109.8,38.8],'north'],長江:[[115.6,29.8],'any'],淮河:[[116.8,33.25],'detail'],珠江:[[109.3,23.65],'detail']};
+const SEA_LABELS={north:[['黃海',[122.5,35.2]]],cn:[['南海',[115,19.5]],['黃海',[123,35.5]],['太平洋',[129,27]]],ea:[['太平洋',[138,27]],['南海',[115,18.5]],['日本海',[134.5,40]]],asia:[['太平洋',[138,22]],['印度洋',[80,8]],['南海',[115,15]]]};
+
+const NS='http://www.w3.org/2000/svg';
+function el(tag,attrs,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;return e;}
+
+function drawBase(svg,v){
+  svg.innerHTML='';
+  svg.appendChild(el('rect',{x:0,y:0,width:W,height:H,class:'m-landbg'}));
+  svg.appendChild(el('path',{d:path(v,COAST.concat(SEA_CLOSE),true),class:'m-sea'}));
+  svg.appendChild(el('path',{d:path(v,COAST),class:'m-coast'}));
+  ISLANDS.forEach(i=>svg.appendChild(el('path',{d:path(v,i,true),class:'m-island'})));
+  LAKES.forEach(i=>svg.appendChild(el('path',{d:path(v,i,true),class:'m-lake'})));
+  for(const r in RIVERS){
+    if(v==='asia'&&(r==='淮河'||r==='珠江'))continue;
+    svg.appendChild(el('path',{d:smooth(v,RIVERS[r]),class:'m-river'}));
+    const [pt,mode]=RIVER_LABEL[r];
+    if(mode==='detail'&&v!=='north'&&v!=='cn')continue;
+    if(v==='asia')continue;
+    const [x,y]=P(v,pt[0],pt[1]);svg.appendChild(el('text',{x,y,class:'m-rlabel','text-anchor':'middle'},r==='淮河'?'淮':r==='珠江'?'珠江':r));
+  }
+  (SEA_LABELS[v]||[]).forEach(([t,p])=>{const [x,y]=P(v,p[0],p[1]);svg.appendChild(el('text',{x,y,class:'m-sealabel','text-anchor':'middle'},t));});
+  const g=el('g',{});svg.appendChild(g);return g;
+}
+function addMarker(svg){
+  if(svg.querySelector('defs'))return;
+  const d=el('defs',{});
+  [['red','var(--bad)'],['blue','var(--c-sel)'],['gold','var(--gold)'],['purple','var(--c-cul)'],['green','var(--c-peo)'],['ink','var(--accent)']].forEach(([n,c])=>{
+    const m=el('marker',{id:'ah-'+n+'-'+svg.id,viewBox:'0 0 10 10',refX:6,refY:5,markerWidth:5,markerHeight:5,orient:'auto-start-reverse'});
+    m.appendChild(el('path',{d:'M0,0 L10,5 L0,10 z',style:'fill:'+c}));d.appendChild(m);
+  });
+  svg.insertBefore(d,svg.firstChild);
+}
+// Feature kinds: city, cap, label, big, tribe, state, note, wall, road, silk, sea, canal, arrow, zone, pulse
+function drawFeatures(svg,g,v,feats,onClick){
+  addMarker(svg);
+  const lines=[],marks=[];
+  feats.forEach(f=>(['wall','road','silk','sea','canal','arrow','zone','wall2'].includes(f.k)?lines:marks).push(f));
+  lines.forEach(f=>{
+    if(f.k==='zone'){const [x,y]=P(v,f.p[0],f.p[1]);const V=VIEWS[v];const k=Math.cos(V.c[1]*Math.PI/180);g.appendChild(el('ellipse',{cx:x,cy:y,rx:f.r[0]*V.s*k,ry:f.r[1]*V.s,class:'m-zone '+f.c}));return;}
+    const cls={wall:'m-wall',wall2:'m-wall2',road:'m-road',silk:'m-silk',sea:'m-sear',canal:'m-canal',arrow:'m-arrow '+(f.c||'red')}[f.k];
+    const a={d:(f.k==='arrow'||f.smooth)?smooth(v,f.pts):path(v,f.pts),class:cls};
+    if(f.k==='arrow')a['marker-end']=`url(#ah-${f.c||'red'}-${svg.id})`;
+    g.appendChild(el('path',a));
+    if(f.k==='wall')g.appendChild(el('path',{d:path(v,f.pts),class:'m-wall2'}));
+    if(f.t){const p=f.tp||f.pts[Math.floor(f.pts.length/2)];const [x,y]=P(v,p[0],p[1]);g.appendChild(el('text',{x,y,class:'m-txt','text-anchor':'middle',style:f.k==='arrow'?`fill:var(--${{red:'bad',blue:'c-sel',gold:'gold',purple:'c-cul',green:'c-peo'}[f.c||'red']})`:''},f.t));}
+  });
+  marks.forEach(f=>{
+    const [x,y]=P(v,f.p[0],f.p[1]);
+    const grp=el('g',{});
+    if(f.k==='city'||f.k==='cap'){
+      if(f.pulse)grp.appendChild(el('circle',{cx:x,cy:y,r:12,class:'m-pulse'}));
+      grp.appendChild(f.k==='cap'?el('rect',{x:x-5,y:y-5,width:10,height:10,class:'m-cap'}):el('circle',{cx:x,cy:y,r:4.5,class:'m-city'}));
+      const dx=f.dx??8,dy=f.dy??4;
+      grp.appendChild(el('text',{x:x+dx,y:y+dy,class:'m-txt','text-anchor':f.anchor||'start'},f.t));
+    } else if(f.k==='battle'){
+      grp.appendChild(el('text',{x,y:y+6,'text-anchor':'middle','font-size':18,style:'fill:var(--bad);font-weight:900'},'✕'));
+      grp.appendChild(el('text',{x:x+(f.dx??10),y:y+(f.dy??-8),class:'m-txt','text-anchor':f.anchor||'start'},f.t));
+    } else {
+      const cls={label:'m-txt',big:'m-big',tribe:'m-tribe',state:'m-state',note:'m-note'}[f.k];
+      grp.appendChild(el('text',{x,y,class:cls,'text-anchor':'middle'},f.t));
+    }
+    if(f.info&&onClick){grp.setAttribute('class','m-hot');grp.setAttribute('tabindex','0');grp.setAttribute('role','button');grp.addEventListener('click',()=>onClick(f));grp.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onClick(f);}});}
+    g.appendChild(grp);
+  });
+}
+function legend(box,items){box.innerHTML=items.map(([c,t,style])=>`<span><i style="border-top-color:${c};${style||''}"></i>${t}</span>`).join('');box.hidden=!items.length;}
+
+/* =========================================================
+   DATA — 時光地圖（文字皆依課本）
+   ========================================================= */
+const L={cap:['var(--bad)','都城','border-top-width:8px;width:8px'],city:['var(--ink)','城市','border-top-width:6px;width:6px;border-radius:50%'],wall:['var(--wall)','長城／城牆','border-top-style:dotted;border-top-width:5px'],road:['var(--gold)','馳道','border-top-style:dashed'],silk:['var(--accent)','絲路／陸路交通線','border-top-style:dashed'],sea:['var(--c-sel)','海路交通線','border-top-style:dashed'],canal:['var(--river)','運河','border-top-style:dotted']};
+
+const HAN_SILK_N=[[108.9,34.3],[104,36.1],[102.6,37.9],[100.45,38.9],[98.5,39.7],[94.7,40.1],[93.9,40.35],[89.9,40.5],[86.6,42],[82.9,41.7],[76,39.5],[71.5,40.8],[66,40],[60,38],[54,36],[45,34.5],[36,34]];
+const HAN_SILK_S=[[94.7,40.1],[94.1,39.9],[89.9,39.6],[83.5,37.4],[79.9,37.1],[77.2,38.4],[73,38],[67,37]];
+const HAN_WALL=[[94,40.3],[96.5,40.2],[98.5,39.9],[100.5,39.2],[102.6,38.3],[104.5,37.5],[106.5,38],[107.5,39.5],[109.5,41],[111.5,41.2],[114,41.5],[117,41.5],[119.5,41.8],[122,42],[123.5,41]];
+const QIN_WALL=[[103.85,35.4],[104.5,37],[106.5,38],[107.5,39.5],[109.5,41],[111.5,41.2],[114,41.5],[117,41.5],[119.5,41.8],[122,42],[123.5,41]];
+
+const HAN_FEATS=[
+  {k:'wall',pts:HAN_WALL},
+  {k:'silk',pts:HAN_SILK_N},{k:'silk',pts:HAN_SILK_S},
+  {k:'cap',p:[108.9,34.3],t:'長安',dx:8,dy:14},{k:'city',p:[112.45,34.65],t:'洛陽'},
+  {k:'city',p:[102.6,37.9],t:'武威',dy:-6},{k:'city',p:[100.45,38.9],t:'張掖',dy:-6},{k:'city',p:[98.5,39.7],t:'酒泉',dy:-6},
+  {k:'city',p:[94.7,40.1],t:'敦煌',dx:6,dy:14},{k:'label',p:[93.6,41.6],t:'玉門關'},{k:'label',p:[92.8,38.6],t:'陽關'},
+  {k:'city',p:[89.9,40.5],t:'樓蘭',dx:-8,dy:-6,anchor:'end'},{k:'city',p:[82.9,41.7],t:'龜茲',dy:-6},{k:'city',p:[76,39.5],t:'疏勒',dx:-8,anchor:'end'},
+  {k:'city',p:[79.9,37.1],t:'于闐',dy:14},{k:'label',p:[71.5,42.3],t:'大宛'},{k:'label',p:[65.5,34.8],t:'大月氏'},{k:'label',p:[55,32],t:'安息(伊朗)'},
+  {k:'label',p:[67,44.2],t:'康居'},{k:'label',p:[79,44.2],t:'烏孫'},{k:'label',p:[78,23],t:'身毒(印度)'},
+  {k:'tribe',p:[103,44.5],t:'匈 奴'},{k:'tribe',p:[93,34.5],t:'羌'},{k:'note',p:[84,39.3],t:'西 域'},
+  {k:'big',p:[110,30.5],t:'漢'},
+  {k:'label',p:[42.5,36.8],t:'← 往大秦(羅馬帝國)'}
+];
+
+const ERAS=[
+{ id:'shang', name:'商・西周', pd:'約西元前十二世紀周取代商', view:'north',
+  years:['距今三千多年前 商朝建立','約西元前十二世紀 周'],
+  pol:'黃河下游的<b>商</b>人征服其他部落，建立商朝，並透過<b>分封</b>穩固統治。商朝晚期國力衰微，黃河中游的<b>周</b>人滅商，建立周朝，史稱<b>西周</b>。西周為加強對新征服地的控制，施行<b>封建</b>，分封親戚和功臣為諸侯，駐守重要地點以保衛王室；並利用<b>宗法</b>，透過血緣的親疏，確立貴族間的尊卑關係。',
+  sel:'<b>貴族身分世代相襲</b>，行為舉止都受到禮樂的規範。西周時期僅貴族才能接受教育（貴族獨占受教育之權）。',
+  peo:'商周以來，<b>農業民族</b>與<b>草原民族</b>常有貿易與衝突，彼此間互相交流與影響。地圖上可見周的西方有外族<b>犬戎</b>。',
+  cul:'<b>禮樂</b>：藉由制定祭祀、宴飲、喪葬等禮儀，配合對應的音樂、舞蹈，規範貴族的政治活動與生活方式，以穩定封建秩序。考古發現商朝<b>殷墟</b>遺址，<b>甲骨文</b>證明商代已進入有文字的歷史時代。',
+  legend:[L.cap],
+  feats:[
+    {k:'cap',p:[114.35,36.1],t:'殷(安陽)',dy:16},{k:'cap',p:[108.8,34.2],t:'鎬京',dy:16},
+    {k:'state',p:[115.6,37.1],t:'商'},{k:'state',p:[107.9,35.1],t:'周'},
+    {k:'tribe',p:[105.2,36.2],t:'犬戎'},
+    {k:'arrow',c:'gold',pts:[[109.4,34.7],[111.5,35.6],[113.7,36.0]],t:'周人滅商',tp:[111.4,36.25]},
+    {k:'note',p:[112.2,33.0],t:'黃河中游',},{k:'note',p:[117.2,35.3],t:'黃河下游'}
+  ]},
+{ id:'dongzhou', name:'東周', pd:'西元前770年起（春秋、戰國）', view:'north',
+  years:['西元前770 周王室東遷','西元前356 商鞅變法','西元前221 秦統一'],
+  pol:'諸侯間血緣關係漸疏遠，封建秩序鬆動。西周末年，周王<b>破壞宗法</b>，諸侯聯合<b>犬戎</b>攻入首都，迫使周王室東遷，史稱<b>東周</b>。此後王室衰微、諸侯坐大，<b>封建秩序瓦解</b>。各國為求富國強兵致力改革，例如秦國任用<b>商鞅變法</b>：厲行法治，按軍功授爵位，<b>編列戶籍</b>，規定人民納稅和服勞役，為秦統一天下奠定基礎。',
+  sel:'部分貴族流落民間，以辦學宣講謀生，<b>私人講學</b>風氣盛行，增加平民受教育的機會。各國君主<b>用人唯才</b>，平民逐漸參與政治，<b>布衣卿相</b>開始出現，社會階層流動日益頻繁。',
+  peo:'東周末年，黃河流域各國<b>修築城牆</b>，以抵禦<b>匈奴</b>等民族南下。地圖上的外族還有犬戎、狄、淮夷、羌、月氏等。',
+  cul:'<b>百家爭鳴</b>：東周出現各種不同的思想流派。以<b>孔子</b>為代表的<b>儒家</b>，對中國各朝代乃至東亞的政治、社會影響極大。孔子秉持有教無類、因材施教的理念。',
+  legend:[L.cap,L.wall],
+  variants:{
+    '春秋（前期）':[
+      {k:'cap',p:[112.45,34.65],t:'雒邑',dy:16},{k:'state',p:[112.6,33.9],t:'周'},
+      {k:'state',p:[107.5,34.3],t:'秦'},{k:'state',p:[111.6,36.4],t:'晉'},{k:'state',p:[118.6,36.6],t:'齊'},{k:'state',p:[117.1,35.6],t:'魯'},
+      {k:'state',p:[115.6,34.5],t:'宋'},{k:'state',p:[114.6,35.9],t:'衛'},{k:'state',p:[113.7,34.9],t:'鄭'},{k:'state',p:[115,33.7],t:'陳'},
+      {k:'state',p:[114.2,32.9],t:'蔡'},{k:'state',p:[116,35.3],t:'曹'},{k:'state',p:[112.2,31.2],t:'楚'},{k:'state',p:[120,31.5],t:'吳'},
+      {k:'state',p:[120.6,29.6],t:'越'},{k:'state',p:[116.8,40.2],t:'北燕'},
+      {k:'tribe',p:[106.4,35.9],t:'犬戎'},{k:'tribe',p:[103.6,34],t:'西戎'},{k:'tribe',p:[112.3,38.8],t:'狄'},{k:'tribe',p:[118.6,33.6],t:'淮夷'}
+    ],
+    '戰國（後期）':[
+      {k:'wall',pts:[[114.6,40.9],[117,41.4],[119.5,41.6],[121.5,41.4]]},{k:'wall',pts:[[108.5,40.6],[110.5,41.1],[112.8,40.9]]},{k:'wall',pts:[[104.5,36.2],[106.4,37.4],[108.2,38.5],[109.8,39.4]]},
+      {k:'cap',p:[112.45,34.65],t:'洛陽',dx:-8,dy:-6,anchor:'end'},{k:'state',p:[112.1,33.9],t:'周'},
+      {k:'cap',p:[108.7,34.35],t:'咸陽',dy:16},{k:'state',p:[107.4,35.4],t:'秦'},
+      {k:'cap',p:[113.7,34.4],t:'新鄭',dy:16},{k:'state',p:[113.2,35.2],t:'韓'},
+      {k:'cap',p:[114.35,34.8],t:'大梁'},{k:'state',p:[115.4,35.6],t:'魏'},
+      {k:'cap',p:[114.5,36.6],t:'邯鄲'},{k:'state',p:[113.4,38],t:'趙'},
+      {k:'cap',p:[116.4,39.9],t:'薊'},{k:'state',p:[117.6,40.7],t:'燕'},
+      {k:'cap',p:[118.3,36.8],t:'臨淄',dy:16},{k:'state',p:[119,36.1],t:'齊'},
+      {k:'cap',p:[112.2,30.35],t:'郢(江陵)',dy:16},{k:'state',p:[114.8,31.8],t:'楚'},
+      {k:'tribe',p:[111.5,41.8],t:'匈奴'},{k:'tribe',p:[103.8,38.5],t:'月氏'},{k:'tribe',p:[103.6,33.5],t:'羌'}
+    ]
+  }},
+{ id:'qin', name:'秦', pd:'西元前221年統一天下', view:'cn',
+  years:['西元前221 秦統一天下'],
+  pol:'西元前221年，秦王嬴政統一天下，以皇帝作為君主稱號，自稱「始皇帝」。他施行<b>中央集權</b>，不再實施封建，<b>全面推行郡縣</b>。下令統一<b>文字、貨幣、車軌、度量衡</b>，有助於各地經濟與文化交流。又實施<b>焚書坑儒</b>控制思想；統治嚴苛、刑罰殘酷，修築長城、馳道勞民傷財，最終滅亡。但中央集權體制仍為漢及後續朝代所沿襲。',
+  sel:'郡縣長官由<b>中央直接任免</b>（官吏來源：中央派任），取代封建時代的分封、世襲。',
+  peo:'秦統一後，將秦代以前所修築的城牆連結成<b>長城</b>，作為北方抵禦<b>匈奴</b>的防線。長城自此成為<b>農業民族與草原民族的分界線</b>。',
+  cul:'秦始皇修築以<b>咸陽</b>為中心的<b>馳道</b>，藉以強化中央集權，也促進帝國境內各地的互動與交流。兵馬俑是秦始皇陵的隨葬品，建造皇陵動員了七十萬人力，可見國家控制力量強大。',
+  legend:[L.cap,L.city,L.wall,L.road],
+  feats:[
+    {k:'wall',pts:QIN_WALL,t:'長城',tp:[112.5,42.6]},
+    {k:'road',pts:[[108.7,34.35],[112.45,34.65],[114.5,36.6],[116.4,39.9]]},{k:'road',pts:[[112.45,34.65],[115.5,35.8],[118.3,36.8]]},
+    {k:'road',pts:[[112.45,34.65],[117.2,34.3],[120.6,30]]},{k:'road',pts:[[108.7,34.35],[112.2,30.35]]},{k:'road',pts:[[108.7,34.35],[106.5,32.5],[104.06,30.66]]},{k:'road',pts:[[108.7,34.35],[109.3,37.5],[109.9,40.6]]},
+    {k:'cap',p:[108.7,34.35],t:'咸陽',pulse:true,dx:-9,dy:16,anchor:'end'},{k:'city',p:[112.45,34.65],t:'洛陽',dy:14},{k:'city',p:[114.5,36.6],t:'邯鄲'},{k:'city',p:[116.4,39.9],t:'薊'},
+    {k:'city',p:[118.3,36.8],t:'臨淄'},{k:'city',p:[117.2,34.3],t:'彭城'},{k:'city',p:[120.6,30],t:'會稽山'},{k:'city',p:[112.2,30.35],t:'江陵',dy:14},
+    {k:'city',p:[104.06,30.66],t:'成都',dx:-8,anchor:'end'},{k:'city',p:[109.9,40.6],t:'九原',dx:-8,dy:-6,anchor:'end'},{k:'city',p:[113.3,23.1],t:'番禺(廣州)',dy:14},{k:'city',p:[103.85,35.4],t:'臨洮',dx:-8,anchor:'end'},{k:'city',p:[123.2,41.3],t:'襄平'},
+    {k:'tribe',p:[108,44],t:'匈 奴'},{k:'tribe',p:[121.5,44.5],t:'東 胡'},{k:'tribe',p:[98,39.5],t:'月氏'},{k:'label',p:[126.5,40],t:'朝鮮'},
+    {k:'big',p:[112,27.5],t:'秦'},{k:'note',p:[106,24],t:'象郡'}
+  ]},
+{ id:'han', name:'漢', pd:'西元前202年西漢建立', view:'asia',
+  years:['西元前202 西漢建立','西元前139 張騫出使西域','西元9 新','西元25 東漢','西元220 東漢滅亡'],
+  pol:'秦的中央集權體制為漢所沿襲。中央集權體制下，皇帝通過中央與地方官吏治理國家，<b>選才制度</b>因此成為維繫政權的重要基礎。',
+  sel:'漢武帝實施<b>察舉</b>，要求地方長官定期推舉「<b>孝子</b>」和「<b>廉吏</b>」；又成立<b>太學</b>，教授儒家經典，讓優秀學生可以任官（太學至隋代改稱國子監）。士人將經書見解傳授給子弟，逐漸形成<b>經學傳家、累世當官</b>的世家大族（東漢：世族形成）。',
+  peo:'漢武帝為了<b>聯絡西域國家打擊匈奴</b>，派遣<b>張騫出使西域</b>，強化與西域各國往來，使東西商路更加活絡。當時中國的<b>絲綢</b>為主要貿易商品之一，後世稱這條通道為「<b>絲路</b>」，絲綢向西最遠可達<b>大秦(羅馬帝國)</b>。',
+  cul:'絲路成為東西商貿往來與文化交流的重要通道。源自印度的<b>佛教</b>約在<b>西漢末年經西域傳入</b>中國。漢代以來，匈奴、鮮卑等被稱為「胡」的境外民族陸續遷入。',
+  legend:[L.cap,L.city,L.wall,L.silk],
+  feats:HAN_FEATS},
+{ id:'weijin', name:'魏晉南北朝', pd:'西元220年起', view:'cn',
+  years:['220 東漢滅亡','265 西晉建立','311 永嘉之禍','493 北魏孝文帝遷都洛陽'],
+  pol:'東漢滅亡後，進入曹魏、蜀漢、孫吳<b>三國鼎立</b>，後由<b>西晉</b>短暫統一。西晉因內亂與外患而滅亡，中國進入<b>兩百多年的南北分裂</b>。<b>世族</b>勢力龐大，掌控政治權力、擁有眾多土地，享有<b>免賦稅、免勞役</b>的經濟特權，甚至連皇帝也要向世族妥協。',
+  sel:'東漢末年社會動盪，地方已無法順利推舉人才。曹魏以後，改由中央派負責評選的官員到各地，按照<b>家世背景、才能和品德</b>，以九品的等第評選士人，史稱<b>九品官人之法</b>。但評選官員多為世族出任，多看重家世，形成「<b>上品無寒門，下品無世族</b>」。',
+  peo:'胡漢風俗不同，加上胡人長期受漢人歧視，衝突不斷。西元311年<b>永嘉之禍</b>後，大批北方人士<b>避難南遷</b>，加速南方經濟開發，促使<b>經濟重心逐漸南移</b>。北方最終由鮮卑人建立的<b>北魏</b>統一。<b>北魏孝文帝</b>推行漢化：遷都洛陽、改用漢姓、穿漢服、鼓勵與漢人通婚，促進胡漢融合，奠定隋唐盛世的基礎。',
+  cul:'政權更迭頻繁、社會動盪，人心尋求宗教慰藉，<b>佛教</b>開始盛行，與佛教有關的建築和藝術隨之興起，例如中國三大石窟：<b>莫高窟</b>（甘肅敦煌）、<b>雲岡石窟</b>（山西大同）、<b>龍門石窟</b>（河南洛陽）。',
+  legend:[L.cap,['var(--bad)','匈奴攻洛陽'],['var(--c-sel)','北方人士南遷'],['var(--gold)','孝文帝遷都']],
+  feats:[
+    {k:'arrow',c:'red',pts:[[110.2,39.6],[111.2,37.2],[112.2,35.3]],t:'311 永嘉之禍',tp:[108.6,37.4]},
+    {k:'arrow',c:'gold',pts:[[113.3,39.8],[113.6,37.5],[112.9,35.2]],t:'493 遷都',tp:[115.6,38.3]},
+    {k:'arrow',c:'blue',pts:[[113.4,34.1],[115.8,33.2],[118.2,32.4]],t:'晉人南遷',tp:[116.4,31.5]},
+    {k:'cap',p:[113.3,40.1],t:'平城(舊都)'},{k:'cap',p:[112.45,34.65],t:'洛陽(新都)',dx:-9,dy:16,anchor:'end'},{k:'cap',p:[118.8,32.05],t:'建康(今南京)',dy:16},
+    {k:'state',p:[108.2,36.2],t:'北魏（北朝）'},{k:'state',p:[114.5,27.6],t:'南朝'},
+    {k:'tribe',p:[109,44.2],t:'柔 然'},{k:'tribe',p:[121.5,43],t:'契 丹'},{k:'tribe',p:[98.5,36.5],t:'吐谷渾'},
+    {k:'city',p:[94.7,40.1],t:'敦煌 莫高窟',dy:-6},{k:'note',p:[114.7,41.2],t:'大同 雲岡石窟'},{k:'note',p:[109.5,33.3],t:'洛陽 龍門石窟'}
+  ]},
+{ id:'suitang', name:'隋・唐', pd:'西元581年隋建立；618年唐建立', view:'asia',
+  years:['581 隋','618 唐','七世紀中葉 日本大化革新','八世紀中葉 怛羅斯之戰','907 唐亡'],
+  pol:'<b>隋</b>結束魏晉南北朝的分裂局面。唐初，唐太宗滅東突厥，被尊為「<b>天可汗</b>」，聲威遠播；許多外族來中國經商、留學、傳教，甚至擔任政府官員，加上魏晉以來民族融合，使唐朝前期社會風氣具有<b>兼容並蓄、胡漢融合</b>的特色。',
+  sel:'隋為維繫政權、削弱世族勢力，<b>廢除九品官人之法，改採科舉</b>，由士人報名考試，考取者得任官職。科舉成為主要任官途徑，一直沿用到<b>清末</b>，提升平民任官機會，促進<b>社會階層流動</b>，也形成讀書風氣；世族逐漸退出政治舞臺。',
+  peo:'隋唐時期，日本、朝鮮等地與中國交往密切，逐漸形成「<b>東亞文化圈</b>」。<b>日本</b>派遣使節學習文化與佛法，推動「大化革新」；<b>新羅</b>仿效唐的衣冠、曆法、律令、漢字，號稱「君子國」；<b>吐蕃</b>求婚，唐太宗以<b>文成公主</b>和親；八世紀中葉唐軍在<b>怛羅斯</b>敗給<b>大食</b>，造紙術因而西傳。',
+  cul:'唐朝是中國<b>佛教鼎盛</b>時期，<b>玄奘</b>前往印度取經，翻譯大量佛經；<b>伊斯蘭教</b>也傳入（廣州懷聖寺）。唐人喜歡喝<b>葡萄酒</b>、穿短衣窄袖的<b>胡服</b>、以<b>胡旋舞</b>為娛樂，「<b>胡風</b>」成為流行時尚。首都<b>長安</b>是充滿國際色彩的都市。',
+  legend:[L.cap,L.city,L.silk,L.sea,L.canal],
+  feats:[
+    {k:'silk',pts:[[108.9,34.3],[102.6,37.9],[98.5,39.7],[94.7,40.1],[86.6,42],[82.9,41.7],[76,39.5],[72.3,42.5]]},
+    {k:'silk',pts:[[76,39.5],[70,38],[62,37],[52,35.5],[44.4,33.3]]},
+    {k:'sea',pts:[[113.3,23.1],[111,18],[108.5,12],[104.5,6],[101,2.8],[98,6],[92,6.5],[81.5,5.6],[75,9],[66,20],[58.5,23.8],[56.3,26.5],[50.5,29.3]],smooth:true},
+    {k:'sea',pts:[[119.4,32.4],[124,31.6],[128,32.4],[130.4,33.6],[133,34.1],[135.5,34.6]],smooth:true},
+    {k:'canal',pts:[[120.15,30.25],[119.4,32.4],[117,33.5],[114.5,34.5],[112.45,34.65]]},{k:'canal',pts:[[112.45,34.65],[114.5,36],[115.5,38],[116.4,39.9]]},
+    {k:'arrow',c:'purple',pts:[[108.9,34.3],[101.8,36.6],[95,33],[91.1,29.65]],t:'文成公主和親',tp:[97,35.4]},
+    {k:'cap',p:[108.9,34.3],t:'長安',pulse:true,dx:-8,dy:16,anchor:'end',info:'changan'},{k:'city',p:[112.45,34.65],t:'洛陽'},{k:'city',p:[116.4,39.9],t:'幽州'},
+    {k:'city',p:[120.15,30.25],t:'杭州'},{k:'city',p:[118.6,24.9],t:'泉州'},{k:'city',p:[113.3,23.1],t:'廣州',dy:14},
+    {k:'battle',p:[72.3,42.5],t:'怛羅斯',dx:-10,anchor:'end'},
+    {k:'state',p:[48,36],t:'大食'},{k:'state',p:[88,31.5],t:'吐蕃'},{k:'state',p:[128.3,36.8],t:'新羅'},{k:'state',p:[138.5,37.4],t:'日本'},
+    {k:'label',p:[78,22],t:'天竺(印度)'},{k:'label',p:[85,26.9],t:'泥婆羅'},{k:'label',p:[100.2,24.5],t:'南詔'},
+    {k:'tribe',p:[104,48],t:'回紇'},{k:'tribe',p:[113,44.5],t:'東突厥'},{k:'tribe',p:[78,46.2],t:'西突厥'},{k:'tribe',p:[129,46.5],t:'靺鞨'},
+    {k:'big',p:[108,29.3],t:'唐'}
+  ]}
+];
+
+/* =========================================================
+   APP
+   ========================================================= */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fy(y){return y<0?`西元前${-y}年`:`西元${y}年`;}
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+
+// tabs
+function switchTab(id){
+  $$('nav.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));
+  $$('section.station').forEach(s=>s.hidden=s.id!=='sec-'+id);
+  store('h3-tab',id);
+}
+$$('nav.tabs button').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+
+/* ---------- 序章：朝代歌 ---------- */
+const GROUP={
+  pre:{name:'從部落到國家',txt:'遠古人類過著打製石器、採集及漁獵的生活，之後能磨製石器、種植農作，形成定居的農業部落；部落間的兼併與聯合逐漸發展成國家。距今三千多年前，商人於黃河流域建立商朝。殷墟出土的宮殿顯示國家逐漸形成；甲骨文證明商代已進入有文字的歷史時代。'},
+  a:{name:'商周至隋唐時期',txt:'自國家形成後，中國歷經商周、秦漢、魏晉南北朝到隋唐，政治型態由封建逐漸過渡到郡縣制，並發展出維繫統治所需的選才制度。農業民族與草原民族間的互動與衝突，造成文化的交流與融合。（第1、2課）'},
+  b:{name:'宋元時期',txt:'中國周邊的草原民族紛起，陸續建立遼、金、元等政權，與宋朝形成多元民族競逐的局勢。蒙古透過三次西征，建立橫跨歐、亞的大帝國，帶動東西文化交流。（第3課）'},
+  c:{name:'明清時期',txt:'明初透過朝貢貿易建立對外關係，成為東亞秩序的中心。新航路開拓後，歐洲國家到東亞傳教、貿易，白銀成為主要交易媒介。清中葉以後，西方列強以武力打開中、日等國通商口岸，刺激各國透過改革展開現代化。（第4～6課）'}
+};
+const DYN=[
+  {n:'史前時代',y:'',g:'pre'},
+  {n:'商',y:'距今三千多年前建立',g:'pre'},
+  {split:[{n:'西周',y:'約西元前十二世紀～西元前770年',g:'a'},{n:'東周',y:'西元前770年～西元前221年',g:'a'}],top:'周'},
+  {n:'秦',y:'西元前221年～西元前202年',g:'a'},
+  {n:'西漢',y:'西元前202年～西元9年',g:'a'},
+  {n:'新',y:'西元9年～25年',g:'a'},
+  {n:'東漢',y:'西元25年～220年',g:'a'},
+  {n:'魏晉南北朝',y:'西元220年～581年（隋建立）',g:'a'},
+  {n:'隋',y:'西元581年～618年',g:'a'},
+  {n:'唐',y:'西元618年～907年',g:'a'},
+  {n:'五代十國',y:'西元907年～960年',g:'b'},
+  {split:[{n:'北宋',y:'西元960年～1127年',g:'b'},{n:'遼',y:'西元916年～1125年',g:'b'}]},
+  {split:[{n:'南宋',y:'西元1127年～1279年',g:'b'},{n:'金',y:'西元1234年滅亡',g:'b'}]},
+  {n:'元',y:'西元1279年～1368年（依課本時間軸）',g:'b'},
+  {n:'明',y:'西元1368年～1644年',g:'c'},
+  {n:'清',y:'西元1644年～1912年',g:'c'},
+  {split:[{n:'中華民國',y:'西元1912年建立',g:'c'},{n:'中華人民共和國',y:'西元1949年建立',g:'c'}]}
+];
+const dynBtns=[];
+function dynBtn(d){const b=document.createElement('button');b.className='g-'+d.g;b.innerHTML=`${d.n}`;b.addEventListener('click',()=>showDyn(d,b));dynBtns.push([d,b]);return b;}
+function showDyn(d,b){
+  dynBtns.forEach(([,x])=>x.classList.toggle('on',x===b));
+  const g=GROUP[d.g];
+  $('#dyn-info').innerHTML=`<span class="tag">${g.name}</span><h4 style="margin-top:6px">${d.n}<small style="font-family:var(--f-body);font-weight:500;color:var(--muted);font-size:.9rem;margin-left:8px">${d.y}</small></h4><p style="margin:0;font-size:.93rem">${g.txt}</p>`;
+}
+DYN.forEach(d=>{
+  if(d.split){const w=document.createElement('div');w.className='split';d.split.forEach(s=>w.appendChild(dynBtn(s)));$('#dyn').appendChild(w);}
+  else $('#dyn').appendChild(dynBtn(d));
+});
+showDyn(dynBtns[3][0],dynBtns[3][1]);
+let playT=null;
+$('#dyn-play').addEventListener('click',()=>{
+  if(playT){clearInterval(playT);playT=null;$('#dyn-play').textContent='▶ 依序播放朝代歌';return;}
+  const main=dynBtns.filter(([d])=>!['遼','金','中華人民共和國','東周'].includes(d.n));
+  let i=0;$('#dyn-play').textContent='■ 停止';
+  const step=()=>{if(i>=main.length){clearInterval(playT);playT=null;$('#dyn-play').textContent='▶ 依序播放朝代歌';return;}const [d,b]=main[i++];showDyn(d,b);b.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});};
+  step();playT=setInterval(step,1400);
+});
+
+/* ---------- 序章：紀年小工具 ---------- */
+const STEM='甲乙丙丁戊己庚辛壬癸',BRANCH='子丑寅卯辰巳午未申酉戌亥',DIG='零一二三四五六七八九';
+function cnNum(n){if(n<10)return DIG[n];if(n<20)return '十'+(n%10?DIG[n%10]:'');return DIG[Math.floor(n/10)]+'十'+(n%10?DIG[n%10]:'');}
+function cnYear(n){return String(n).split('').map(c=>c==='0'?'○':DIG[+c]).join('');}
+let isBC=true;
+function ganzhi(y){const a=y>0?y:y+1;const i=((a-4)%60+60)%60;return STEM[i%10]+BRANCH[i%12];}
+function updYear(){
+  let n=parseInt($('#yr').value,10);
+  if(!n||n<1){$('#yr-out').innerHTML='<div><span class="k">提示</span><div class="x">請輸入 1 以上的整數。</div></div>';return;}
+  const y=isBC?-n:n,c=Math.ceil(n/100);
+  const cent=(isBC?'西元前':'')+cnNum(c)+'世紀';
+  const span=isBC?`西元前${c*100}～前${c*100-99}年`:`西元${c*100-99}～${c*100}年`;
+  const dec=isBC?'—':`${cnYear(Math.floor(n/10)*10)}年代`;
+  const decx=isBC?'課本以西元後舉例':`西元${Math.floor(n/10)*10}～${Math.floor(n/10)*10+9}年`;
+  $('#yr-out').innerHTML=`<div><span class="k">世紀</span><div class="v">${cent}</div><div class="x">${span}</div></div>
+  <div><span class="k">年代</span><div class="v">${dec}</div><div class="x">${decx}</div></div>
+  <div><span class="k">干支</span><div class="v">${ganzhi(y)}年</div><div class="x">六十年一周期</div></div>`;
+}
+function setBC(v){isBC=v;$('#era-bc').setAttribute('aria-pressed',v);$('#era-ad').setAttribute('aria-pressed',!v);updYear();}
+$('#era-bc').addEventListener('click',()=>setBC(true));$('#era-ad').addEventListener('click',()=>setBC(false));
+$('#yr').addEventListener('input',updYear);
+[['秦統一',-221],['張騫出使西域',-139],['永嘉之禍',311],['孝文帝遷都',493],['甲午戰爭',1894],['戊戌',1898]].forEach(([t,y])=>{
+  const b=document.createElement('button');b.className='btn small';b.textContent=`${t} ${y<0?'前'+(-y):y}`;
+  b.addEventListener('click',()=>{$('#yr').value=Math.abs(y);setBC(y<0);});$('#yr-presets').appendChild(b);
+});
+updYear();
+
+/* ---------- 序章：排序挑戰 ---------- */
+const EVENTS=[['商鞅變法',-356],['秦統一天下',-221],['西漢建立',-202],['張騫出使西域',-139],['西晉建立',265],['永嘉之禍',311],['北魏孝文帝遷都洛陽',493]];
+let orderIdx=0;
+function initOrder(){
+  orderIdx=0;$('#order-line').innerHTML='';$('#order-msg').innerHTML='';$('#order-pool').innerHTML='';
+  shuffle(EVENTS).forEach(([t,y])=>{
+    const b=document.createElement('button');b.textContent=t;
+    b.addEventListener('click',()=>{
+      if(b.classList.contains('done'))return;
+      if(y===EVENTS[orderIdx][1]){b.classList.add('done');b.disabled=true;orderIdx++;
+        $('#order-line').insertAdjacentHTML('beforeend',`<span><em>${fy(y)}</em>${t}</span>`);
+        if(orderIdx===EVENTS.length)$('#order-msg').innerHTML='<div class="feedback ok">全部排對了！注意：西元前的數字越大，時間越早。</div>';
+      }else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');
+        $('#order-msg').innerHTML='<div class="feedback no">還有更早的事件喔。提示：西元前356年比西元前221年更早。</div>';}
+    });
+    $('#order-pool').appendChild(b);
+  });
+}
+$('#order-reset').addEventListener('click',initOrder);initOrder();
+
+/* ---------- 序章：地圖 ---------- */
+const PRE_SITES=[
+  {k:'city',p:[115.9,39.75],t:'山頂洞人',dx:8,dy:-4,info:{h:'山頂洞人（舊石器遺址）',p:'課本「中國史前文化重要遺址分布圖」標示的舊石器遺址，與北京人位置相近。'}},
+  {k:'city',p:[115.9,39.5],t:'北京人',dx:-8,dy:12,anchor:'end',info:{h:'北京人（舊石器遺址）',p:'舊石器時代的人類打製石器，過著採集及漁獵的生活。'}},
+  {k:'city',p:[109.3,34.1],t:'藍田',dx:-6,dy:16,anchor:'end',info:{h:'藍田（舊石器遺址）',p:'位於黃河流域的舊石器遺址。'}},
+  {k:'city',p:[109.05,34.35],t:'半坡',dx:-8,dy:-4,anchor:'end',info:{h:'半坡（新石器遺址・仰韶文化）',p:'新石器時代的人類能磨製石器、種植農作，形成定居的農業部落。'}},
+  {k:'city',p:[111.8,34.8],t:'仰韶',dy:-6,info:{h:'仰韶（新石器遺址・仰韶文化）',p:'仰韶文化分布於黃河中游一帶（見地圖黃色範圍）。'}},
+  {k:'city',p:[117.5,36.7],t:'龍山',info:{h:'龍山（新石器遺址・龍山文化）',p:'龍山文化分布於黃河下游一帶（見地圖綠色範圍）。'}},
+  {k:'city',p:[121.3,30],t:'河姆渡',dy:16,info:{h:'河姆渡（新石器遺址・河姆渡文化）',p:'河姆渡文化位於長江下游（見地圖橘色範圍）。可見史前文化不只出現在黃河流域。'}}
+];
+const PRE_FEATS=[{k:'zone',p:[110.3,35.2],r:[3.6,1.9],c:'y'},{k:'zone',p:[117,36.4],r:[2.4,1.6],c:'g'},{k:'zone',p:[121.2,29.9],r:[1.1,0.8],c:'o'}].concat(PRE_SITES);
+const EA_FEATS=[
+  {k:'state',p:[103,46.5],t:'蒙古',info:{h:'蒙古',p:'東亞泛指亞洲東部，包括蒙古、中國、日本、朝鮮半島、臺灣等地。'}},
+  {k:'state',p:[106,33.5],t:'中國',info:{h:'中國',p:'古代中國從商周至隋唐，與亞洲周邊民族互動；宋元明清時期，東亞地區逐步進入世界網絡。'}},
+  {k:'state',p:[138.5,37.5],t:'日本',info:{h:'日本',p:'隋唐時期曾多次派遣使節到中國學習文化與佛法，是「東亞文化圈」的一員。'}},
+  {k:'state',p:[127.4,39.6],t:'朝鮮半島',info:{h:'朝鮮半島',p:'隋唐時期，朝鮮半島各國以新羅最仰慕中國文化。'}},
+  {k:'state',p:[124.2,23.6],t:'臺灣',info:{h:'臺灣',p:'臺灣位於東亞，是本單元所說「東亞」範圍的一部分。'}},
+  {k:'note',p:[114,52],t:'東亞：亞洲東部'}
+];
+let introLayer='pre';
+function drawIntro(){
+  const svg=$('#map-intro');
+  const v=introLayer==='pre'?'cn':'ea';
+  const g=drawBase(svg,v);
+  drawFeatures(svg,g,v,introLayer==='pre'?PRE_FEATS:EA_FEATS,f=>{$('#intro-info').innerHTML=`<h4>${f.info.h}</h4><p style="margin:4px 0 0">${f.info.p}</p>`;});
+  legend($('#leg-intro'),introLayer==='pre'?[['var(--ink)','遺址（可點選）','border-top-width:6px;width:6px;border-radius:50%'],['var(--gold)','仰韶文化'],['var(--c-peo)','龍山文化'],['var(--accent)','河姆渡文化']]:[]);
+  $('#intro-info').innerHTML=introLayer==='pre'
+    ?'<h4>中國史前文化重要遺址</h4><p style="margin:4px 0 0">舊石器遺址：山頂洞人、北京人、藍田。新石器遺址：半坡、仰韶、龍山、河姆渡。點地圖上的點看說明。</p>'
+    :'<h4>你知道地圖上的東亞在哪裡？</h4><p style="margin:4px 0 0">從現今地理位置來看，東亞泛指亞洲東部，包括<b>蒙古、中國、日本、朝鮮半島、臺灣</b>等地。點地圖上的名稱看說明。</p>';
+}
+$('#lay-pre').addEventListener('click',()=>{introLayer='pre';$('#lay-pre').setAttribute('aria-pressed',true);$('#lay-ea').setAttribute('aria-pressed',false);drawIntro();});
+$('#lay-ea').addEventListener('click',()=>{introLayer='ea';$('#lay-ea').setAttribute('aria-pressed',true);$('#lay-pre').setAttribute('aria-pressed',false);drawIntro();});
+drawIntro();
+
+/* ---------- 時光地圖 ---------- */
+let curEra=0,curVariant=null,eraHighlight=null;
+function renderEraList(){
+  const box=$('#era-list');box.innerHTML='';
+  ERAS.forEach((e,i)=>{
+    const b=document.createElement('button');b.setAttribute('role','tab');b.setAttribute('aria-selected',i===curEra);
+    b.innerHTML=`<span class="n">${i+1}</span><span><span class="nm">${e.name}</span><span class="pd">${e.pd}</span></span>`;
+    b.addEventListener('click',()=>{curEra=i;curVariant=null;eraHighlight=null;renderEra();});box.appendChild(b);
+  });
+}
+function renderEra(){
+  $$('#era-list button').forEach((b,i)=>b.setAttribute('aria-selected',i===curEra));
+  const e=ERAS[curEra],svg=$('#map-tm');
+  let feats=e.feats;
+  const tools=$('#tools-tm');tools.innerHTML='';
+  if(e.variants){
+    const keys=Object.keys(e.variants);if(!curVariant)curVariant=keys[0];
+    feats=e.variants[curVariant];
+    keys.forEach(k=>{const b=document.createElement('button');b.className='btn small';b.textContent=k;b.setAttribute('aria-pressed',k===curVariant);b.addEventListener('click',()=>{curVariant=k;renderEra();});tools.appendChild(b);});
+  }
+  if(eraHighlight){feats=feats.concat([{k:'city',p:eraHighlight.p,t:'',pulse:true,dx:0}]);}
+  const g=drawBase(svg,e.view);
+  drawFeatures(svg,g,e.view,feats,f=>{if(f.info==='changan'){switchTab('hu');$('#ca').scrollIntoView({behavior:'smooth'});}});
+  legend($('#leg-tm'),e.legend);
+  $('#era-years').innerHTML=e.years.map(y=>`<span>${y}</span>`).join('');
+  $('#era-cards').innerHTML=`
+    <div class="kcard pol"><h4>政治與社會</h4><p>${e.pol}</p></div>
+    <div class="kcard sel"><h4>選才任官</h4><p>${e.sel}</p></div>
+    <div class="kcard peo"><h4>民族互動</h4><p>${e.peo}</p></div>
+    <div class="kcard cul"><h4>文化交流</h4><p>${e.cul}</p></div>`;
+}
+renderEraList();renderEra();
+
+/* ---------- 封建與郡縣：想一想 ---------- */
+const FJ=[
+  ['這個制度其實是對外征伐的軍事行動，藉著開疆拓土來建立封國。因此，隨著不斷分封，領土亦不斷擴大。','A'],
+  ['這個制度加強了中央對地方的管理，防止地方割據分裂。','B'],
+  ['地方行政長官是由皇帝直接任免，加強了中央集權，有利於政治安定和經濟發展。','B'],
+  ['透過分封親戚和功臣，以保衛王室。又以禮樂作為政治活動和生活方式的規範。','A']
+];
+const fjDone=new Set();
+FJ.forEach(([t,a],i)=>{
+  const d=document.createElement('div');d.className='match-item';
+  d.innerHTML=`<p><b>${i+1}.</b> ${t}</p><div class="ab"><button class="btn small" data-v="A">A 封建</button><button class="btn small" data-v="B">B 郡縣</button></div>`;
+  d.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    const ok=b.dataset.v===a;d.classList.toggle('ok',ok);d.classList.toggle('no',!ok);
+    if(ok)fjDone.add(i);else fjDone.delete(i);
+    $('#fj-match-msg').innerHTML=fjDone.size===4?'<div class="feedback ok">四題全對！關鍵字：「分封、禮樂、建立封國」屬封建；「皇帝任免、中央集權、防止割據」屬郡縣。</div>':(ok?'':'<div class="feedback no">再想想：由皇帝直接任免、加強中央管理的是郡縣；分封、以禮樂規範的是封建。</div>');
+  }));
+  $('#fj-match').appendChild(d);
+});
+
+/* ---------- 西周社會階層 ---------- */
+const PYR=[
+  ['周王','70%','var(--accent-soft)','<b>周王</b>：位於貴族最上層。依宗法，周王的<b>繼承人</b>繼任周王，<b>其餘諸子</b>則被分封為諸侯。'],
+  ['諸侯','78%','var(--gold-soft)','<b>諸侯</b>：在各自封國內擁有較大自主性，但對外仍須遵從周王的命令。諸侯的繼承人繼任諸侯，其餘諸子成為下級貴族。'],
+  ['下級貴族','86%','var(--gold-soft)','<b>下級貴族</b>：仍屬貴族。貴族的身分世代相襲，行為舉止都受到禮樂的規範。'],
+  ['平民','94%','var(--good-soft)','<b>平民</b>：不屬於貴族。西周時期僅貴族才能接受教育。'],
+  ['奴隸','100%','var(--good-soft)','<b>奴隸</b>：位於西周社會階層的最底層。']
+];
+PYR.forEach(([n,w,c,t],i)=>{
+  const b=document.createElement('button');b.textContent=(i<3?'貴族｜':'')+n;b.style.width=w;b.style.background=c;b.setAttribute('aria-pressed',false);
+  b.addEventListener('click',()=>{$$('#pyr button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#pyr-info').innerHTML=`<p style="margin:0">${t}</p>`;});
+  $('#pyr').appendChild(b);
+});
+$('#pyr-info').innerHTML='<p style="margin:0">宗法：透過<b>血緣的親疏</b>，確立貴族間的尊卑關係。點選上方的階層。</p>';
+
+/* ---------- 秦統一翻卡 ---------- */
+const QIN=[
+  ['統一文字','春秋戰國時，各國文字寫法不同。','秦統一文字，各地文書往來更方便，有助於文化交流。',''],
+  ['統一貨幣','戰國時各國使用不同形狀的錢幣。','秦以圓形方孔的<b>半兩錢</b>統一貨幣。','<div class="coins"><span>燕、齊：刀幣</span><span>楚：蟻鼻錢</span><span>韓、趙、魏：布(鎛)錢</span><span>秦：圓錢</span><span>→ 秦代：半兩錢</span></div>'],
+  ['統一度量衡','度、量、衡分別量什麼？','<b>度</b>量長度、<b>量</b>量容積、<b>衡</b>量重量。統一標準有助於各地經濟交流。',''],
+  ['統一車軌','馬車輪距不同，道路就難以共用。','統一車軌，配合以咸陽為中心的<b>馳道</b>，強化中央集權並促進各地互動。','']
+];
+QIN.forEach(([h,a,b,x])=>{
+  const c=document.createElement('button');c.className='flip';c.setAttribute('aria-expanded',false);
+  c.innerHTML=`<div class="face-a"><span class="tag">翻開</span><h4>${h}</h4><span class="hint">${a}</span></div><div class="face-b"><h4>${h}</h4><span style="font-size:.93rem">${b}</span>${x}</div>`;
+  c.addEventListener('click',()=>c.setAttribute('aria-expanded',c.getAttribute('aria-expanded')!=='true'));
+  $('#qin-flip').appendChild(c);
+});
+
+/* ---------- 當官之路 ---------- */
+const CAREER=[
+  {era:'西周',q:'你出生在西周。想在朝廷做官，最重要的條件是什麼？',
+   o:[['熟讀儒家經典，參加考試',0],['出身貴族，身分世代相襲',1],['獲得地方長官推舉為孝廉',0],['在戰場上立下軍功',0]],
+   ok:'正確！西周的貴族身分世代相襲，且貴族獨占受教育之權，平民難有任官機會。',no:'不對喔。西周施行封建與宗法，貴族身分世代相襲，僅貴族才能接受教育。'},
+  {era:'東周',q:'來到東周，王室衰微、各國競爭激烈。你是一位有才能的平民，哪一條路最有機會？',
+   o:[['向流落民間的貴族學習，憑才能受君主任用',1],['等待周王分封為諸侯',0],['參加隋代創立的科舉',0],['請中正官評為上品',0]],
+   ok:'正確！私人講學風氣盛行，增加平民受教育機會；各國君主用人唯才，「布衣卿相」開始出現。',no:'不對喔。東周時周王室衰微，各國君主用人唯才，平民可透過私人講學受教育，進而參與政治。'},
+  {era:'漢代',q:'漢武帝時，地方長官正要定期向中央推舉人才。你應該展現什麼？',
+   o:[['非常有錢，能捐獻給國家',0],['孝順父母、為官清廉（孝子、廉吏）',1],['擅長胡旋舞',0],['在科舉考試中考第一名',0]],
+   ok:'正確！漢武帝實施察舉，要求地方長官定期推舉「孝子」和「廉吏」；也可進入太學研讀儒家經典而任官。',no:'不對喔。漢代的察舉是由地方長官推舉孝子和廉吏；科舉要到隋代才實施。'},
+  {era:'魏晉南北朝',q:'中央派來的評選官員到了你的家鄉，要依「九品官人之法」評定等第。實際上最看重什麼？',
+   o:[['家世背景',1],['考試成績',0],['是否到過西域',0],['軍功多寡',0]],
+   ok:'正確！制度原本按家世背景、才能和品德評選，但評選官員多由世族出任，多看重家世，形成「上品無寒門，下品無世族」。',no:'不對喔。九品官人之法的評選官員多為世族，實際上多看重士人的家世背景。'},
+  {era:'隋唐',q:'隋代結束分裂後，你是聰明但家境普通的平民。你可以怎麼做官？',
+   o:[['請地方長官推舉孝廉',0],['投靠世家大族',0],['報名參加科舉考試，考取後任官',1],['等待周王分封',0]],
+   ok:'正確！隋為削弱世族勢力，廢除九品官人之法，改採科舉。科舉一直沿用到清末，提升平民任官機會，促進社會階層流動。',no:'不對喔。隋代廢除九品官人之法、改採科舉，士人報名考試，考取者得任官職。'}
+];
+let cs=0;
+function loadCareer(){
+  if(cs>=CAREER.length){$('#car-card').hidden=true;$('#car-final').hidden=false;$('#car-bar').style.width='100%';return;}
+  const d=CAREER[cs];
+  $('#car-steps').innerHTML=CAREER.map((c,i)=>`<span class="${i===cs?'on':''}">${c.era}</span>`).join('');
+  $('#car-bar').style.width=((cs+1)/CAREER.length*100)+'%';
+  $('#car-era').textContent='時代：'+d.era;$('#car-q').textContent=d.q;
+  $('#car-fb').innerHTML='';$('#car-next').hidden=true;
+  const box=$('#car-opts');box.innerHTML='';
+  shuffle(d.o).forEach(([t,c])=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=t;
+    b.addEventListener('click',()=>{
+      if(c){$$('#car-opts .opt').forEach(x=>x.disabled=true);b.classList.add('ok');$('#car-fb').innerHTML=`<div class="feedback ok">${d.ok}</div>`;$('#car-next').hidden=false;$('#car-next').textContent=cs===CAREER.length-1?'完成體驗':'前往下個時代';}
+      else{b.classList.add('no');b.disabled=true;$('#car-fb').innerHTML=`<div class="feedback no">${d.no} 再選一次。</div>`;}
+    });
+    box.appendChild(b);
+  });
+}
+$('#car-next').addEventListener('click',()=>{cs++;loadCareer();});
+$('#car-reset').addEventListener('click',()=>{cs=0;$('#car-card').hidden=false;$('#car-final').hidden=true;loadCareer();});
+loadCareer();
+
+/* ---------- 改漢姓 ---------- */
+const SURN=[['拓跋','元'],['拔拔','長孫'],['獨孤','劉'],['賀賴','賀'],['步六孤','陸'],['丘穆陵','穆'],['紇豆陵','竇']];
+let xbSel=null,xbDone=0;
+function initXB(){
+  xbSel=null;xbDone=0;$('#xb-msg').innerHTML='';
+  $$('#xb-col button,#han-col button').forEach(b=>b.remove());
+  SURN.forEach(([x])=>{const b=document.createElement('button');b.textContent=x;b.dataset.x=x;b.addEventListener('click',()=>{if(b.classList.contains('done'))return;$$('#xb-col button').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');xbSel=x;});$('#xb-col').appendChild(b);});
+  shuffle(SURN).forEach(([x,h])=>{const b=document.createElement('button');b.textContent=h;b.addEventListener('click',()=>{
+    if(b.classList.contains('done')||!xbSel)return;
+    const right=SURN.find(s=>s[0]===xbSel)[1]===h;
+    const xb=$$('#xb-col button').find(o=>o.dataset.x===xbSel);
+    if(right){b.classList.add('done');xb.classList.remove('sel');xb.classList.add('done');b.textContent=`${xbSel} → ${h}`;xbSel=null;xbDone++;
+      if(xbDone===SURN.length)$('#xb-msg').innerHTML='<div class="feedback ok">全部配對完成！北魏皇室「拓跋」氏改為「元」氏。這些漢化措施促進胡漢融合，奠定隋唐盛世的基礎。</div>';}
+    else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');}
+  });$('#han-col').appendChild(b);});
+}
+initXB();
+
+/* ---------- 文化流向分類 ---------- */
+const CX=[
+  ['佛教','in','源自印度，約在西漢末年經西域傳入中國。'],['伊斯蘭教','in','唐代傳入，廣州懷聖寺是中國現存最早的清真寺。'],
+  ['葡萄酒','in','唐朝人喜歡喝葡萄酒，是胡風流行的例子。'],['胡服（短衣窄袖）','in','胡風成為唐代的流行時尚。'],['胡旋舞','in','唐人休閒時以胡旋舞為娛樂。'],['琵琶等胡樂','in','駱駝載樂俑中，胡人藝人演奏琵琶等胡樂。'],
+  ['飲茶、書法傳到日本','out','日本遣使學習，中國的飲茶、佛教、書法因而東傳。'],['唐的律令制度','out','日本「大化革新」以唐代律令、制度為藍本；新羅也仿效唐的律令。'],
+  ['漢字與曆法傳到新羅','out','新羅仿效唐的衣冠、曆法、律令、漢字，號稱「君子國」。'],['造紙術西傳','out','唐軍在怛羅斯敗給大食，造紙匠被俘，造紙術因而西傳。'],
+  ['穀物種子、茶葉傳到吐蕃','out','文成公主攜帶穀物種子、工藝品、藥材、茶葉及書籍到吐蕃。']
+];
+let cxSel=null,cxDone=0;
+function initCX(){
+  cxSel=null;cxDone=0;$('#cx-pool').innerHTML='';$$('.bucket .got').forEach(g=>g.innerHTML='');$('#cx-msg').innerHTML='';
+  shuffle(CX).forEach(it=>{const b=document.createElement('button');b.textContent=it[0];b.addEventListener('click',()=>{$$('#cx-pool button').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');cxSel=[it,b];$$('.bucket').forEach(k=>k.classList.add('armed'));});$('#cx-pool').appendChild(b);});
+}
+function dropCX(dir){
+  if(!cxSel)return;const [it,b]=cxSel;
+  if(it[1]===dir){$(`#bk-${dir} .got`).insertAdjacentHTML('beforeend',`<span>${it[0]}</span>`);b.remove();cxDone++;
+    $('#cx-msg').innerHTML=`<div class="feedback ok">${it[2]}${cxDone===CX.length?' 全部分類完成！':''}</div>`;}
+  else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');$('#cx-msg').innerHTML=`<div class="feedback no">方向相反喔。${it[2]}</div>`;}
+  cxSel=null;$$('.bucket').forEach(k=>k.classList.remove('armed'));$$('#cx-pool button').forEach(o=>o.classList.remove('sel'));
+}
+$('#bk-in').addEventListener('click',()=>dropCX('in'));$('#bk-out').addEventListener('click',()=>dropCX('out'));
+initCX();
+
+/* ---------- 東亞文化圈卡片 ---------- */
+const EA=[
+  ['日本','隋唐時期多次派遣使節到中國學習文化與佛法，中國的飲茶、佛教、書法因而東傳；日本文字的創作也受到中國影響。七世紀中葉的「<b>大化革新</b>」以唐代律令、制度為藍本，是日本的「唐化運動」。',[135.8,34.7]],
+  ['新羅','隋唐時期朝鮮半島各國中最仰慕中國文化，學習儒學與佛教，仿效唐的衣冠、曆法、律令、漢字等，文風興盛，號稱「<b>君子國</b>」。',[128.3,36]],
+  ['吐蕃','唐初國勢大盛（今西藏），遣使向唐朝求婚，太宗以<b>文成公主</b>和親。公主攜帶穀物種子、工藝品、藥材、茶葉及書籍到吐蕃，加強漢藏經濟文化交流。',[91.1,29.65]],
+  ['大食','阿拉伯帝國。八世紀中葉，唐軍與大食在<b>怛羅斯</b>交戰戰敗，不少造紙匠被俘，中國的<b>造紙術</b>因而西傳。',[72.3,42.5]]
+];
+EA.forEach(([h,t,p])=>{
+  const d=document.createElement('div');d.className='ea';
+  d.innerHTML=`<h4>${h}</h4><p>${t}</p><button class="btn small" style="align-self:flex-start;margin-top:auto">在地圖上看位置</button>`;
+  d.querySelector('button').addEventListener('click',()=>{curEra=ERAS.length-1;curVariant=null;eraHighlight={p};switchTab('tm');renderEra();$('#map-tm').scrollIntoView({behavior:'smooth',block:'center'});});
+  $('#ea-cards').appendChild(d);
+});
+
+/* ---------- 假名 ---------- */
+const KANA={h:[['安','あ'],['以','い'],['宇','う'],['衣','え'],['於','お']],k:[['阿','ア'],['伊','イ'],['宇','ウ'],['江','エ'],['於','オ']]};
+let kanaMode='h';
+function drawKana(){
+  $('#kana').innerHTML='';
+  KANA[kanaMode].forEach(([z,k])=>{const b=document.createElement('button');let s=0;
+    const r=()=>{b.innerHTML=s?`<span class="big">${k}</span><span class="sm">來自「${z}」</span>`:`<span class="big">${z}</span><span class="sm">漢字</span>`;};
+    r();b.addEventListener('click',()=>{s=1-s;r();});$('#kana').appendChild(b);});
+}
+$('#kana-h').addEventListener('click',()=>{kanaMode='h';$('#kana-h').setAttribute('aria-pressed',true);$('#kana-k').setAttribute('aria-pressed',false);drawKana();});
+$('#kana-k').addEventListener('click',()=>{kanaMode='k';$('#kana-k').setAttribute('aria-pressed',true);$('#kana-h').setAttribute('aria-pressed',false);drawKana();});
+drawKana();
+
+/* ---------- 長安城 ---------- */
+const CA_INFO={
+  overview:['唐代長安城','長安的建造自隋代初年開始，到了唐代已成為巨大的城市，居住人口將近<b>一百萬人</b>，在當時世界排名第一。城的外觀是<b>長方形</b>，外圍有城牆，城牆外還有壕溝；內部呈<b>棋盤狀</b>，共有十一條南北向街道、十四條東西向街道。'],
+  palace:['宮城（太極宮）','位於長安城北邊，是<b>皇帝居住</b>的地方。'],
+  imperial:['皇城','位於宮城以南，是<b>官員辦公</b>的地方，例如尚書省、接待外賓的鴻臚寺。'],
+  park:['禁苑','宮城以北是<b>皇帝打獵</b>的場所。'],
+  wards:['里坊','一般老百姓居住在皇城以南，稱為「<b>里坊</b>」的地方。唐代長安住著許多外國人，來自突厥、朝鮮、高昌、吐蕃等地，有的是戰敗投降，有的來留學，有的擔任外國使者。日本僧侶<b>圓仁</b>曾到長安學習佛法，寫成《入唐求法巡禮行記》。'],
+  west:['西市','長安也是<b>絲路的東方起點</b>。來自今天烏茲別克一帶的<b>粟特人</b>擅長貿易，帶來西域的商品、食品，以及音樂、舞蹈與運動。'],
+  east:['東市','城中的市集之一（課本長安城示意圖標示東市、西市）。'],
+  street:['朱雀街','由皇城的朱雀門向南延伸的大街，把長安分成東西兩半。'],
+  religion:['多元宗教','長安城可以找到佛教和道教，還有來自西方的「<b>三夷教</b>」：<b>祆教、景教</b>（基督教的支派之一）、<b>摩尼教</b>。']
+};
+function drawCA(){
+  const s=[];
+  s.push('<svg viewBox="0 0 420 380" role="img" aria-label="唐代長安城示意圖">');
+  s.push('<rect data-k="park" class="zone z-park" x="80" y="6" width="200" height="34" rx="4"/><text x="180" y="28" text-anchor="middle">禁苑</text>');
+  s.push('<rect data-k="overview" class="blk" x="10" y="44" width="400" height="330" rx="3" style="fill:var(--land);stroke:var(--ink);stroke-width:2.5"/>');
+  // wards grid
+  for(let r=0;r<8;r++)for(let c=0;c<10;c++){
+    const x=16+c*39.2,y=128+r*30.5;
+    if(c===4||c===5){} // 朱雀街 gap handled below
+    const isW=(r===1||r===2)&&(c===1||c===2), isE=(r===1||r===2)&&(c===7||c===8);
+    if(isW||isE)continue;
+    s.push(`<rect data-k="wards" class="blk" x="${x}" y="${y}" width="34" height="25" rx="2"/>`);
+  }
+  s.push('<rect data-k="west" class="zone z-mkt" x="55.2" y="158.5" width="73.4" height="55.5" rx="3"/><text x="92" y="191" text-anchor="middle">西市</text>');
+  s.push('<rect data-k="east" class="zone z-mkt" x="290.4" y="158.5" width="73.4" height="55.5" rx="3"/><text x="327" y="191" text-anchor="middle">東市</text>');
+  s.push('<rect data-k="palace" class="zone z-palace" x="110" y="50" width="200" height="36" rx="3"/><text x="210" y="73" text-anchor="middle">宮城（太極宮）</text>');
+  s.push('<rect data-k="imperial" class="zone z-imp" x="110" y="88" width="200" height="34" rx="3"/><text x="210" y="110" text-anchor="middle">皇城</text>');
+  s.push('<rect data-k="street" x="203" y="124" width="14" height="250" style="fill:var(--gold);opacity:.75"/><text x="210" y="365" text-anchor="middle" style="font-size:11px">朱雀街</text>');
+  s.push('<text x="40" y="70" style="font-size:12px;fill:var(--muted)">里坊</text>');
+  s.push('</svg>');
+  $('#ca').innerHTML=s.join('');
+  $$('#ca [data-k]').forEach(n=>n.addEventListener('click',()=>showCA(n.dataset.k)));
+  const bar=document.createElement('div');bar.className='chips';bar.style.marginTop='10px';
+  [['overview','整座城'],['religion','城中的宗教']].forEach(([k,t])=>{const b=document.createElement('button');b.className='btn small';b.textContent=t;b.addEventListener('click',()=>showCA(k));bar.appendChild(b);});
+  $('#ca').appendChild(bar);
+  showCA('overview');
+}
+function showCA(k){
+  $$('#ca [data-k]').forEach(n=>n.classList.toggle('sel',n.dataset.k===k&&k!=='wards'));
+  const [h,t]=CA_INFO[k];$('#ca-info').innerHTML=`<h4>${h}</h4><p style="margin:4px 0 0">${t}</p><p class="src" style="margin-top:8px">延伸思考：為什麼說唐代長安是一座帶有國際色彩的城市？</p>`;
+}
+drawCA();
+
+/* ---------- 唐詩偵探 ---------- */
+const POEMS=[
+  {t:'少年行（其二）',a:'李白',l:['五陵年少金市東，','銀鞍白馬度春風。','落花踏盡遊何處，','笑入[胡姬酒肆]中。'],n:'註：酒肆，賣酒處或供人飲酒的地方。'},
+  {t:'寄胡餅與楊萬州',a:'白居易',l:['[胡麻餅]樣學京都，','麵脆油香新出爐。','寄與飢饞楊大使，','嘗看得似輔興無。'],n:'註：京都，指長安。輔興，坊名，以製作胡麻餅聞名。'},
+  {t:'胡旋女（節錄）',a:'白居易',l:['天寶季年時欲變，','臣妾人人學圜轉；','中有太真外祿山，','二人最道能[胡旋]。'],n:'註：天寶，唐玄宗年號。太真，指楊貴妃。祿山，指胡人將領安祿山。'}
+];
+let poemHits=0;
+POEMS.forEach(p=>{
+  const d=document.createElement('div');d.className='poem';
+  const lines=p.l.map(line=>line.split(/(\[.+?\]|[，；。])/).filter(Boolean).map(seg=>
+    /^\[/.test(seg)?`<span class="w" data-hit="1" tabindex="0" role="button">${seg.slice(1,-1)}</span>`:/^[，；。]$/.test(seg)?seg:`<span class="w" tabindex="0" role="button">${seg}</span>`).join('')).join('<br>');
+  d.innerHTML=`<h4>${p.t}</h4><span class="au">${p.a}</span><p>${lines}</p><div class="note">${p.n}</div>`;
+  $('#poems').appendChild(d);
+});
+$$('#poems .w').forEach(w=>{
+  const act=()=>{
+    if(w.classList.contains('hit'))return;
+    if(w.dataset.hit){w.classList.add('hit');poemHits++;
+      $('#poem-msg').innerHTML=`<div class="feedback ok">找到「${w.textContent}」！（${poemHits}/3）${poemHits===3?'現象：唐代胡風盛行，胡人與胡人文化在唐代社會很常見。證據：胡姬酒肆、胡麻餅、胡旋（舞）。':''}</div>`;}
+    else{w.classList.add('miss');setTimeout(()=>w.classList.remove('miss'),500);$('#poem-msg').innerHTML='<div class="feedback no">這一句還看不出胡人文化。找找帶有「胡」字的詞。</div>';}
+  };
+  w.addEventListener('click',act);w.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});
+});
+const TANGQ=[['A','女性貞節觀的強化與儒家思想的發展有關係',1],['B','中國歷代對於女性貞節的要求一直都很嚴格',0],['C','中國社會的貞節觀念會因時代背景有所改變',1],['D','從唐代法律看，婦女仍無法與丈夫協議離婚',0]];
+TANGQ.forEach(([v,t])=>$('#tang-q').insertAdjacentHTML('beforeend',`<label><input type="checkbox" id="tq-${v}" value="${v}"> (${v}) ${t}</label>`));
+$('#tang-check').addEventListener('click',()=>{
+  const pick=TANGQ.filter(([v])=>$('#tq-'+v).checked).map(x=>x[0]).join('');
+  $('#tang-msg').innerHTML=pick==='AC'?'<div class="feedback ok">正確（A）（C）！漢代儒者提出「夫為妻綱」，貞節觀強化與儒家有關；北方胡人政權地區與唐代的觀念較放鬆，可見貞節觀因時代而改變。唐律允許夫婦協議離婚（和離），所以 D 錯。</div>':'<div class="feedback no">再想想：資料中漢代、唐代的情況一樣嗎？唐律對「和離」怎麼規定？</div>';
+});
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+const QUIZ=[
+  {set:'第1課 學習會考：選才任官制度（課本原題）',src:`<p><b>資料一</b>：這種任官制度，助長了世家大族勢力的發展。最初，此制度頗能發揮選拔優秀人才的功用，但後來因為評選官員幾乎全部被世族所把持，評定人物，只問門第，不問才德，形成「上品無寒門，下品無世族」的現象。</p><p><b>資料二</b>：此種制度的開創，有相對穩定的客觀標準，輕門第，重才學，任人唯賢，在一定程度上限制了門閥世族把持選士的局面，為寒門參加政權開闢了道路，擴大統治的階級基礎。</p><p><b>資料三</b>：這個制度是由地方長官進行推舉，或在朝廷要求下進行挑選。經推舉而來的人員，均須經過考核與試用後任官。</p><p class="src">資料來源：李新達（1995）。中國科舉制度史。臺北：文津出版社。</p>`,
+   qs:[
+    {q:'根據資料內容來看，此三則資料所敘述的制度，出現的先後次序為何？',o:['資料三→資料一→資料二','資料二→資料三→資料一','資料二→資料一→資料三','資料三→資料二→資料一'],a:0,why:'資料三是漢代察舉（地方長官推舉），資料一是魏晉南北朝九品官人之法（上品無寒門），資料二是隋代以後的科舉（輕門第、重才學）。'},
+    {q:'由資料一的內容推斷，此制度出現的背景為何？',o:['由於對儒家思想的推崇，據此來選拔優秀人才入仕','在國家統一後，為鞏固統治、加強中央集權而實施','士人的創造性受束縛，阻礙了科技發展和社會進步','東漢末年戰亂頻仍，知識分子四散遷徙，人才難覓'],a:3,why:'課本：東漢末年社會動盪，戶口破壞，地方官員已無法順利推舉人才；曹魏以後改由中央派官員評選。'},
+    {q:'下列何者最符合資料二所述制度的特色？',o:['傳統的貴族階級制，僅出身名門的子弟才能參加','此選才制度不論出身貧富，可通過考試取得官職','其特點除了考試外，也是體能和軍事技能的測試','起源於魏晉南北朝時期，一直延續到清中葉以後'],a:1,why:'科舉由士人報名參加考試，考取者得任官職，提升平民任官機會。科舉始於隋代，沿用到清末。'}
+   ]},
+  {set:'第2課 學習會考：民族與文化交流（課本原題）',map:true,
+   qs:[
+    {q:'根據地圖內容，「甲」最早在何時修築完成？',o:['西周','秦朝','漢朝','唐朝'],a:1,why:'甲是長城。秦統一後，將秦代以前所修築的城牆連結成長城，作為北方抵禦匈奴的防線。'},
+    {q:'以中國史的角度來看，「甲」對於當時的族群關係而言，有何意義？',o:['是農業與草原民族間的交流通道','是魏晉南北朝時胡人分布最南端','是中原地區通往西方的必經之路','是防禦北方匈奴南下的國防設施'],a:3,why:'長城是北方抵禦匈奴的防線，也成為農業民族與草原民族的分界線。'},
+    {q:'圖中「乙」路線的開通，造成了何種影響？',o:['打通了往羅馬帝國的路線，中亞從此成為中國的版圖','東西交通因而暢通，間接促成新航路與新大陸的發現','增進漢人對西域的認識，促成東西文化與貿易的交流','因絲路的暢通，使阿拉伯人居中成為東西貿易的主角'],a:2,why:'乙是絲路。張騫出使西域強化與西域各國往來，絲路成為東西商貿往來與文化交流的重要通道。'}
+   ]},
+  {set:'延伸練習（依課文設計）',
+   qs:[
+    {q:'西周施行封建，同時利用「宗法」。宗法的主要作用是什麼？',o:['依考試成績決定官位高低','透過血緣的親疏，確立貴族間的尊卑關係','由皇帝直接任免地方官員','規定人民納稅和服勞役'],a:1,why:'課本 1-1：西周利用宗法，透過血緣的親疏，確立貴族間的尊卑關係。'},
+    {q:'下列何者「不是」秦始皇的措施？',o:['全面推行郡縣','統一文字、貨幣、車軌、度量衡','修築以咸陽為中心的馳道','分封親戚和功臣為諸侯'],a:3,why:'秦始皇施行中央集權，不再實施封建。分封親戚和功臣是西周的封建。'},
+    {q:'商鞅變法時，秦國「編列戶籍」的目的是什麼？',o:['讓平民可以參加科舉','有效徵集租稅、兵員和勞役','推舉孝子和廉吏','保障世族免賦稅的特權'],a:1,why:'充電站：由於戰爭頻繁，國家為有效徵集租稅、兵員和勞役，以家戶為單位將人民編入戶籍。'},
+    {q:'永嘉之禍後，大批北方人士避難南遷，對中國經濟帶來什麼影響？',o:['北方經濟迅速超越南方','加速南方經濟開發，經濟重心逐漸南移','絲路因此中斷','科舉制度開始實施'],a:1,why:'課本 2-1：大批北方人士避難南遷，加速南方經濟的開發，也促使中國經濟重心逐漸南移。'},
+    {q:'北魏孝文帝推行漢化，下列何者「不是」他的措施？',o:['將首都從平城遷至洛陽','規定鮮卑人改用漢姓、穿漢服','鼓勵鮮卑人與漢人通婚','派遣張騫出使西域'],a:3,why:'張騫出使西域是漢武帝時的事。孝文帝的措施為遷都、改漢姓、穿漢服、鼓勵通婚。'},
+    {q:'唐太宗被尊為「天可汗」，代表什麼意義？',o:['他是佛教的最高領袖','他的地位高於西北各民族領袖，是東亞國際盟主','他是第一位通過科舉的皇帝','他統一了文字與度量衡'],a:1,why:'充電站：唐太宗滅東突厥後被尊為天可汗，是各族的共同君長，亦即東亞國際盟主。'},
+    {q:'中國的造紙術為什麼會西傳？',o:['文成公主帶到吐蕃','日本遣使學習','唐軍在怛羅斯與大食交戰戰敗，造紙匠被俘','張騫出使西域時帶去'],a:2,why:'課本 2-2：八世紀中葉，唐軍與大食在怛羅斯交戰戰敗，不少造紙匠被俘，造紙術因而西傳。'},
+    {q:'日本七世紀中葉推動的「大化革新」，是以什麼為藍本？',o:['唐代的律令、制度','秦代的郡縣與馳道','西周的封建與宗法','魏晉的九品官人之法'],a:0,why:'課本 2-2：大化革新以唐代的律令、制度為藍本，是日本的「唐化運動」。'}
+   ]}
+];
+// Quiz map: Han map with 甲(長城)、乙(絲路) labels in place of names
+const QUIZ_MAP=HAN_FEATS.filter(f=>f.k!=='label'||!f.t.includes('大秦')).concat([{k:'state',p:[112,43.2],t:'甲'},{k:'state',p:[86.5,43.6],t:'乙'}]);
+function initQuiz(){
+  const box=$('#quiz');box.innerHTML='';let n=0;
+  QUIZ.forEach((set,si)=>{
+    box.insertAdjacentHTML('beforeend',`<h3>${set.set}</h3>`);
+    if(set.src)box.insertAdjacentHTML('beforeend',`<div class="src-box">${set.src}</div>`);
+    if(set.map){
+      box.insertAdjacentHTML('beforeend',`<div class="src-box"><p>下圖為某一時期中國和周遭民族對抗與交流的地圖，請根據圖中資訊回答下列問題。</p><div class="mapbox"><svg id="map-quiz" viewBox="0 0 800 560" role="img" aria-label="會考地圖"></svg><div class="legend" id="leg-quiz"></div></div></div>`);
+      const svg=$('#map-quiz');const g=drawBase(svg,'asia');drawFeatures(svg,g,'asia',QUIZ_MAP);
+      legend($('#leg-quiz'),[L.cap,L.city,['var(--wall)','甲','border-top-style:dotted;border-top-width:5px'],['var(--accent)','乙','border-top-style:dashed']]);
+    }
+    set.qs.forEach((q,qi)=>{
+      n++;const id=`q${si}-${qi}`;
+      const d=document.createElement('div');d.className='q';d.id='box-'+id;
+      d.innerHTML=`<h4><span class="qn">Q${n}.</span>${q.q}</h4>`+q.o.map((o,oi)=>`<label><input type="radio" name="${id}" value="${oi}"> (${'ABCD'[oi]}) ${o}</label>`).join('')+`<div class="why"><b>解析：</b>答案（${'ABCD'[q.a]}）。${q.why}</div>`;
+      box.appendChild(d);
+    });
+  });
+  $('#quiz-score').innerHTML='';
+}
+$('#quiz-submit').addEventListener('click',()=>{
+  let score=0,total=0,miss=0;
+  QUIZ.forEach((set,si)=>set.qs.forEach((q,qi)=>{
+    total++;const id=`q${si}-${qi}`,box=$('#box-'+id);
+    const pick=document.querySelector(`input[name="${id}"]:checked`);
+    box.querySelectorAll('label').forEach((lb,oi)=>{lb.classList.remove('ok','no');if(oi===q.a)lb.classList.add('ok');});
+    if(!pick){miss++;}else if(+pick.value===q.a)score++;else pick.parentElement.classList.add('no');
+    box.classList.add('graded');
+  }));
+  $('#quiz-score').innerHTML=`<div class="score">答對 ${score} / ${total} 題${miss?`（${miss} 題未作答）`:''}${score===total?'，全部答對！':'。看看每題的解析，再回到時光地圖複習。'}</div>`;
+  $('#quiz-score').scrollIntoView({behavior:'smooth',block:'center'});
+});
+$('#quiz-reset').addEventListener('click',initQuiz);
+initQuiz();
+
+// restore last tab
+const lastTab=store('h3-tab');if(lastTab&&$('#sec-'+lastTab))switchTab(lastTab);
+</script>
+
+</body>
+</html>

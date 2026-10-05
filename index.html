@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>歷史複習站：商周至隋唐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: phone-first single column; sticky header with five review stations in learning order. */
+:root{
+  --bg:#faf5ec; --paper:#fffdf8; --ink:#2a2118; --muted:#75685a; --line:#e6d9c6;
+  --accent:#b4471a; --accent-ink:#fff; --accent-soft:#f9e4d4; --gold:#9c6f16; --gold-soft:#f7ecd2;
+  --good:#2c7a4b; --good-soft:#e0f1e6; --bad:#b3362c; --bad-soft:#f9e1dc; --blue:#2f5f9e; --blue-soft:#e3ecf8;
+  --f-body:'Noto Sans TC',-apple-system,'PingFang TC','Microsoft JhengHei',sans-serif;
+  --f-disp:'Noto Serif TC','Songti TC','PMingLiU',serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a1612; --paper:#241f19; --ink:#efe6d8; --muted:#b2a492; --line:#3d342a;
+  --accent:#ec8a52; --accent-ink:#1a1612; --accent-soft:#40291b; --gold:#dcb15b; --gold-soft:#3a2f1a;
+  --good:#6cc28f; --good-soft:#1d3326; --bad:#f08072; --bad-soft:#3e221e; --blue:#86ade3; --blue-soft:#1f2a3a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1612; --paper:#241f19; --ink:#efe6d8; --muted:#b2a492; --line:#3d342a;
+  --accent:#ec8a52; --accent-ink:#1a1612; --accent-soft:#40291b; --gold:#dcb15b; --gold-soft:#3a2f1a;
+  --good:#6cc28f; --good-soft:#1d3326; --bad:#f08072; --bad-soft:#3e221e; --blue:#86ade3; --blue-soft:#1f2a3a;
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.75;margin:0}
+h1,h2,h3,h4{font-family:var(--f-disp);text-wrap:balance;margin:0;line-height:1.35}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:780px;margin:0 auto;padding-inline:16px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+.brand{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:10px 4px}
+.brand h1{font-size:1.35rem;color:var(--accent);font-weight:900;letter-spacing:.05em}
+.prog{font-size:.75rem;color:var(--muted);text-align:right;line-height:1.4}
+.prog b{color:var(--good)}
+nav{display:flex;gap:2px;overflow-x:auto}
+nav button{background:none;border:0;border-bottom:3px solid transparent;padding:6px 10px 8px;white-space:nowrap;color:var(--muted);font-weight:500;font-size:.95rem}
+nav button .s{font-size:.7rem;font-weight:700;margin-right:4px;color:var(--gold)}
+nav button[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent);font-weight:700}
+main{padding-block:18px 60px}
+section{display:flex;flex-direction:column;gap:16px}
+.intro{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px}
+.intro h2{font-size:1.3rem}
+.intro p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+.btn{border:1.5px solid var(--line);background:var(--paper);border-radius:12px;padding:9px 16px;font-weight:700}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.good{border-color:var(--good);color:var(--good)}
+.btn.bad{border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 8px;border-radius:6px;background:var(--gold-soft);color:var(--gold);font-variant-numeric:tabular-nums}
+.fb{border-radius:12px;padding:12px 14px;font-size:.95rem}
+.fb.ok{background:var(--good-soft);border:1px solid var(--good)}
+.fb.no{background:var(--bad-soft);border:1px solid var(--bad)}
+
+/* 先看懂 */
+.era-pick{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.era-pick button{border:1.5px solid var(--line);background:var(--paper);border-radius:99px;padding:5px 14px;font-weight:700;white-space:nowrap;font-family:var(--f-disp)}
+.era-pick button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.story{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.story h3{font-size:1.5rem}
+.oneline{font-family:var(--f-disp);font-size:1.15rem;font-weight:700;background:var(--accent-soft);border-radius:12px;padding:12px 14px;color:var(--ink)}
+.oneline small{display:block;font-family:var(--f-body);font-size:.75rem;color:var(--accent);letter-spacing:.1em}
+.flow{display:flex;flex-direction:column;gap:0}
+.flow .st{border-left:3px solid var(--gold);padding:2px 0 12px 14px;position:relative}
+.flow .st::before{content:'';position:absolute;left:-8px;top:8px;width:13px;height:13px;border-radius:50%;background:var(--paper);border:3px solid var(--gold)}
+.flow .st:last-child{border-left-color:transparent}
+.flow .why{font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
+.flow p{margin:0}
+.analogy{border:1.5px dashed var(--blue);background:var(--blue-soft);border-radius:12px;padding:12px 14px;font-size:.95rem}
+.analogy b.h{color:var(--blue);display:block;font-size:.8rem;letter-spacing:.1em}
+.analogy .warn{display:block;font-size:.75rem;color:var(--muted);margin-top:4px}
+.keys{display:flex;flex-wrap:wrap;gap:6px}
+.keys span{border:1px solid var(--line);border-radius:8px;padding:1px 9px;font-size:.88rem;font-weight:700;background:var(--bg)}
+.nav2{display:flex;justify-content:space-between;gap:8px}
+
+/* 因果串串 */
+.chain{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.chain h3{font-size:1.15rem}
+.slots{display:flex;flex-direction:column;gap:6px}
+.slot{border:2px dashed var(--line);border-radius:12px;padding:8px 12px;min-height:44px;display:flex;gap:10px;align-items:center;font-size:.95rem}
+.slot .no{font-family:var(--f-disp);font-weight:900;color:var(--gold);min-width:1.2em}
+.slot.filled{border-style:solid;border-color:var(--good);background:var(--good-soft)}
+.slot+.slot{position:relative}
+.pool{display:flex;flex-direction:column;gap:6px}
+.pool button{text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:8px 12px;font-size:.95rem}
+.pool button.shake{animation:shake .35s;border-color:var(--bad)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.chain-list{display:flex;flex-wrap:wrap;gap:6px}
+.chain-list button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:4px 10px;font-size:.88rem;font-weight:700}
+.chain-list button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.chain-list button.done::after{content:' ✓';color:var(--good)}
+
+/* 閃卡 */
+.card{perspective:1200px;width:100%}
+.card-in{position:relative;min-height:260px;transition:transform .45s;transform-style:preserve-3d}
+.card.flip .card-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);background:var(--paper);padding:22px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px}
+.face.back{transform:rotateY(180deg);background:var(--accent-soft);text-align:left;align-items:flex-start}
+.face .term{font-family:var(--f-disp);font-size:2rem;font-weight:900}
+.face .def{font-size:1.02rem}
+.face .hint{font-size:.8rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.card-in{transition:none}}
+.deck-bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.deck-bar div{height:100%;background:var(--good);transition:width .3s}
+
+/* 易混淆 */
+.vs{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.vs h3{font-size:1.15rem}
+.tbl{overflow-x:auto}
+.tbl table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:420px}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+.tbl thead th{font-family:var(--f-disp);color:var(--accent)}
+.tbl tbody th{color:var(--muted);font-size:.8rem;white-space:nowrap}
+.judge{background:var(--bg);border-radius:12px;padding:12px}
+.judge p{margin:0 0 8px;font-weight:700}
+
+/* 測驗 */
+.qcard{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.qcard h3{font-family:var(--f-body);font-size:1.08rem;font-weight:700;line-height:1.6}
+.opt{border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 14px;text-align:left;font-size:1rem}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.no{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.qbar{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);font-weight:700}
+.big-score{font-family:var(--f-disp);font-size:2.4rem;font-weight:900;color:var(--accent);text-align:center}
+.linkish{background:none;border:0;color:var(--accent);font-weight:700;text-decoration:underline;padding:0}
+footer{color:var(--muted);font-size:.78rem;text-align:center;padding-block:10px 30px}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>歷史複習站</h1>
+      <div class="prog" id="prog"></div>
+    </div>
+    <nav role="tablist" aria-label="複習步驟">
+      <button role="tab" data-t="learn" aria-selected="true"><span class="s">1</span>先看懂</button>
+      <button role="tab" data-t="chain" aria-selected="false"><span class="s">2</span>因果串串</button>
+      <button role="tab" data-t="flash" aria-selected="false"><span class="s">3</span>閃卡</button>
+      <button role="tab" data-t="vs" aria-selected="false"><span class="s">4</span>易混淆</button>
+      <button role="tab" data-t="quiz" aria-selected="false"><span class="s">5</span>自我測驗</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<!-- 1 先看懂 -->
+<section id="sec-learn">
+  <div class="intro">
+    <h2>歷史不是背一堆名詞，是一串「因為…所以…」</h2>
+    <p>每個時期先記一句話，再看事情怎麼一步步發生。藍色框是生活比喻，幫你理解；考試請用課本的名詞作答。</p>
+  </div>
+  <div class="era-pick" id="era-pick"></div>
+  <div class="story" id="story"></div>
+  <div class="nav2"><button class="btn" id="prev-era">← 上一個時期</button><button class="btn primary" id="next-era">下一個時期 →</button></div>
+</section>
+
+<!-- 2 因果串串 -->
+<section id="sec-chain" hidden>
+  <div class="intro">
+    <h2>把事情排成正確的順序</h2>
+    <p>依「原因 → 結果」的順序點選下方句子。能排對，就代表你真的懂了，不只是背。</p>
+  </div>
+  <div class="chain-list" id="chain-list"></div>
+  <div class="chain" id="chain"></div>
+</section>
+
+<!-- 3 閃卡 -->
+<section id="sec-flash" hidden>
+  <div class="intro">
+    <h2>名詞閃卡</h2>
+    <p>先自己說說看這個名詞的意思，再點卡片翻面。按「還不熟」的卡片會再出現。</p>
+  </div>
+  <div class="row" id="deck-filter"></div>
+  <div class="deck-bar"><div id="deck-bar"></div></div>
+  <div class="qbar"><span id="deck-count"></span><span id="deck-known"></span></div>
+  <div class="card" id="card" role="button" tabindex="0" aria-label="翻轉閃卡">
+    <div class="card-in">
+      <div class="face front"><span class="tag" id="c-era"></span><div class="term" id="c-term"></div><span class="hint">點一下翻面</span></div>
+      <div class="face back"><span class="tag" id="c-era2"></span><strong id="c-term2" style="font-family:var(--f-disp);font-size:1.3rem"></strong><div class="def" id="c-def"></div></div>
+    </div>
+  </div>
+  <div class="row" style="justify-content:center">
+    <button class="btn bad" id="c-no">還不熟</button>
+    <button class="btn good" id="c-yes">我會了</button>
+  </div>
+  <div id="deck-done"></div>
+</section>
+
+<!-- 4 易混淆 -->
+<section id="sec-vs" hidden>
+  <div class="intro">
+    <h2>最常搞混的幾組</h2>
+    <p>先看比較表，再做下方的小判斷。錯了也沒關係，會告訴你差在哪。</p>
+  </div>
+  <div id="vs-list" style="display:flex;flex-direction:column;gap:16px"></div>
+</section>
+
+<!-- 5 自我測驗 -->
+<section id="sec-quiz" hidden>
+  <div class="intro">
+    <h2>自我測驗</h2>
+    <p>每次隨機 10 題，答完立刻看解析。答錯的題目會存進「錯題本」，下次可以只練錯題。</p>
+  </div>
+  <div id="quiz-home" class="qcard">
+    <div class="row">
+      <button class="btn primary" id="q-start">開始 10 題測驗</button>
+      <button class="btn" id="q-wrong">練錯題本（<span id="wrong-n">0</span> 題）</button>
+      <button class="btn" id="q-clear">清空錯題本</button>
+    </div>
+    <div class="row" id="q-range"></div>
+    <p class="hint" style="margin:0;font-size:.85rem;color:var(--muted)" id="q-best"></p>
+  </div>
+  <div id="quiz-run" class="qcard" hidden></div>
+</section>
+</main>
+<footer class="wrap">內容依據：康軒版國中歷史第三冊 序章、第1課、第2課。學習紀錄只存在這台裝置的瀏覽器中。</footer>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const S={get(k,d){try{const v=localStorage.getItem('hrv-'+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},set(k,v){try{localStorage.setItem('hrv-'+k,JSON.stringify(v));}catch(e){}}};
+
+/* ================= 1 先看懂 ================= */
+const ERAS=[
+{id:'pre',name:'序章',yrs:'史前～商',one:'先學會「看時間」：西元前的數字越大越早。',
+ flow:[['先知道','遠古人類先打製石器、採集漁獵；後來磨製石器、種植農作，形成定居的農業部落。'],['所以','部落之間兼併與聯合，逐漸發展成國家。距今三千多年前，商人在黃河流域建立商朝。'],['證據','殷墟出土宮殿，顯示國家已經形成；甲骨文證明商代已有文字。'],['看時間','每一百年是一個世紀，西元1～100年是「一世紀」；「年代」指連續十年，例如1850年代是1850～1859年。']],
+ ana:['數線','西元紀年像數學的數線：西元元年是原點附近，往左是西元前（B.C.），往右是西元後（A.D.）。西元前221年比西元前139年更早，因為它離原點更遠。'],
+ keys:['甲骨文','殷墟','世紀','年代','干支紀年','年號紀年']},
+{id:'zhou',name:'商・西周',yrs:'約西元前十二世紀 周取代商',one:'周王把土地分給親戚和功臣，靠「血緣」和「禮樂」管天下。',
+ flow:[['開始','黃河下游的商人建立商朝，透過分封穩固統治。商朝晚期國力衰微，黃河中游的周人滅商，建立西周。'],['因為','新打下的地方太多，周王需要人去守。'],['所以','施行「封建」：分封親戚和功臣為諸侯，駐守重要地點，保衛王室。'],['再加上','用「宗法」依血緣親疏決定貴族的尊卑，用「禮樂」規範貴族的生活，讓秩序穩定。貴族身分世代相襲，只有貴族能受教育。']],
+ ana:['加盟店','封建像連鎖加盟：總部（周王）把地盤授權給各地老闆（諸侯），老闆在店裡很有自主權，位子還能傳給兒子，但總部有命令時要聽。'],
+ keys:['封建','宗法','禮樂','諸侯','世襲','鎬京']},
+{id:'dongzhou',name:'東周',yrs:'西元前770年起',one:'血緣變淡、周王變弱，各國比賽變強，平民開始有機會。',
+ flow:[['因為','分封太久，諸侯和周王的血緣越來越遠；西周末年周王破壞宗法。'],['結果','諸侯聯合犬戎攻入首都，周王室東遷，史稱東周。王室衰微，封建秩序瓦解。'],['各國比賽','各國為了富國強兵而改革。秦國任用商鞅變法：厲行法治、按軍功授爵位、編列戶籍、規定納稅和服勞役，為秦統一打下基礎。'],['平民機會','部分貴族流落民間辦學，私人講學盛行，平民能受教育；君主用人唯才，出現「布衣卿相」，孔子代表的儒家等百家爭鳴。']],
+ ana:['加盟總部失勢','加盟店開太久，各店老闆跟總部不親了，總部又自己壞了規矩，各店就不再聽話，開始互相競爭搶地盤。'],
+ keys:['周王室東遷','春秋戰國','商鞅變法','編列戶籍','私人講學','布衣卿相','百家爭鳴']},
+{id:'qin',name:'秦',yrs:'西元前221年',one:'秦把「加盟店」全部收回，改成皇帝直接管的「直營店」。',
+ flow:[['統一','西元前221年秦王嬴政統一天下，自稱「始皇帝」。'],['所以','不再封建，全面推行「郡縣」，郡縣長官由中央直接任免（中央集權）。'],['為了好管','統一文字、貨幣、車軌、度量衡；修以咸陽為中心的馳道；把各國城牆連成長城，防禦匈奴。'],['但是','焚書坑儒、刑罰殘酷、大量工程勞民傷財，秦很快滅亡。不過中央集權體制被漢和後代沿用。']],
+ ana:['直營店','郡縣像直營連鎖：總公司（皇帝）派店長（郡守、縣令）去管，做不好可以調走或撤換，店長的位子不能傳給兒子。'],
+ keys:['始皇帝','郡縣','中央集權','統一文字貨幣度量衡','馳道','長城','焚書坑儒']},
+{id:'han',name:'漢',yrs:'西元前202年 西漢建立',one:'皇帝需要人才，就推舉和辦學；想打匈奴，就派張騫通西域，打開了絲路。',
+ flow:[['因為','中央集權下，皇帝要靠官吏治理國家，所以「選才」很重要。'],['所以','漢武帝實施「察舉」，要地方長官定期推舉孝子和廉吏；又設「太學」，教儒家經典，優秀學生可以當官。'],['意外結果','讀經書就能當官，家族把經書知識傳給子孫，形成「經學傳家、累世當官」的世族（東漢）。'],['另一條線','漢武帝為了聯絡西域國家打擊匈奴，派張騫出使西域（西元前139年）。東西商路活絡，絲綢是主要商品，這條路被稱為「絲路」；佛教約在西漢末年經西域傳入。']],
+ ana:['老師推薦','察舉像「老師推薦信」：由地方長官推薦品德好的人（孝子、廉吏）給中央。'],
+ keys:['察舉','孝廉','太學','世族形成','張騫','絲路','西域','佛教傳入']},
+{id:'wj',name:'魏晉南北朝',yrs:'西元220年起',one:'天下大亂：世族最強、胡人南下、漢人南遷、佛教流行。',
+ flow:[['因為','東漢末年社會動盪，地方無法順利推舉人才。'],['所以','曹魏以後，中央派官員到各地，依家世、才能、品德把士人評成九個等第，叫「九品官人之法」。'],['但是','評選的官員多是世族，只看家世，變成「上品無寒門，下品無世族」；世族有土地、免賦稅勞役，連皇帝都要讓步。'],['民族大移動','西元311年匈奴攻陷洛陽（永嘉之禍），大批北方人士南遷，南方被開發，經濟重心逐漸南移。北方由鮮卑人的北魏統一，孝文帝遷都洛陽、改漢姓、穿漢服、鼓勵通婚，胡漢融合。社會不安，人們尋求宗教安慰，佛教盛行、石窟興起。']],
+ ana:['只看家世的推甄','九品官人之法像一場推甄，但評審幾乎都是名門出身，結果他們只挑家世好的人，寒門再優秀也進不了上品。'],
+ keys:['九品官人之法','上品無寒門','永嘉之禍','東晉','經濟重心南移','北魏孝文帝','漢化','三大石窟']},
+{id:'st',name:'隋・唐',yrs:'西元581年隋、618年唐',one:'用考試選官、胡風超流行、唐朝文化傳遍東亞。',
+ flow:[['因為','隋結束分裂，想削弱世族勢力。'],['所以','廢除九品官人之法，改採「科舉」：報名考試，考上就能當官，一直用到清末。平民有機會當官，社會階層流動，世族逐漸沒落。'],['唐朝的開放','唐太宗滅東突厥，被尊為「天可汗」。外族來經商、留學、傳教、當官，社會兼容並蓄、胡漢融合。唐人喝葡萄酒、穿胡服、跳胡旋舞；佛教鼎盛（玄奘取經），伊斯蘭教傳入；長安成為國際城市。'],['文化往外傳','日本學唐朝推動「大化革新」，並依漢字創造假名；新羅仿效唐的制度被稱為「君子國」；文成公主和親吐蕃；唐軍在怛羅斯敗給大食，造紙術因此西傳。']],
+ ana:['會考','科舉像會考：大家考同一套試題，看成績不看家世，所以家境普通的人也有機會。'],
+ keys:['科舉','社會階層流動','天可汗','胡風','長安','東亞文化圈','大化革新','文成公主','怛羅斯之戰']}
+];
+let eraI=S.get('era',0);
+function renderEra(){
+  const e=ERAS[eraI];S.set('era',eraI);
+  $$('#era-pick button').forEach((b,i)=>b.setAttribute('aria-pressed',i===eraI));
+  $('#story').innerHTML=`<div class="row"><h3>${e.name}</h3><span class="tag">${e.yrs}</span></div>
+   <div class="oneline"><small>一句話記住</small>${e.one}</div>
+   <div class="flow">${e.flow.map(([w,t])=>`<div class="st"><span class="why">${w}</span><p>${t}</p></div>`).join('')}</div>
+   <div class="analogy"><b class="h">生活比喻：${e.ana[0]}</b>${e.ana[1]}<span class="warn">比喻只幫助理解，和真實歷史不完全一樣。</span></div>
+   <div><strong style="font-size:.85rem;color:var(--muted)">這一段的關鍵字</strong><div class="keys" style="margin-top:6px">${e.keys.map(k=>`<span>${k}</span>`).join('')}</div></div>`;
+  $('#prev-era').disabled=eraI===0;
+  $('#next-era').textContent=eraI===ERAS.length-1?'去排因果串串 →':'下一個時期 →';
+  const seen=S.get('seen',[]);if(!seen.includes(e.id)){seen.push(e.id);S.set('seen',seen);}updProg();
+}
+ERAS.forEach((e,i)=>{const b=document.createElement('button');b.textContent=e.name;b.onclick=()=>{eraI=i;renderEra();};$('#era-pick').appendChild(b);});
+$('#prev-era').onclick=()=>{if(eraI>0){eraI--;renderEra();scrollTo({top:0,behavior:'smooth'});}};
+$('#next-era').onclick=()=>{if(eraI<ERAS.length-1){eraI++;renderEra();scrollTo({top:0,behavior:'smooth'});}else go('chain');};
+
+/* ================= 2 因果串串 ================= */
+const CHAINS=[
+ {t:'西周的封建為什麼瓦解？',era:'東周',s:['分封久了，諸侯和周王的血緣關係漸漸疏遠','西周末年周王破壞宗法，諸侯聯合犬戎攻入首都','周王室東遷，史稱東周','王室衰微，諸侯坐大，封建秩序瓦解']},
+ {t:'平民怎麼開始有機會參與政治？',era:'東周',s:['部分貴族流落民間','以辦學宣講謀生，私人講學風氣盛行','平民受教育的機會增加','各國君主用人唯才，出現「布衣卿相」']},
+ {t:'秦國為什麼能統一天下？',era:'東周・秦',s:['東周各國競爭激烈，都想富國強兵','秦國任用商鞅變法','厲行法治、按軍功授爵、編列戶籍','為秦國統一天下奠定基礎']},
+ {t:'世族是怎麼形成的？',era:'漢',s:['漢代實施察舉、設立太學，熟讀儒家經典成為任官的重要途徑','士人把經書的見解傳授給家族子弟','形成經學傳家、累世當官的家族','世家大族（世族）形成']},
+ {t:'為什麼會「上品無寒門，下品無世族」？',era:'魏晉南北朝',s:['東漢末年社會動盪，地方無法順利推舉人才','曹魏以後，中央派官員以九品等第評選士人','負責評選的官員多由世族出任，看重家世','上品無寒門，下品無世族']},
+ {t:'科舉帶來什麼改變？',era:'隋唐',s:['隋結束分裂，想削弱世族勢力','廢除九品官人之法，改採科舉','士人報名考試，考取者得任官職','平民任官機會提升，促進社會階層流動']},
+ {t:'中國經濟重心為什麼南移？',era:'魏晉南北朝',s:['西元311年匈奴攻進洛陽（永嘉之禍）','大批北方人士避難南遷','加速南方經濟的開發','中國經濟重心逐漸南移']},
+ {t:'胡漢怎麼融合？',era:'魏晉南北朝',s:['鮮卑人建立的北魏統一北方','北魏孝文帝將首都從平城遷到洛陽','規定鮮卑人改漢姓、穿漢服，鼓勵與漢人通婚','胡漢融合，奠定隋唐盛世的基礎']},
+ {t:'絲路是怎麼來的？',era:'漢',s:['漢武帝想聯絡西域國家打擊匈奴','派遣張騫出使西域','與西域往來增加，東西商路更活絡','絲綢是主要商品，這條通道被稱為絲路']},
+ {t:'中國的造紙術怎麼傳到西方？',era:'唐',s:['八世紀中葉，唐軍與大食在怛羅斯交戰','唐軍戰敗','不少造紙匠被俘虜','中國的造紙術因而西傳']}
+];
+let chainI=0,chainStep=0;
+function renderChainList(){
+  const done=S.get('chains',[]);
+  $('#chain-list').innerHTML='';
+  CHAINS.forEach((c,i)=>{const b=document.createElement('button');b.textContent=`${i+1}. ${c.era}`;b.setAttribute('aria-pressed',i===chainI);if(done.includes(i))b.classList.add('done');b.onclick=()=>{chainI=i;startChain();};$('#chain-list').appendChild(b);});
+}
+function startChain(){
+  chainStep=0;renderChainList();const c=CHAINS[chainI];
+  $('#chain').innerHTML=`<span class="tag">${c.era}</span><h3>${c.t}</h3><div class="slots">${c.s.map((_,i)=>`<div class="slot" id="slot${i}"><span class="no">${i+1}</span><span class="txt" style="color:var(--muted)">${i===0?'最先發生的是…':'接著…'}</span></div>`).join('')}</div><strong style="font-size:.85rem;color:var(--muted)">點選下一步：</strong><div class="pool" id="pool"></div><div id="chain-fb"></div>`;
+  shuffle(c.s.map((t,i)=>[t,i])).forEach(([t,i])=>{
+    const b=document.createElement('button');b.textContent=t;
+    b.onclick=()=>{
+      if(i===chainStep){const s=$('#slot'+i);s.classList.add('filled');s.querySelector('.txt').textContent=t;s.querySelector('.txt').style.color='';b.remove();chainStep++;$('#chain-fb').innerHTML='';
+        if(chainStep===c.s.length){const d=S.get('chains',[]);if(!d.includes(chainI)){d.push(chainI);S.set('chains',d);}updProg();renderChainList();
+          $('#chain-fb').innerHTML=`<div class="fb ok">排對了！試著不看畫面，用「因為…所以…」把這串說一遍。${chainI<CHAINS.length-1?'<br><button class="btn primary" id="next-chain" style="margin-top:8px">下一題 →</button>':'<br>十串都完成了，可以去「閃卡」。'}</div>`;
+          const n=$('#next-chain');if(n)n.onclick=()=>{chainI++;startChain();};}
+      }else{b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');$('#chain-fb').innerHTML='<div class="fb no">還不是這一步。想想：哪一件事要先發生，這一件才會發生？</div>';}
+    };
+    $('#pool').appendChild(b);
+  });
+}
+
+/* ================= 3 閃卡 ================= */
+const CARDS=[
+ ['序章','甲骨文','商代刻有占卜文字的龜甲、獸骨，證明商代已進入有文字的歷史時代。'],
+ ['序章','世紀','每一百年為一個世紀。西元1～100年為一世紀；西元前221年屬於西元前三世紀。'],
+ ['序章','干支紀年','「天干」與「地支」配對，每對代表一年，六十年為一周期。例如甲午年、戊戌年。'],
+ ['西周','封建','周王將土地、人民分封給親戚和功臣為諸侯，建立封國，保衛王室。諸侯在封國內有較大自主性，但對外要聽周王命令。'],
+ ['西周','宗法','透過血緣的親疏，確立貴族之間的尊卑關係。'],
+ ['西周','禮樂','以祭祀、宴飲、喪葬等禮儀配合音樂、舞蹈，規範貴族的政治活動與生活方式，穩定封建秩序。'],
+ ['東周','東周','西周末年周王破壞宗法，諸侯聯合犬戎攻入首都，周王室東遷（西元前770年），之後王室衰微。分為春秋、戰國。'],
+ ['東周','商鞅變法','秦國的改革（西元前356年）：厲行法治、按軍功授爵位、編列戶籍、規定納稅和服勞役。'],
+ ['東周','編列戶籍','以家戶為單位把人民編入戶籍，讓國家能有效徵集租稅、兵員和勞役。'],
+ ['東周','布衣卿相','平民（布衣）憑才能當上高官（卿相）。東周各國君主用人唯才，平民任官機會增加。'],
+ ['東周','百家爭鳴','東周私人講學盛行，出現各種思想流派，例如以孔子為代表的儒家。'],
+ ['秦','郡縣','皇帝派任郡縣長官，直接管理地方；官吏由中央任免，不能世襲。'],
+ ['秦','中央集權','權力集中在中央（皇帝），地方長官由中央任免。秦建立後，被漢和後代沿用。'],
+ ['秦','馳道','秦始皇修築以咸陽為中心的道路，強化中央集權，也促進各地交流。'],
+ ['秦','長城','秦統一後把以前各國的城牆連成長城，防禦匈奴；成為農業民族與草原民族的分界線。'],
+ ['漢','察舉','漢武帝要求地方長官定期向中央推舉「孝子」和「廉吏」。'],
+ ['漢','太學','漢武帝設立的最高學府，教授儒家經典；隋代改稱國子監。'],
+ ['漢','世族','經學傳家、累世當官的世家大族。東漢形成，魏晉南北朝鼎盛，隋唐以後沒落。'],
+ ['漢','張騫出使西域','西元前139年，漢武帝為聯絡西域國家打擊匈奴而派遣，使東西商路更活絡。'],
+ ['漢','絲路','東西商貿往來與文化交流的重要通道，因中國絲綢是主要商品而得名，絲綢最遠可達大秦（羅馬帝國）。'],
+ ['魏晉南北朝','九品官人之法','曹魏起，中央派官員按家世、才能、品德，以九品等第評選士人。後來多看家世，形成「上品無寒門，下品無世族」。'],
+ ['魏晉南北朝','永嘉之禍','西元311年匈奴攻進西晉首都洛陽，皇帝被俘。西晉不久滅亡，晉人南遷長江流域，史稱東晉。'],
+ ['魏晉南北朝','北魏孝文帝','推行漢化：遷都洛陽（493年）、改漢姓、穿漢服、鼓勵與漢人通婚，促進胡漢融合。'],
+ ['魏晉南北朝','三大石窟','莫高窟（甘肅敦煌）、雲岡石窟（山西大同）、龍門石窟（河南洛陽），與佛教盛行有關。'],
+ ['隋唐','科舉','隋代起由士人報名考試，考取者得任官，沿用到清末；提升平民任官機會，促進社會階層流動。'],
+ ['隋唐','天可汗','唐太宗滅東突厥後得到的尊稱，代表他是各族共同君長、東亞國際盟主。'],
+ ['隋唐','玄奘','唐太宗時前往印度取經，回國後翻譯大量佛經，促進佛教中國化。'],
+ ['隋唐','胡風','唐代流行的西域風格：喝葡萄酒、穿短衣窄袖的胡服、跳胡旋舞等。'],
+ ['隋唐','東亞文化圈','隋唐時，日本、朝鮮等地與中國往來密切，廣受中國文化影響而形成。'],
+ ['隋唐','大化革新','七世紀中葉日本以唐代律令、制度為藍本推動的改革，是日本的「唐化運動」。'],
+ ['隋唐','君子國','新羅仿效唐的衣冠、曆法、律令、漢字，文風興盛而得到的稱號。'],
+ ['隋唐','文成公主','唐太宗時和親吐蕃，帶去穀物種子、工藝品、藥材、茶葉和書籍，加強漢藏交流。'],
+ ['隋唐','怛羅斯之戰','八世紀中葉唐軍與大食（阿拉伯帝國）交戰戰敗，造紙匠被俘，造紙術西傳。'],
+ ['隋唐','三夷教','唐代長安來自西方的三種宗教：祆教、景教（基督教支派）、摩尼教。']
+];
+let deck=[],deckFilter='全部',cur=null;
+function known(){return S.get('known',[]);}
+function buildDeck(){const k=known();deck=shuffle(CARDS.filter(c=>(deckFilter==='全部'||c[0]===deckFilter)&&!k.includes(c[1])));nextCard();}
+function nextCard(){
+  $('#card').classList.remove('flip');
+  const pool=CARDS.filter(c=>deckFilter==='全部'||c[0]===deckFilter),k=known().filter(t=>pool.some(c=>c[1]===t));
+  $('#deck-bar').style.width=(k.length/pool.length*100)+'%';
+  $('#deck-count').textContent=`本組 ${pool.length} 張`;$('#deck-known').textContent=`已會 ${k.length} 張`;
+  if(!deck.length){cur=null;$('#card').hidden=true;$('#c-no').disabled=$('#c-yes').disabled=true;
+    $('#deck-done').innerHTML=`<div class="fb ok">這一組全部會了！<button class="linkish" id="deck-reset">重設這一組再練一次</button></div>`;
+    $('#deck-reset').onclick=()=>{S.set('known',known().filter(t=>!pool.some(c=>c[1]===t)));updProg();$('#deck-done').innerHTML='';$('#card').hidden=false;$('#c-no').disabled=$('#c-yes').disabled=false;buildDeck();};return;}
+  cur=deck.shift();setTimeout(()=>{$('#c-era').textContent=$('#c-era2').textContent=cur[0];$('#c-term').textContent=$('#c-term2').textContent=cur[1];$('#c-def').textContent=cur[2];},150);
+}
+['全部','序章','西周','東周','秦','漢','魏晉南北朝','隋唐'].forEach(f=>{const b=document.createElement('button');b.className='btn';b.style.padding='4px 12px';b.textContent=f;b.onclick=()=>{deckFilter=f;$$('#deck-filter button').forEach(x=>x.classList.toggle('primary',x===b));$('#deck-done').innerHTML='';$('#card').hidden=false;$('#c-no').disabled=$('#c-yes').disabled=false;buildDeck();};if(f==='全部')b.classList.add('primary');$('#deck-filter').appendChild(b);});
+const flip=()=>$('#card').classList.toggle('flip');
+$('#card').onclick=flip;$('#card').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}};
+$('#c-yes').onclick=()=>{if(!cur)return;const k=known();if(!k.includes(cur[1])){k.push(cur[1]);S.set('known',k);}updProg();nextCard();};
+$('#c-no').onclick=()=>{if(!cur)return;deck.splice(Math.min(3,deck.length),0,cur);nextCard();};
+
+/* ================= 4 易混淆 ================= */
+const VS=[
+ {t:'察舉、九品官人之法、科舉',head:['','察舉','九品官人之法','科舉'],rows:[['時代','漢代','魏晉南北朝','隋代到清末'],['誰決定','地方長官推舉','中央派官員評等第','考試成績'],['看什麼','品德（孝子、廉吏）','家世、才能、品德（後來只看家世）','才學'],['影響','形成世族','世族鼎盛','世族沒落、階層流動']],
+  q:[['地方長官定期推舉孝子和廉吏','察舉'],['「上品無寒門，下品無世族」','九品官人之法'],['士人報名考試，考取者得任官職','科舉'],['東漢末年人才難覓，曹魏以後實施','九品官人之法'],['一直沿用到清末','科舉']],opts:['察舉','九品官人之法','科舉']},
+ {t:'封建、郡縣',head:['','封建','郡縣'],rows:[['統治者','周王（名義上的共主）','皇帝（中央集權）'],['管理方式','分封諸侯，間接管理','派任郡縣長官，直接管理'],['官吏來源','分封、世襲','中央派任']],
+  q:[['分封親戚和功臣，以保衛王室','封建'],['地方長官由皇帝直接任免','郡縣'],['加強中央對地方的管理，防止割據','郡縣'],['以禮樂規範貴族的生活方式','封建']],opts:['封建','郡縣']},
+ {t:'大秦、大食',head:['','大秦','大食'],rows:[['是誰','羅馬帝國','阿拉伯帝國'],['出現在','漢代絲路（絲綢最遠到這裡）','唐代（怛羅斯之戰）'],['記法','漢代絲路西邊的終點','唐代在西邊交戰的對手']],
+  q:[['漢代絲綢向西最遠可達','大秦'],['八世紀中葉在怛羅斯打敗唐軍','大食'],['中國造紙術因與它交戰而西傳','大食'],['古代中國對羅馬帝國的稱呼','大秦']],opts:['大秦','大食']},
+ {t:'吐蕃、吐谷渾',head:['','吐蕃','吐谷渾'],rows:[['位置','今西藏','北魏西方（課本永嘉之禍後的地圖）'],['課本重點','唐初國勢大盛，唐太宗以文成公主和親','出現在魏晉南北朝的地圖上']],
+  q:[['文成公主和親的對象','吐蕃'],['今天的西藏','吐蕃'],['魏晉南北朝地圖上，位於北魏西方的民族','吐谷渾']],opts:['吐蕃','吐谷渾']},
+ {t:'永嘉之禍、孝文帝遷都',head:['','永嘉之禍','北魏孝文帝遷都'],rows:[['年代','西元311年','西元493年'],['發生什麼','匈奴攻進西晉首都洛陽，皇帝被俘','北魏首都從平城遷到洛陽'],['移動方向','晉人往南遷到長江流域（東晉）','鮮卑政權的首都往南移到中原'],['結果','經濟重心逐漸南移','胡漢融合']],
+  q:[['西晉滅亡、晉人南遷的開端','永嘉之禍'],['目的是推行漢化','孝文帝遷都'],['從平城遷到洛陽','孝文帝遷都'],['之後北方成為胡人的天下','永嘉之禍']],opts:['永嘉之禍','孝文帝遷都']},
+ {t:'平假名、片假名',head:['','平假名','片假名'],rows:[['來源','摹仿漢字草書','採取漢字楷書偏旁簡化'],['例子','安→あ、以→い','阿→ア、伊→イ']],
+  q:[['由漢字草書而來','平假名'],['取漢字楷書的偏旁簡化','片假名'],['「阿」變成「ア」','片假名']],opts:['平假名','片假名']}
+];
+function renderVS(){
+  const box=$('#vs-list');box.innerHTML='';
+  VS.forEach((v,vi)=>{
+    const d=document.createElement('div');d.className='vs';
+    d.innerHTML=`<h3>${v.t}</h3><div class="tbl"><table><thead><tr>${v.head.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${v.rows.map(r=>`<tr><th>${r[0]}</th>${r.slice(1).map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table></div><div class="judge"><p></p><div class="row"></div><div class="jfb" style="margin-top:8px"></div></div>`;
+    box.appendChild(d);
+    let qi=0;const qs=shuffle(v.q);
+    const show=()=>{
+      const j=d.querySelector('.judge');
+      if(qi>=qs.length){j.innerHTML='<div class="fb ok">這一組判斷全對！</div>';return;}
+      const [stmt,ans]=qs[qi];j.querySelector('p').textContent=`小判斷 ${qi+1}/${qs.length}：「${stmt}」是哪一個？`;
+      const row=j.querySelector('.row');row.innerHTML='';
+      v.opts.forEach(o=>{const b=document.createElement('button');b.className='btn';b.textContent=o;b.onclick=()=>{
+        if(o===ans){j.querySelector('.jfb').innerHTML='<div class="fb ok">答對！</div>';qi++;setTimeout(()=>{j.querySelector('.jfb').innerHTML='';show();},700);}
+        else j.querySelector('.jfb').innerHTML=`<div class="fb no">不是「${o}」喔，回頭看看上面的比較表。</div>`;
+      };row.appendChild(b);});
+    };
+    show();
+  });
+}
+
+/* ================= 5 自我測驗 ================= */
+// [era, question, options, answerIndex, explanation]
+const BANK=[
+ ['序章','西元前221年屬於哪一個世紀？',['西元前二世紀','西元前三世紀','西元二世紀','西元三世紀'],1,'西元前201～前300年是西元前三世紀。'],
+ ['序章','下列事件依時間先後排列，何者正確？',['秦統一→商鞅變法→張騫出使西域','商鞅變法→秦統一→張騫出使西域','張騫出使西域→商鞅變法→秦統一','商鞅變法→張騫出使西域→秦統一'],1,'商鞅變法（前356）→秦統一（前221）→張騫出使西域（前139）。西元前數字越大越早。'],
+ ['序章','「一八五○年代」指的是哪一段時間？',['1801～1900年','1850～1859年','1850～1950年','1840～1850年'],1,'年代指連續十年的區間，一八五○年代即1850～1859年。'],
+ ['西周','西周為了加強對新征服地的控制，採取了什麼做法？',['推行郡縣','施行封建，分封親戚和功臣為諸侯','實施科舉','設立太學'],1,'西周施行封建，分封親戚和功臣為諸侯，駐守重要地點以保衛王室。'],
+ ['西周','「透過血緣的親疏，確立貴族間的尊卑關係」是指什麼？',['禮樂','宗法','察舉','戶籍'],1,'這是宗法的定義。禮樂是用禮儀和音樂規範貴族的生活。'],
+ ['西周','西周時期，誰才能接受教育？',['所有人','只有貴族','只有平民','只有商人'],1,'西周時期僅貴族才能接受教育；東周以後私人講學才讓平民有受教育的機會。'],
+ ['東周','周王室為什麼東遷？',['被秦國統一','周王破壞宗法，諸侯聯合犬戎攻入首都','匈奴攻進洛陽','為了推行漢化'],1,'西周末年周王破壞宗法，諸侯聯合犬戎攻入首都，迫使周王室東遷。'],
+ ['東周','下列何者是商鞅變法的內容？',['推舉孝子和廉吏','按軍功授爵位、編列戶籍','改用漢姓、穿漢服','以考試選才'],1,'商鞅變法：厲行法治，按軍功授爵位，編列戶籍，規定人民納稅和服勞役。'],
+ ['東周','東周時平民受教育機會增加，主要原因是什麼？',['科舉制度實施','部分貴族流落民間辦學，私人講學盛行','太學成立','周王分封平民'],1,'部分貴族流落民間，以辦學宣講謀生，私人講學風氣盛行。'],
+ ['秦','秦始皇統一天下後，對地方採取什麼制度？',['封建','郡縣','九品官人之法','宗法'],1,'秦始皇不再實施封建，全面推行郡縣，郡縣長官由中央直接任免。'],
+ ['秦','下列何者「不是」秦始皇統一的項目？',['文字','貨幣','度量衡','宗教'],3,'秦始皇統一文字、貨幣、車軌、度量衡，課本沒有提到統一宗教。'],
+ ['秦','秦朝為什麼很快就滅亡？',['被匈奴攻破','統治嚴苛、刑罰殘酷，大型建設勞民傷財而大失民心','科舉考試不公平','世族勢力太大'],1,'課本：秦因統治嚴苛、刑罰殘酷，又修長城、馳道等勞民傷財，大失民心而滅亡。'],
+ ['秦','長城對農業民族與草原民族有什麼意義？',['是雙方交流的市場','成為雙方的分界線與防禦匈奴的防線','是絲路的起點','是運河的一部分'],1,'長城作為北方抵禦匈奴的防線，自此成為農業民族與草原民族的分界線。'],
+ ['漢','漢武帝實施察舉，要地方長官推舉什麼樣的人？',['考試成績好的人','孝子和廉吏','貴族子弟','有軍功的人'],1,'察舉要求地方長官定期推舉「孝子」和「廉吏」。'],
+ ['漢','漢代為什麼會出現「經學傳家、累世當官」的世族？',['因為實施科舉','因為熟讀儒家經典成為任官的重要途徑，士人把經書傳給子弟','因為周王分封','因為胡人南下'],1,'察舉、太學使熟讀經書成為任官途徑，士人把經書見解傳給家族子弟，形成世族。'],
+ ['漢','漢武帝派張騫出使西域，最初的目的是什麼？',['傳播佛教','聯絡西域國家打擊匈奴','購買絲綢','尋找羅馬帝國'],1,'漢武帝為了聯絡西域國家打擊匈奴而派張騫出使西域。'],
+ ['漢','佛教大約在什麼時候傳入中國？',['商代','西漢末年經西域傳入','唐代由玄奘傳入','秦代'],1,'源自印度的佛教約在西漢末年經西域傳入中國。玄奘是唐代去印度取經。'],
+ ['魏晉南北朝','九品官人之法出現的背景是什麼？',['隋代想削弱世族','東漢末年社會動盪，地方無法順利推舉人才','秦始皇要加強中央集權','漢武帝推崇儒家'],1,'東漢末年社會動盪、戶口破壞，地方官員無法順利推舉人才，曹魏以後改由中央派官員評選。'],
+ ['魏晉南北朝','魏晉南北朝時，世族享有哪些特權？',['可以參加科舉','免賦稅、免勞役，並掌控政治權力','可以分封諸侯','可以擔任天可汗'],1,'世族掌控政治權力，擁有眾多土地，享有免賦稅、免勞役的經濟特權。'],
+ ['魏晉南北朝','永嘉之禍後，對中國經濟有什麼影響？',['北方更加繁榮','北方人士南遷，南方經濟開發，經濟重心逐漸南移','絲路被打通','科舉開始實施'],1,'大批北方人士避難南遷，加速南方開發，促使中國經濟重心逐漸南移。'],
+ ['魏晉南北朝','下列何者「不是」北魏孝文帝的漢化措施？',['遷都洛陽','改用漢姓','鼓勵與漢人通婚','以文成公主和親'],3,'文成公主和親吐蕃是唐太宗時的事。'],
+ ['魏晉南北朝','魏晉南北朝時佛教開始盛行，主要原因是什麼？',['皇帝下令全民信佛','政權更迭頻繁、社會動盪，人心尋求宗教慰藉','玄奘取經回國','伊斯蘭教傳入'],1,'政權更迭頻繁，社會動盪，人心尋求宗教的慰藉，佛教乃開始盛行。'],
+ ['魏晉南北朝','雲岡石窟位於哪裡？',['甘肅敦煌','山西大同','河南洛陽','陝西西安'],1,'莫高窟在甘肅敦煌，雲岡石窟在山西大同，龍門石窟在河南洛陽。'],
+ ['隋唐','隋代改採科舉，主要目的是什麼？',['加強封建','維繫政權、削弱世族勢力','打擊匈奴','推廣佛教'],1,'隋為了維繫政權、削弱世族的勢力，廢除九品官人之法，改採科舉。'],
+ ['隋唐','科舉制度帶來什麼影響？',['世族勢力更大','提升平民任官機會，促進社會階層流動','只有貴族能當官','地方長官負責推舉人才'],1,'科舉提升平民任官的機會，促進社會階層流動，也形成讀書風氣。'],
+ ['隋唐','唐太宗被尊為「天可汗」，是因為他做了什麼？',['統一文字','滅了北方草原強權東突厥','派玄奘取經','實施科舉'],1,'唐太宗滅了東突厥，被尊為天可汗，代表他是各族的共同君長。'],
+ ['隋唐','下列何者最能說明唐代「胡風」盛行？',['唐人喝葡萄酒、穿胡服、跳胡旋舞','唐代實施科舉','唐太宗以文成公主和親','日本推動大化革新'],0,'唐朝人喜歡喝葡萄酒、穿短衣窄袖的胡服、以胡旋舞為娛樂，「胡風」成為流行時尚。'],
+ ['隋唐','日本的「大化革新」以什麼為藍本？',['秦代的郡縣','唐代的律令、制度','漢代的察舉','西周的封建'],1,'七世紀中葉日本推動的大化革新，以唐代的律令、制度為藍本。'],
+ ['隋唐','中國造紙術是怎麼傳到西方的？',['張騫帶到西域','唐軍在怛羅斯敗給大食，造紙匠被俘','文成公主帶到吐蕃','日本遣使學習'],1,'八世紀中葉唐軍與大食在怛羅斯交戰戰敗，不少造紙匠被俘，造紙術因而西傳。'],
+ ['隋唐','新羅為什麼被稱為「君子國」？',['因為打敗唐軍','因為仿效唐的衣冠、曆法、律令、漢字，文風興盛','因為發明了假名','因為信奉伊斯蘭教'],1,'新羅最仰慕中國文化，學習儒學與佛教，仿效唐的制度，號稱君子國。'],
+ ['隋唐','為什麼說唐代長安是國際城市？',['因為它是秦代首都','因為城中住著突厥、朝鮮、吐蕃等外國人，也有佛教、道教和三夷教','因為它在長江流域','因為它實施郡縣'],1,'長安住著來自突厥、朝鮮、高昌、吐蕃等地的人，宗教多元，且是絲路的東方起點。']
+];
+const ERA_TO_LEARN={'序章':0,'西周':1,'東周':2,'秦':3,'漢':4,'魏晉南北朝':5,'隋唐':6};
+let qRange='全部',run=null;
+function wrongList(){return S.get('wrong',[]);}
+function updWrong(){$('#wrong-n').textContent=wrongList().length;$('#q-wrong').disabled=!wrongList().length;const b=S.get('best',null);$('#q-best').textContent=b==null?'還沒有測驗紀錄。':`最佳成績：${b} / 10`;}
+['全部','序章','西周','東周','秦','漢','魏晉南北朝','隋唐'].forEach(f=>{const b=document.createElement('button');b.className='btn';b.style.padding='3px 10px';b.style.fontSize='.85rem';b.textContent=f;if(f==='全部')b.classList.add('primary');b.onclick=()=>{qRange=f;$$('#q-range button').forEach(x=>x.classList.toggle('primary',x===b));};$('#q-range').appendChild(b);});
+function startQuiz(ids,mode){run={ids,i:0,score:0,mode,picked:false};$('#quiz-home').hidden=true;$('#quiz-run').hidden=false;showQ();}
+$('#q-start').onclick=()=>{const pool=BANK.map((_,i)=>i).filter(i=>qRange==='全部'||BANK[i][0]===qRange);startQuiz(shuffle(pool).slice(0,10),'normal');};
+$('#q-wrong').onclick=()=>startQuiz(shuffle(wrongList()),'wrong');
+$('#q-clear').onclick=()=>{S.set('wrong',[]);updWrong();updProg();};
+function showQ(){
+  const box=$('#quiz-run');
+  if(run.i>=run.ids.length){
+    const n=run.ids.length;
+    if(run.mode==='normal'&&n===10){const b=S.get('best',null);if(b==null||run.score>b)S.set('best',run.score);}
+    box.innerHTML=`<div class="big-score">${run.score} / ${n}</div><p style="text-align:center;margin:0">${run.score===n?'全對！你已經掌握這部分了。':'錯的題目已存進錯題本，隔一天再練一次記得更牢。'}</p><div class="row" style="justify-content:center"><button class="btn primary" id="q-home">回測驗首頁</button></div>`;
+    $('#q-home').onclick=()=>{$('#quiz-run').hidden=true;$('#quiz-home').hidden=false;updWrong();};updProg();return;
+  }
+  const id=run.ids[run.i],[era,q,opts,a,why]=BANK[id];
+  const order=shuffle(opts.map((o,i)=>i));
+  box.innerHTML=`<div class="qbar"><span>第 ${run.i+1} / ${run.ids.length} 題${run.mode==='wrong'?'（錯題本）':''}</span><span>答對 ${run.score}</span></div><span class="tag" style="align-self:flex-start">${era}</span><h3>${q}</h3><div style="display:flex;flex-direction:column;gap:8px" id="opts"></div><div id="qfb"></div>`;
+  order.forEach(oi=>{const b=document.createElement('button');b.className='opt';b.textContent=opts[oi];b.onclick=()=>{
+    $$('#opts .opt').forEach(x=>x.disabled=true);
+    const w=wrongList();
+    if(oi===a){b.classList.add('ok');run.score++;if(run.mode==='wrong')S.set('wrong',w.filter(x=>x!==id));}
+    else{b.classList.add('no');$$('#opts .opt')[order.indexOf(a)].classList.add('ok');if(!w.includes(id)){w.push(id);S.set('wrong',w);}}
+    $('#qfb').innerHTML=`<div class="fb ${oi===a?'ok':'no'}"><b>${oi===a?'答對了！':'正確答案：'+opts[a]}</b><br>${why}<br><button class="linkish" id="q-review">回「先看懂」複習${era}</button></div><div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn primary" id="q-next">${run.i===run.ids.length-1?'看結果':'下一題 →'}</button></div>`;
+    $('#q-next').onclick=()=>{run.i++;showQ();};
+    $('#q-review').onclick=()=>{eraI=ERA_TO_LEARN[era];renderEra();go('learn');};
+  };$('#opts').appendChild(b);});
+}
+
+/* ================= 共用 ================= */
+function updProg(){
+  const seen=S.get('seen',[]).length,ch=S.get('chains',[]).length,k=known().length,w=wrongList().length;
+  $('#prog').innerHTML=`看懂 <b>${seen}</b>/${ERAS.length}・因果 <b>${ch}</b>/${CHAINS.length}<br>閃卡 <b>${k}</b>/${CARDS.length}・錯題 ${w}`;
+}
+function go(t){
+  $$('nav button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===t));
+  $$('main section').forEach(s=>s.hidden=s.id!=='sec-'+t);
+  S.set('tab',t);scrollTo({top:0});
+}
+$$('nav button').forEach(b=>b.onclick=()=>go(b.dataset.t));
+renderEra();renderChainList();startChain();buildDeck();renderVS();updWrong();updProg();
+const t0=S.get('tab','learn');if($('#sec-'+t0))go(t0);
+</script>
+
+</body>
+</html>
