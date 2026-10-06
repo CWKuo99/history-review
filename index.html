@@ -36,6 +36,8 @@ button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .wrap{max-width:780px;margin:0 auto;padding-inline:16px}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
 .brand{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-block:10px 4px}
+.xlink{font-size:.8rem;font-weight:700;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap;margin-right:auto}
+.xlink:hover{background:var(--line)}
 .brand h1{font-size:1.35rem;color:var(--accent);font-weight:900;letter-spacing:.05em}
 .prog{font-size:.75rem;color:var(--muted);text-align:right;line-height:1.4}
 .prog b{color:var(--good)}
@@ -139,6 +141,7 @@ footer{color:var(--muted);font-size:.78rem;text-align:center;padding-block:10px 
   <div class="wrap">
     <div class="brand">
       <h1>歷史複習站</h1>
+      <a class="xlink" href="explore.html">互動教學頁 →</a>
       <div class="prog" id="prog"></div>
     </div>
     <nav role="tablist" aria-label="複習步驟">
