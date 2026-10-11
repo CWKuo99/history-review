@@ -1,0 +1,663 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8">
+<title>國家與公共意見複習站</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* Layout: 公文/印信意象。頂部章名 + 分頁列，單欄閱讀，第1課＝藍墨、第2課＝青綠，印章紅只用在答錯與重點標記 */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --ink:#1c2538; --muted:#5b6476; --line:#d9dee6;
+  --l1:#2b4a8b; --l1-soft:#e3e9f6; --l2:#16786d; --l2-soft:#dcf0ec;
+  --seal:#b8322a; --seal-soft:#f8e3e1; --ok:#2f7a3d; --ok-soft:#e1f1e3;
+  --display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --body:"PingFang TC","Noto Sans TC","Microsoft JhengHei","Heiti TC",system-ui,sans-serif;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#12161f; --surface:#1b212d; --ink:#e7eaf0; --muted:#a2abbb; --line:#2e3646;
+  --l1:#8fb0f0; --l1-soft:#223152; --l2:#5fcdbd; --l2-soft:#173a36;
+  --seal:#f0857b; --seal-soft:#43201e; --ok:#7fd08c; --ok-soft:#1d3a22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12161f; --surface:#1b212d; --ink:#e7eaf0; --muted:#a2abbb; --line:#2e3646;
+  --l1:#8fb0f0; --l1-soft:#223152; --l2:#5fcdbd; --l2-soft:#173a36;
+  --seal:#f0857b; --seal-soft:#43201e; --ok:#7fd08c; --ok-soft:#1d3a22; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+header.top{display:flex;gap:16px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;padding-block:8px 16px;border-bottom:2px solid var(--ink)}
+.eyebrow{font-size:13px;letter-spacing:.12em;color:var(--muted)}
+h1{font-family:var(--display);font-weight:900;font-size:clamp(26px,6vw,38px);line-height:1.2;margin:4px 0 0;text-wrap:balance}
+.seal{font-family:var(--display);font-weight:900;color:var(--seal);border:2.5px solid var(--seal);border-radius:6px;padding:4px 8px;line-height:1.15;font-size:15px;text-align:center;transform:rotate(-4deg);writing-mode:vertical-rl;letter-spacing:.1em}
+.score{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;overflow-x:auto;padding-block:10px;margin-bottom:8px;scrollbar-width:none}
+nav.tabs button{flex:0 0 auto;font:inherit;font-size:15px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 14px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,.chip:focus-visible,.node:focus-visible{outline:3px solid var(--l1);outline-offset:2px}
+section.panel{display:flex;flex-direction:column;gap:16px}
+h2{font-family:var(--display);font-size:22px;margin:8px 0 0;text-wrap:balance}
+h3{font-size:17px;margin:0}
+p{margin:0}
+.lede{color:var(--muted);max-width:65ch}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.tag.l1{background:var(--l1-soft);color:var(--l1)} .tag.l2{background:var(--l2-soft);color:var(--l2)}
+.tag.mix{background:var(--seal-soft);color:var(--seal)} .tag.exam{border:1px solid var(--muted);color:var(--muted)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;font-size:15px;border:1px solid var(--ink);background:var(--surface);color:var(--ink);padding:6px 14px;border-radius:8px;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:disabled{opacity:.45;cursor:default}
+.filter button{font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--muted);padding:3px 12px;border-radius:999px;cursor:pointer}
+.filter button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+
+/* concept map */
+.map{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+.map svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.col h3{font-family:var(--display);font-size:15px}
+.col.c1 h3{color:var(--l1)} .col.c2 h3{color:var(--l2)}
+.node{position:relative;z-index:1;font:inherit;font-size:14px;line-height:1.35;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 10px;border-radius:8px;cursor:pointer}
+.c1 .node.on{border-color:var(--l1);background:var(--l1-soft)}
+.c2 .node.on{border-color:var(--l2);background:var(--l2-soft)}
+.node.dim{opacity:.4}
+.node.rel{border-style:dashed;border-color:var(--seal)}
+.detail{min-height:120px}
+.detail .bridge{border-top:1px dashed var(--line);padding-top:10px;margin-top:10px;display:flex;flex-direction:column;gap:8px}
+.detail .bridge p b{color:var(--seal)}
+
+/* territory */
+.terr{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:center}
+.terr svg{width:100%;height:auto;display:block}
+.terr svg .z{cursor:pointer}
+.terr svg .z:hover,.terr svg .z.on{filter:brightness(.92)}
+@media (max-width:640px){.terr{grid-template-columns:1fr}}
+
+/* flashcards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.card{perspective:900px;height:170px;cursor:pointer;border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left}
+.card .in{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+.card.flip .in{transform:rotateY(180deg)}
+.card .f,.card .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);padding:14px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:6px;overflow:auto}
+.card .f strong{font-family:var(--display);font-size:20px;line-height:1.3}
+.card .f .hint{margin-top:auto;font-size:12px;color:var(--muted)}
+.card .b{transform:rotateY(180deg);font-size:14px;line-height:1.6}
+.card.l1 .f{border-top:4px solid var(--l1)} .card.l2 .f{border-top:4px solid var(--l2)}
+@media (prefers-reduced-motion:reduce){.card .in{transition:none}}
+
+/* sort */
+.pool{display:flex;flex-wrap:wrap;gap:8px;min-height:44px}
+.chip{font:inherit;font-size:14px;line-height:1.45;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 10px;border-radius:8px;cursor:pointer;max-width:100%}
+.chip.sel{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
+.chip.good{border-color:var(--ok);background:var(--ok-soft);cursor:default}
+.chip.bad{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.chip.bad{animation:none}}
+.bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.bin{font:inherit;text-align:left;border:1.5px dashed var(--muted);background:transparent;color:var(--ink);border-radius:var(--r);padding:10px;min-height:84px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.bin b{font-size:15px}
+.bin .got{display:flex;flex-direction:column;gap:4px}
+.bin .got span{font-size:13px;color:var(--ok);line-height:1.4}
+.msg{font-size:14px;min-height:1.6em}
+.msg.bad{color:var(--seal)} .msg.ok{color:var(--ok)}
+
+/* quiz */
+.q{display:flex;flex-direction:column;gap:10px}
+.q .stem{font-size:16.5px;max-width:65ch}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{font:inherit;font-size:15px;text-align:left;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:8px;cursor:pointer;display:flex;gap:8px}
+.opt .k{font-weight:700;color:var(--muted);flex:0 0 auto}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--seal);background:var(--seal-soft)}
+.opt:disabled{cursor:default}
+.explain{border-left:3px solid var(--ink);padding:4px 0 4px 12px;font-size:15px;max-width:65ch}
+.explain b{color:var(--seal)}
+.progress{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--ink);transition:width .3s}
+.qhead{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* cases */
+.case .src{font-size:13px;color:var(--muted)}
+.case .story{background:var(--bg);border-radius:8px;padding:12px 14px;font-size:15px}
+.case .story mark{background:var(--l1-soft);color:var(--ink);padding:0 3px;border-radius:3px}
+.case .story mark.b{background:var(--l2-soft)}
+.think textarea{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--surface);color:var(--ink);min-height:84px;resize:vertical}
+.ref{background:var(--bg);border-radius:8px;padding:10px 12px;font-size:15px}
+.casenav{display:flex;gap:6px;flex-wrap:wrap}
+
+/* order */
+.order{display:flex;flex-direction:column;gap:6px}
+.slot{display:flex;gap:8px;align-items:flex-start;font-size:15px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface)}
+.slot .n{font-weight:700;color:var(--l2);font-variant-numeric:tabular-nums}
+
+/* pitfalls */
+.pits{display:grid;gap:10px}
+.pit{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.pit>div{padding:10px 12px;min-width:0;font-size:14.5px}
+.pit>div+div{border-left:1px solid var(--line)}
+.pit h4{grid-column:1/-1;margin:0;padding:8px 12px;font-size:15px;background:var(--bg);border-bottom:1px solid var(--line)}
+.pit .trap{grid-column:1/-1;border-top:1px solid var(--line);color:var(--seal);font-size:14px}
+@media (max-width:520px){.pit{grid-template-columns:1fr}.pit>div+div{border-left:0;border-top:1px solid var(--line)}}
+table.cmp{border-collapse:collapse;width:100%;font-size:14.5px}
+table.cmp th,table.cmp td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.cmp th{background:var(--bg)}
+.tw{overflow-x:auto}
+footer{margin-top:32px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">國中公民 2 上｜段考複習</div>
+      <h1>國家與公共意見複習站</h1>
+      <div class="row" style="margin-top:6px"><span class="tag l1">第1課 國家與民主政治</span><span class="tag l2">第2課 民主國家中的公共意見</span></div>
+    </div>
+    <div class="row" style="align-items:center;gap:14px">
+      <div class="score" id="scoreTop">作答紀錄：0 題</div>
+      <div class="seal" aria-hidden="true">主權在民</div>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="map" aria-selected="true">概念地圖</button>
+    <button role="tab" data-tab="cards">重點翻卡</button>
+    <button role="tab" data-tab="sort">分類挑戰</button>
+    <button role="tab" data-tab="quiz">情境選擇題</button>
+    <button role="tab" data-tab="case">跨課整合</button>
+    <button role="tab" data-tab="pit">易混淆 & 錯題</button>
+  </nav>
+
+  <!-- MAP -->
+  <section class="panel" id="p-map">
+    <h2>兩課怎麼接起來？</h2>
+    <p class="lede">點任一個概念，看它的重點；紅色虛線框是另一課和它相關的概念，下方會說明兩者的關係。第2課的「公共意見」其實就是第1課「民意政治」裡的「民意」。</p>
+    <div class="map" id="map">
+      <svg class="links" id="links" aria-hidden="true"></svg>
+      <div class="col c1" id="col1"><h3>第1課 國家與民主政治</h3></div>
+      <div class="col c2" id="col2"><h3>第2課 公共意見</h3></div>
+    </div>
+    <div class="box detail" id="detail" aria-live="polite"><p class="lede">先點一個概念試試看，例如「民意政治」。</p></div>
+
+    <h2>領土到哪裡為止？</h2>
+    <p class="lede">點圖上的區域。這是 112 年會考第 10 題的考點：超過領海的海域就不算領土。</p>
+    <div class="terr box">
+      <svg viewBox="0 0 420 260" role="img" aria-label="領土範圍示意圖：領陸、領海12浬、專屬經濟海域200浬、公海、領空">
+        <rect class="z" data-z="sky" x="0" y="0" width="230" height="70" fill="var(--l1-soft)"/>
+        <text x="115" y="40" text-anchor="middle" font-size="15" fill="var(--l1)" pointer-events="none">領空</text>
+        <rect class="z" data-z="land" x="0" y="70" width="110" height="190" fill="var(--l1)" opacity=".85"/>
+        <text x="55" y="170" text-anchor="middle" font-size="15" fill="var(--surface)" pointer-events="none">領陸</text>
+        <rect class="z" data-z="sea" x="110" y="120" width="120" height="140" fill="var(--l1-soft)" stroke="var(--l1)" stroke-width="1.5"/>
+        <text x="170" y="185" text-anchor="middle" font-size="14" fill="var(--l1)" pointer-events="none">領海</text>
+        <text x="170" y="205" text-anchor="middle" font-size="12" fill="var(--l1)" pointer-events="none">基線起 12 浬內</text>
+        <rect class="z" data-z="eez" x="230" y="120" width="110" height="140" fill="var(--l2-soft)"/>
+        <text x="285" y="180" text-anchor="middle" font-size="13" fill="var(--l2)" pointer-events="none">專屬經濟</text>
+        <text x="285" y="197" text-anchor="middle" font-size="13" fill="var(--l2)" pointer-events="none">海域</text>
+        <text x="285" y="215" text-anchor="middle" font-size="11" fill="var(--l2)" pointer-events="none">至 200 浬</text>
+        <rect class="z" data-z="high" x="340" y="120" width="80" height="140" fill="var(--bg)" stroke="var(--line)"/>
+        <text x="380" y="190" text-anchor="middle" font-size="13" fill="var(--muted)" pointer-events="none">公海</text>
+        <line x1="230" y1="10" x2="230" y2="260" stroke="var(--seal)" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="236" y="24" font-size="12" fill="var(--seal)" pointer-events="none">← 領土到此為止</text>
+      </svg>
+      <div id="terrInfo" aria-live="polite"><p class="lede">領土 = 領陸 + 領海 + 領空。點一個區域看說明。</p></div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="panel" id="p-cards" hidden>
+    <h2>重點翻卡</h2>
+    <p class="lede">先在心裡說出答案，再點卡片翻面核對。</p>
+    <div class="row filter" id="cardFilter">
+      <button data-f="all" class="on">全部</button><button data-f="l1">第1課</button><button data-f="l2">第2課</button>
+      <button data-f="shuffle">洗牌</button>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- SORT -->
+  <section class="panel" id="p-sort" hidden>
+    <h2>分類挑戰</h2>
+    <p class="lede">先點一張情境卡，再點它該放進的格子。分錯會告訴你為什麼。</p>
+    <div class="row filter" id="sortPick"></div>
+    <div class="box" style="display:flex;flex-direction:column;gap:12px">
+      <div class="row" style="justify-content:space-between"><h3 id="sortTitle"></h3><span class="score" id="sortCount"></span></div>
+      <div class="pool" id="pool"></div>
+      <div class="msg" id="sortMsg" aria-live="polite"></div>
+      <div class="bins" id="bins"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="panel" id="p-quiz" hidden>
+    <h2>情境選擇題</h2>
+    <div class="row filter" id="quizFilter">
+      <button data-f="all" class="on">兩課混合</button><button data-f="l1">只考第1課</button><button data-f="l2">只考第2課</button><button data-f="wrong">重做錯題</button>
+    </div>
+    <div class="box q" id="quizBox"></div>
+  </section>
+
+  <!-- CASE -->
+  <section class="panel" id="p-case" hidden>
+    <h2>跨課整合</h2>
+    <p class="lede">每個案例同時用到兩課的概念。先答選擇題，最後一題是寫寫看，寫完再看參考答案。</p>
+    <div class="casenav" id="caseNav"></div>
+    <div class="box case" id="caseBox" style="display:flex;flex-direction:column;gap:14px"></div>
+  </section>
+
+  <!-- PITFALLS -->
+  <section class="panel" id="p-pit" hidden>
+    <h2>最容易搞混的地方</h2>
+    <div class="pits" id="pits"></div>
+    <h2>國家與政府怎麼分？</h2>
+    <div class="tw"><table class="cmp">
+      <tr><th>區別</th><th>國家</th><th>政府</th></tr>
+      <tr><td>範圍</td><td>較廣，概念包含政府</td><td>國家的組成要素之一</td></tr>
+      <tr><td>權力</td><td>擁有主權</td><td>擁有統治權（行使統治權來彰顯國家主權）</td></tr>
+      <tr><td>持續性</td><td>永久、持續發展</td><td>短暫、可改變（選舉或革命而更替）</td></tr>
+    </table></div>
+    <h2>政黨和利益團體怎麼分？</h2>
+    <div class="tw"><table class="cmp">
+      <tr><th>項目</th><th>利益團體</th><th>政黨</th></tr>
+      <tr><td>組成目的</td><td>影響政府政策</td><td>取得執政權</td></tr>
+      <tr><td>關注面向</td><td>和團體目標相關的特定議題</td><td>多面向的議題</td></tr>
+      <tr><td>舉例</td><td>台灣環境保護聯盟</td><td>國民黨、民進黨</td></tr>
+    </table></div>
+    <h2>我的錯題</h2>
+    <div class="box" id="wrongList"></div>
+    <div class="row"><button class="btn" id="resetBtn">清除作答紀錄</button><span class="msg" id="resetMsg"></span></div>
+  </section>
+
+  <footer>內容依據康軒 115 學年國中公民 2 上備課用書第 1、2 課整理。題目為複習用自編題，標示「會考」者為仿該年考點改寫，非原題。</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- storage (optional) ---------- */
+var KEY="civic2-review-v1", S={ans:{},wrong:{}};
+try{var raw=localStorage.getItem(KEY); if(raw){var o=JSON.parse(raw); if(o&&o.ans) S=o; if(!S.wrong) S.wrong={};}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){} updScore();}
+function updScore(){var ids=Object.keys(S.ans),c=0;ids.forEach(function(k){if(S.ans[k])c++});
+  document.getElementById("scoreTop").textContent=ids.length?("作答紀錄："+c+" / "+ids.length+" 題答對"):"作答紀錄：0 題";}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+/* ---------- tabs ---------- */
+var tabs=document.getElementById("tabs");
+function showTab(t){
+  tabs.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab===t?"true":"false")});
+  document.querySelectorAll("section.panel").forEach(function(p){p.hidden=p.id!=="p-"+t});
+  if(t==="map") drawLinks();
+  if(t==="pit") renderWrong();
+  try{localStorage.setItem(KEY+"-tab",t)}catch(e){}
+}
+tabs.addEventListener("click",function(e){var b=e.target.closest("button");if(b)showTab(b.dataset.tab)});
+
+/* ---------- concept map ---------- */
+var N1=[
+ {id:"elem",t:"國家四要素",d:"現代國家：一群人在特定的領土內組織政府，經營共同生活，並擁有主權的政治性團體。人民、領土、政府、主權缺一不可。"},
+ {id:"purpose",t:"國家存在的目的",d:"最大目的是謀求人民的生活福祉。其他：保衛國家安全、維持社會秩序、保障基本人權、發展社會福利、伸張司法正義、促進經濟發展、保存文化傳統。"},
+ {id:"stgov",t:"國家與政府的區別",d:"範圍：國家較廣，政府是要素之一。權力：國家有主權，政府有統治權。持續性：國家永久，政府短暫可改變；政府更替不代表國家滅亡。"},
+ {id:"pop",t:"主權在民・人民授權",d:"民主國家的主權屬於國民全體，政府的權力須由人民授權才具正當性。人民透過定期選舉，賦予執政者組織政府、處理公共事務的權力。"},
+ {id:"will",t:"民意政治",d:"基於主權在民，政府在制訂政策前，應以民意調查、公聽會或公民投票等管道提供人民表達意見的機會，確認多數民意所向，作為施政依據。"},
+ {id:"law",t:"法治政治",d:"法律由民意代表依法定程序制定，政府與人民都要守法。政府依法行政，避免違法濫權；包含依憲立法保障人權、依法行政、司法獨立三層面。"},
+ {id:"party",t:"政黨政治",d:"兩個以上政黨公平競爭。勝選的執政黨組織政府，敗選的在野黨監督政府；在野黨取得執政權就形成政黨輪替。"},
+ {id:"resp",t:"責任政治",d:"施政違背民意→政治責任（如辭職下臺、選舉敗選、罷免）；違法失職→法律責任（如判刑、罰款、行政處分）。"}
+];
+var N2=[
+ {id:"po",t:"公共意見的定義",d:"一群民眾在某段時間內，針對公共事務、政府政策或政治人物等議題，公開表達的集體意見，又稱民意。不是個人私下的想法，也不是所有人都一樣的看法。"},
+ {id:"way",t:"表達公共意見的方式",d:"透過媒體、參與集會遊行、參與公聽會、接受民意調查、透過公眾人物／利益團體／政黨發聲。"},
+ {id:"group",t:"利益團體與政黨",d:"兩者本身就代表某些群體，民眾透過它們表達意見更能發揮影響力；它們也會主動引導公共意見形成。利益團體目的在影響政策，政黨目的在取得執政權。"},
+ {id:"issue",t:"議題性",d:"受到民眾關注與討論的公共事務議題，才能形成公共意見，如環保、經濟、教育。"},
+ {id:"cplx",t:"複雜性（差異性）",d:"不只有支持者與反對者，支持者之間、反對者之間也可能有不同看法。"},
+ {id:"infl",t:"影響性",d:"公共意見會影響政治人物或政黨的主張、政策研擬，甚至政府的施政。"},
+ {id:"vari",t:"變動性（不穩定性）",d:"民意如流水：民眾支持與否可能因時空不同而改變。"},
+ {id:"media",t:"媒體可能存在的現象",d:"報導未必反映事實、報導有特定的立場、內容隱含偏見或歧視。"},
+ {id:"lit",t:"媒體識讀能力",d:"辨識訊息是事實或意見、主動思辨與查證、使用媒體表達意見。可督促媒體遵守職業倫理，並防止公共意見被有心人士操弄。"}
+];
+var LINKS=[
+ ["will","po","「民意」就是公共意見。民意政治要求政府以民意為施政依據，第2課接著問：民意是怎麼形成的、有什麼特性。"],
+ ["will","way","民意政治提到的民意調查、公聽會，正是第2課表達公共意見的方式。管道是政府提供的，表達則要靠人民主動參與。"],
+ ["pop","way","政府的權力來自人民授權，所以人民除了定期選舉，平時也能透過各種方式公開表達意見，讓政府知道人民要什麼。"],
+ ["party","group","政黨政治中的政黨透過選舉爭取執政；在第2課，政黨也是民眾表達公共意見的管道。比較它和利益團體：一個要執政，一個要影響政策。"],
+ ["resp","vari","民意會變動。執政者施政違背民意、支持度下滑時，可能在選舉中敗選或辭職下臺，這就是政治責任。"],
+ ["resp","infl","公共意見有影響性，能迫使官員為不當決策負責，例如政策失誤引發民怨後官員辭職。"],
+ ["law","infl","公共意見要變成政策，仍要走法定程序。例如交通新制，是立法院綜合各團體意見後通過修法，才算數。"],
+ ["stgov","vari","民意改變可能造成政黨輪替，換掉的是政府；國家本身仍持續存在，國際地位不受影響。"],
+ ["will","media","政府要以民意為依據，但如果媒體帶風向或傳播假訊息，民意就可能被扭曲，政府的施政依據也會跟著失真。"],
+ ["purpose","lit","國家存在是為了人民的生活福祉。民眾具備媒體識讀能力，才能維護知的權利，媒體也才能善盡監督政府的角色。"]
+];
+var col1=document.getElementById("col1"),col2=document.getElementById("col2"),mapEl=document.getElementById("map"),linksSvg=document.getElementById("links");
+function mkNode(n,c){var b=document.createElement("button");b.className="node";b.id="n-"+n.id;b.textContent=n.t;b.dataset.id=n.id;b.dataset.c=c;return b}
+N1.forEach(function(n){col1.appendChild(mkNode(n,1))});N2.forEach(function(n){col2.appendChild(mkNode(n,2))});
+var ALL={};N1.concat(N2).forEach(function(n){ALL[n.id]=n});
+var activeNode=null;
+function drawLinks(){
+  if(document.getElementById("p-map").hidden) return;
+  var r=mapEl.getBoundingClientRect(),h="";
+  LINKS.forEach(function(L){
+    var a=document.getElementById("n-"+L[0]).getBoundingClientRect(),b=document.getElementById("n-"+L[1]).getBoundingClientRect();
+    var x1=a.right-r.left,y1=a.top+a.height/2-r.top,x2=b.left-r.left,y2=b.top+b.height/2-r.top,mx=(x1+x2)/2;
+    var on=activeNode&&(L[0]===activeNode||L[1]===activeNode);
+    h+='<path d="M'+x1+' '+y1+' C'+mx+' '+y1+' '+mx+' '+y2+' '+x2+' '+y2+'" fill="none" stroke="'+(on?"var(--seal)":"var(--line)")+'" stroke-width="'+(on?2.5:1.5)+'"'+(on?' stroke-dasharray="5 3"':'')+'/>';
+  });
+  linksSvg.innerHTML=h;
+}
+mapEl.addEventListener("click",function(e){
+  var b=e.target.closest(".node");if(!b)return;
+  activeNode=b.dataset.id;var n=ALL[activeNode];
+  var rel=LINKS.filter(function(L){return L[0]===activeNode||L[1]===activeNode});
+  var relIds=rel.map(function(L){return L[0]===activeNode?L[1]:L[0]});
+  mapEl.querySelectorAll(".node").forEach(function(x){
+    x.classList.toggle("on",x===b);x.classList.toggle("rel",relIds.indexOf(x.dataset.id)>=0);
+    x.classList.toggle("dim",x!==b&&relIds.indexOf(x.dataset.id)<0);});
+  var h='<div class="row"><span class="tag '+(b.dataset.c==="1"?"l1":"l2")+'">第'+b.dataset.c+'課</span><h3>'+esc(n.t)+'</h3></div><p style="margin-top:6px">'+esc(n.d)+'</p>';
+  if(rel.length){h+='<div class="bridge">';rel.forEach(function(L){var o=ALL[L[0]===activeNode?L[1]:L[0]];h+='<p><b>↔ '+esc(o.t)+'</b>：'+esc(L[2])+'</p>'});h+='</div>'}
+  else h+='<p class="lede" style="margin-top:8px">這個概念主要在本課內使用，沒有直接連到另一課。</p>';
+  document.getElementById("detail").innerHTML=h;drawLinks();
+});
+window.addEventListener("resize",drawLinks);
+
+var TERR={
+ land:["領陸","國家的陸地領域，是人民共同生活的基礎。"],
+ sea:["領海（屬於領土）","自基線起至外側 12 浬的海域，國家主權及於領海、其上空、海床與底土。1 浬 = 1.852 公里。"],
+ sky:["領空（屬於領土）","領陸與領海的上空。"],
+ eez:["專屬經濟海域（不屬於領土）","鄰接領海外側，至距領海基線 200 浬的海域。不算領土，這是最常見的陷阱。"],
+ high:["公海","200 浬以外的海域，不屬於任何國家的領土。"]
+};
+document.querySelector(".terr svg").addEventListener("click",function(e){
+  var z=e.target.closest(".z");if(!z)return;
+  document.querySelectorAll(".terr .z").forEach(function(x){x.classList.toggle("on",x===z)});
+  var t=TERR[z.dataset.z];document.getElementById("terrInfo").innerHTML='<h3>'+t[0]+'</h3><p style="margin-top:6px">'+t[1]+'</p>';
+});
+
+/* ---------- flashcards ---------- */
+var CARDS=[
+ ["l1","國家的定義","一群人在特定的領土內組織政府，經營共同生活，並擁有主權的政治性團體。"],
+ ["l1","人民","國家的組成分子。具有一國國籍，就是該國國民，享有國家賦予的權利，並負擔義務。"],
+ ["l1","領土","一國政府統治權所及的地理區域，包括領陸、領海、領空。"],
+ ["l1","政府","國家統治機關的總稱。狹義專指行政機關；廣義包括行政、立法、司法等機關。分為中央政府與各級地方政府。"],
+ ["l1","主權","國家最高的權力。對內具最高性，能決定與執行政策；對外具獨立性，不受他國或國際組織干涉，能與他國建立平等外交關係。"],
+ ["l1","國家存在的最大目的","謀求人民的生活福祉。"],
+ ["l1","國家 vs 政府：權力","國家擁有主權，政府擁有統治權。國家的主權藉由政府行使統治權而得以彰顯。"],
+ ["l1","國家 vs 政府：持續性","國家永久且持續發展；政府短暫且可改變。政府更替不代表國家滅亡，也不影響國際地位。"],
+ ["l1","民意政治","政府制訂政策前，以民意調查、公聽會、公民投票等管道讓人民表達意見，確認多數民意所向，作為施政依據。"],
+ ["l1","法治政治","政府與人民都要遵守法律。政府依法行政，避免違法濫權侵害人民權利；人民守法，共同維護社會秩序。"],
+ ["l1","政黨政治","兩個以上的政黨公平競爭。執政黨組織政府，在野黨監督政府；在野黨取得執政權即形成政黨輪替。"],
+ ["l1","政治責任","針對不符合公共利益、道德標準及選民期待的行為。方式：黨內處分、選舉敗選、罷免、下臺等。"],
+ ["l1","法律責任","針對違法失職的行為。方式：判刑、罰款、行政處分等。"],
+ ["l2","公共意見","一群民眾在某段時間內，針對公共事務、政府政策或政治人物等議題，公開表達的集體意見（民意）。"],
+ ["l2","表達公共意見的方式","透過媒體、參與集會遊行、參與公聽會、接受民意調查、透過公眾人物／利益團體／政黨發聲。"],
+ ["l2","利益團體","具有共同理想或利益的人，為了達成特定目標而組成的團體。目的是影響政府政策，關注特定議題。"],
+ ["l2","議題性","受到民眾關注與討論的議題，才能形成公共意見。"],
+ ["l2","複雜性（差異性）","不僅有支持者與反對者，支持者之間或反對者之間也可能有不同看法。"],
+ ["l2","影響性","影響政治人物或政黨對公共事務的主張、政策研擬，甚至政府的施政。"],
+ ["l2","變動性（不穩定性）","「民意如流水」：民眾的支持與否會因時空不同而改變。"],
+ ["l2","媒體可能存在的三種現象","報導未必反映事實、報導有特定的立場、內容隱含偏見或歧視。"],
+ ["l2","媒體識讀三能力","辨識訊息是事實或意見、主動思辨與查證、使用媒體表達意見。"],
+ ["l2","事實 vs 意見","事實是客觀可以驗證的內容；意見加入了個人的主觀判斷。沒有比較基準的描述（如「經濟成長趨緩」）應視為意見。"],
+ ["l2","公共政策網路參與平臺","由國家發展委員會建置。提議若在 60 天內達 5,000 人附議，權責機關在成案後 60 天內提出正式回應。"],
+ ["l2","媒體接近使用權","依大法官釋字第 364 號解釋，民眾得依一定條件要求媒體提供版面或時間表達意見，例如報導錯誤侵害權利時要求更正或答辯。"],
+ ["l2","同溫層","社群網站透過演算法推送你常看、想看的內容，讓你避開不喜歡或不常接觸的訊息。"]
+];
+var cardF="all",cardOrder=CARDS.map(function(_,i){return i});
+function renderCards(){
+  var h="";cardOrder.forEach(function(i){var c=CARDS[i];if(cardF!=="all"&&c[0]!==cardF)return;
+    h+='<button class="card '+c[0]+'" aria-label="'+esc(c[1])+'，點一下翻面"><div class="in"><div class="f"><span class="tag '+c[0]+'">'+(c[0]==="l1"?"第1課":"第2課")+'</span><strong>'+esc(c[1])+'</strong><span class="hint">點一下翻面</span></div><div class="b">'+esc(c[2])+'</div></div></button>'});
+  document.getElementById("cards").innerHTML=h;
+}
+document.getElementById("cards").addEventListener("click",function(e){var c=e.target.closest(".card");if(c)c.classList.toggle("flip")});
+document.getElementById("cardFilter").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;
+  if(b.dataset.f==="shuffle"){cardOrder=shuffle(cardOrder)}else{cardF=b.dataset.f;this.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b)})}
+  renderCards();});
+renderCards();
+
+/* ---------- sorting ---------- */
+var SORTS=[
+ {t:"國家四要素",lv:"l1",bins:["人民","領土","政府","主權"],items:[
+  ["俄羅斯籍的安琪結婚來臺，取得中華民國身分證","人民","取得我國國籍，就成為國家的組成分子：人民。"],
+  ["我國與馬紹爾群島簽署教育合作備忘錄","主權","能與他國建立平等外交關係，展現主權的對外獨立性。"],
+  ["中華民國領海為自基線起至外側 12 浬間之海域","領土","領海屬於領土，是政府統治權所及的地理區域。"],
+  ["行政院是我國最高行政機關","政府","政府是國家統治機關的總稱，狹義專指行政機關。"],
+  ["歐洲國家放棄本國貨幣，改用歐元","主權","發行貨幣是國家主權的展現，放棄自己的貨幣會影響主權（109 會考補考考點）。"],
+  ["國民享有國家賦予的權利，並須負擔義務","人民","擁有國籍者享權利、盡義務，這是對「人民」的說明。"],
+  ["國家不受任何國家或國際組織的干涉","主權","這是主權的對外獨立性。"],
+  ["縣市政府負責地方公共事務","政府","政府分為中央政府和各級地方政府。"]]},
+ {t:"國家還是政府？",lv:"l1",bins:["國家","政府"],items:[
+  ["擁有主權","國家","國家擁有主權，政府擁有統治權。"],
+  ["擁有統治權","政府","政府行使統治權，使國家主權得以彰顯。"],
+  ["可能因選舉或革命而更替","政府","政府短暫且可改變。"],
+  ["永久且持續發展的整體","國家","國家具持續性；政府更替不代表國家滅亡。"],
+  ["是國家的組成要素之一","政府","國家範圍較廣，概念包含政府。"],
+  ["2024 年英國大選後換由工黨執政，換掉的是…","政府","政黨輪替改變的是政府，國家的存在與國際地位不受影響。"]]},
+ {t:"民主政治四特色",lv:"l1",bins:["民意政治","法治政治","政黨政治","責任政治"],items:[
+  ["政府修正校園霸凌防制準則前辦理公聽會","民意政治","在政策制訂前提供人民表達意見的機會，確認民意所向。"],
+  ["警察依法攔停車輛，對駕駛人實施酒測","法治政治","政府依法行政，人民也應守法。"],
+  ["敗選的政黨成為在野黨，負責監督政府","政黨政治","兩個以上政黨公平競爭，在野黨監督執政黨。"],
+  ["進口蛋爭議引發民怨，農業部長辭職","責任政治","施政違背民意而辭職下臺，是負起政治責任。"],
+  ["官員貪汙被判刑","責任政治","違法失職須負法律責任，仍屬責任政治。"],
+  ["民國 89 年我國首次政黨輪替","政黨政治","在野黨透過選舉取得執政權，形成政黨輪替。"],
+  ["法律由民意代表依法定程序制定","法治政治","法治政治強調法律的制定程序與守法。"],
+  ["政府以民意調查了解民眾對政策的看法","民意政治","民意調查是政府了解民意的管道之一。"]]},
+ {t:"政治責任還是法律責任？",lv:"l1",bins:["政治責任","法律責任"],items:[
+  ["部長因政策失敗向民眾致歉並辭職","政治責任","不符合選民期待→下臺。"],
+  ["官員收賄遭法院判刑","法律責任","違法失職→判刑。"],
+  ["執政黨候選人在選舉中落敗","政治責任","選舉敗選是政治責任的展現方式之一。"],
+  ["公務員違反行政規章被行政處分","法律責任","行政處分屬法律責任。"],
+  ["市長施政不佳遭選民罷免","政治責任","罷免屬政治責任。"],
+  ["官員違法被處以罰款","法律責任","罰款屬法律責任。"]]},
+ {t:"公共意見四特性",lv:"l2",bins:["議題性","複雜性","影響性","變動性"],items:[
+  ["免費營養午餐是社會大眾關心的議題","議題性","受到民眾關注與討論的議題，才能形成公共意見。"],
+  ["同樣支持免費午餐，有人說要排富，有人說要顧及營養","複雜性","支持者之間也有不同看法。"],
+  ["立法院為學校午餐法制化召開公聽會，研擬專法","影響性","公共意見影響政府施政與立法。"],
+  ["原本不支持，看到評價不錯後改為希望自己地區也推行","變動性","民眾立場隨時空改變。"],
+  ["剛上任的首長支持度高，因施政爭議而下滑","變動性","民意如流水。"],
+  ["候選人根據民眾關心的議題調整政見","影響性","公共意見影響政治人物的主張。"],
+  ["職業駕駛團體與路權團體對交通新制看法不同","複雜性","不同群體對同一議題意見有差異。"],
+  ["山坡地設置太陽能板引發許多民眾關注","議題性","重點在於「民眾關注與討論」。"]]},
+ {t:"媒體可能存在的現象",lv:"l2",bins:["報導未必反映事實","報導有特定的立場","內容隱含偏見或歧視"],items:[
+  ["「火車出軌，部分乘客未繫安全帶拋出車外」（火車座位沒有安全帶）","報導未必反映事實","未善盡查證之責，報導與事實不符。"],
+  ["罷工新聞只報導旅客不便，不提員工訴求","報導有特定的立場","透過內容選擇帶風向，影響不同意見表達的機會。"],
+  ["卡車撞人事件標題直接寫「疑為伊斯蘭極端分子所為」","內容隱含偏見或歧視","以猜測的標題強化對特定宗教的偏見。"],
+  ["為了點閱率製造假新聞","報導未必反映事實","假新聞導致報導與事實出現落差。"],
+  ["不同電視臺對同一候選人的正、負面報導比例差很多","報導有特定的立場","顯示媒體立場各異（114 會考考點）。"],
+  ["報導中強化對某性別或族群的刻板印象","內容隱含偏見或歧視","不自覺加入主觀想法，強化刻板印象。"]]},
+ {t:"事實還是意見？",lv:"l2",bins:["事實","意見"],items:[
+  ["我國失業率從 3.7% 上升至 4%","事實","客觀、可測量、可驗證。"],
+  ["看得出失業狀況惡化","意見","加入個人的主觀判斷。"],
+  ["經濟成長狀況趨緩","意見","沒有說明比較數值與基準，應視為意見。"],
+  ["警方執法過當","意見","「過當」是價值判斷。"],
+  ["檢察官依法展開調查","事實","可以查證的客觀事件。"],
+  ["一名越南籍移工遭警方開 9 槍","事實","可以查證的客觀描述。"]]},
+ {t:"媒體識讀三能力",lv:"l2",bins:["辨識事實或意見","主動思辨與查證","使用媒體表達意見"],items:[
+  ["收到「五紅水治癌」訊息，先查台灣事實查核中心的報告","主動思辨與查證","查閱民間團體的事實查核報告。"],
+  ["發現新聞報導錯誤，打電話要求電視臺更正","使用媒體表達意見","可要求媒體更正內容。"],
+  ["分清楚新聞中哪句是數據、哪句是記者評論","辨識事實或意見","區分客觀內容與主觀判斷。"],
+  ["認為報導偏頗，向國家通訊傳播委員會（NCC）申訴","主動思辨與查證","課本將向 NCC 申訴列在主動思辨與查證之下。"],
+  ["自己拍影片揭露河川汙染，上傳分享","使用媒體表達意見","自行製作訊息，透過媒體與他人分享。"]]}
+];
+var sortIdx=0,sortSel=null,sortDone={};
+var pick=document.getElementById("sortPick");
+pick.innerHTML=SORTS.map(function(s,i){return '<button data-i="'+i+'"'+(i===0?' class="on"':'')+'>'+esc(s.t)+'</button>'}).join("");
+pick.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;sortIdx=+b.dataset.i;
+  pick.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b)});renderSort()});
+function renderSort(){
+  var s=SORTS[sortIdx];sortSel=null;sortDone={};s._order=shuffle(s.items.map(function(_,i){return i}));
+  document.getElementById("sortTitle").innerHTML='<span class="tag '+s.lv+'">'+(s.lv==="l1"?"第1課":"第2課")+'</span> '+esc(s.t);
+  document.getElementById("bins").innerHTML=s.bins.map(function(b,i){return '<button class="bin" data-b="'+i+'"><b>'+esc(b)+'</b><div class="got"></div></button>'}).join("");
+  document.getElementById("sortMsg").textContent="";document.getElementById("sortMsg").className="msg";
+  drawPool();
+}
+function drawPool(){var s=SORTS[sortIdx],h="",left=0;
+  s._order.forEach(function(i){if(sortDone[i])return;left++;h+='<button class="chip'+(sortSel===i?" sel":"")+'" data-i="'+i+'">'+esc(s.items[i][0])+'</button>'});
+  document.getElementById("pool").innerHTML=h||'<p class="msg ok">全部分完了！可以換下一組。</p>';
+  document.getElementById("sortCount").textContent="剩 "+left+" / "+s.items.length;}
+document.getElementById("pool").addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;sortSel=+c.dataset.i;drawPool();
+  var m=document.getElementById("sortMsg");m.className="msg";m.textContent="選好了，現在點它該放的格子。";});
+document.getElementById("bins").addEventListener("click",function(e){
+  var b=e.target.closest(".bin");if(!b)return;var m=document.getElementById("sortMsg");
+  if(sortSel===null){m.className="msg";m.textContent="先點上面一張情境卡。";return}
+  var s=SORTS[sortIdx],it=s.items[sortSel],bn=s.bins[+b.dataset.b];
+  if(it[1]===bn){sortDone[sortSel]=true;b.querySelector(".got").insertAdjacentHTML("beforeend","<span>✓ "+esc(it[0])+"</span>");
+    m.className="msg ok";m.textContent="正確："+it[2];sortSel=null;drawPool();}
+  else{m.className="msg bad";m.textContent="再想想：「"+bn+"」不對。提示："+it[2].replace(/。$/,"")+"。";
+    var chip=document.querySelector('.chip[data-i="'+sortSel+'"]');if(chip){chip.classList.remove("bad");void chip.offsetWidth;chip.classList.add("bad")}}
+});
+renderSort();
+
+/* ---------- quiz ---------- */
+var QS=[
+ {id:"q1",lv:"l1",s:"某國漁船在距離我國領海基線 150 浬處捕魚。這片海域在我國的哪個範圍內？",o:["我國的領海","我國的專屬經濟海域，但不屬於我國領土","我國的領空","公海"],a:1,e:"領海是基線起 12 浬內；12 浬以外到 200 浬是專屬經濟海域，<b>不屬於領土</b>。",tag:"112會考 考點"},
+ {id:"q2",lv:"l1",s:"我國與馬紹爾群島共和國簽署教育合作備忘錄，最能展現國家組成要素中的哪一項？",o:["人民","領土","政府","主權"],a:3,e:"能與他國建立平等的外交關係，是<b>主權的對外獨立性</b>。"},
+ {id:"q3",lv:"l1",s:"西元 2024 年英國工黨勝選並組成新政府。下列敘述何者正確？",o:["英國的國家主權因此轉移給工黨","政府更替，但英國的國家存在與國際地位不受影響","英國需要重新申請加入國際組織","國家與政府同時更替"],a:1,e:"國家永久且持續發展，政府短暫可改變。<b>政府更替≠國家滅亡</b>。"},
+ {id:"q4",lv:"l1",s:"「國家的主權藉由政府行使＿＿而得以彰顯。」空格應填？",o:["統治權","主權","參政權","自治權"],a:0,e:"國家擁有<b>主權</b>，政府擁有<b>統治權</b>；政府行使統治權，國家主權才能具體展現。"},
+ {id:"q5",lv:"l1",s:"警察依法攔停交通工具並對駕駛人實施酒測，最能說明民主政治的哪一項特色？",o:["民意政治","法治政治","政黨政治","責任政治"],a:1,e:"政府依法行政、人民守法，屬於<b>法治政治</b>。"},
+ {id:"q6",lv:"l1",s:"下列哪一個情況屬於官員負起「法律責任」？",o:["部長因政策失敗辭職下臺","執政黨在選舉中敗選","官員貪汙經法院判刑","市長遭到罷免"],a:2,e:"<b>違法失職→法律責任</b>（判刑、罰款、行政處分）；其餘三項都是政治責任。"},
+ {id:"q7",lv:"l1",s:"關於政黨政治，下列敘述何者正確？",o:["只要有一個政黨就能形成政黨政治","選舉敗選的政黨負責監督政府","執政黨可以永久執政","在野黨負責組織政府"],a:1,e:"政黨政治需要<b>兩個以上</b>政黨公平競爭；敗選的<b>在野黨監督政府</b>。"},
+ {id:"q8",lv:"l1",s:"國家設立警政體系，以公權力除暴安良，主要是為了達成哪一項國家存在的目的？",o:["保衛國家安全","維持社會秩序","保存文化傳統","促進經濟發展"],a:1,e:"建立警政體系使人民安居樂業，是<b>維持社會秩序</b>。保衛國家安全靠的是國防與外交。"},
+ {id:"q9",lv:"l1",s:"「政府」一詞若採狹義解釋，指的是？",o:["行政、立法、司法機關","行政機關","所有公務員與人民","中央與地方議會"],a:1,e:"政府狹義<b>專指行政機關</b>；廣義包括行政、立法、司法等機關。"},
+ {id:"q10",lv:"l1",s:"民主國家的政府權力為什麼具有正當性？",o:["因為政府掌握軍隊","因為政府權力由人民授權","因為政府歷史悠久","因為政府獲得外國承認"],a:1,e:"民主國家的主權屬於國民全體，政府的權力須<b>由人民授權</b>（如定期選舉）才具正當性。"},
+ {id:"q11",lv:"l2",s:"下列何者最符合「公共意見」的定義？",o:["小明在日記裡寫下他反對延長上課時間","全國所有人民都一致同意的看法","許多民眾在網路平臺公開附議縮短上課時間的提案","教育部長個人對課綱的看法"],a:2,e:"公共意見是<b>一群民眾</b>針對公共事務<b>公開表達的集體意見</b>。私下的、個人的意見都不算；它也不必是所有人一致的看法。"},
+ {id:"q12",lv:"l2",s:"同樣支持免費營養午餐，有人認為應排富，有人認為可顧及學童營養。這顯示公共意見的哪一項特性？",o:["議題性","複雜性","影響性","變動性"],a:1,e:"支持者之間也有不同看法，是<b>複雜性（差異性）</b>。"},
+ {id:"q13",lv:"l2",s:"新任首長剛上任時支持度很高，但因某項施政引發爭議而下滑。這顯示公共意見的哪一項特性？",o:["議題性","複雜性","影響性","變動性"],a:3,e:"民意如流水，支持與否會隨時空改變，是<b>變動性（不穩定性）</b>。"},
+ {id:"q14",lv:"l2",s:"甲國十年來殺人案件數逐年下降，但網路上搜尋「殺人」的次數大幅增加，許多民眾覺得治安變差。最合理的解釋是？",o:["甲國的殺人案件其實在增加","媒體與網路的大量報導，影響民眾對治安的認知","甲國政府刻意隱瞞犯罪數據","民眾都不使用網路"],a:1,e:"實際案件減少，民眾卻覺得治安惡化，顯示<b>媒體訊息會影響閱聽人對公共議題的認知</b>。",tag:"113會考 考點"},
+ {id:"q15",lv:"l2",s:"新聞標題「又見恐怖攻擊　疑為伊斯蘭極端分子所為」，在事實未明前就這樣下標，屬於媒體的哪一種現象？",o:["報導未必反映事實","報導有特定的立場","內容隱含偏見或歧視","使用媒體表達意見"],a:2,e:"以猜測強化閱聽人對特定宗教的偏見，屬於<b>內容隱含偏見或歧視</b>。"},
+ {id:"q16",lv:"l2",s:"下列哪一句是「事實」而非「意見」？",o:["經濟成長狀況趨緩","我國失業率從 3.7% 上升至 4%","看得出失業狀況惡化","這項政策非常失敗"],a:1,e:"事實是<b>客觀可驗證</b>的。「經濟成長趨緩」沒有比較基準，應視為意見。"},
+ {id:"q17",lv:"l2",s:"家族群組流傳「多吃魚頭可以補甲狀腺」，小芳回覆醫生說這是沒有根據的謠言。小芳展現的是？",o:["主動思辨與查證","報導有特定的立場","公共意見的影響性","政黨政治"],a:0,e:"對接收到的訊息主動思考、查證真假，是<b>主動思辨與查證</b>的媒體識讀能力。",tag:"109會考 考點"},
+ {id:"q18",lv:"l2",s:"關於利益團體與政黨的比較，下列何者正確？",o:["利益團體的目的是取得執政權","政黨通常只關注單一特定議題","利益團體主要目的是影響政府政策","政黨不參與選舉"],a:2,e:"利益團體目的在<b>影響政府政策</b>、關注特定議題；政黨目的在<b>取得執政權</b>、關注多面向議題。"},
+ {id:"q19",lv:"l2",s:"在公共政策網路參與平臺上提議，要達到什麼條件，權責機關才須在 60 天內正式回應？",o:["30 天內 1,000 人附議","60 天內 5,000 人附議","90 天內 10,000 人附議","只要有人提議即可"],a:1,e:"提議在 <b>60 天內達 5,000 人附議</b>即成案，權責單位在成案後 60 天內提出正式回應。"},
+ {id:"q20",lv:"l2",s:"報紙錯誤報導某學校發生霸凌事件，校方要求報社更正。這依據的是哪一項權利？",o:["媒體接近使用權","國家主權","統治權","罷免權"],a:0,e:"依釋字第 364 號解釋，<b>媒體接近使用權</b>讓受害人可要求媒體更正或答辯。這也是「使用媒體表達意見」的展現。"},
+ {id:"q21",lv:"mix",s:"政府推動重大政策前召開公聽會，邀請各界表達意見。從兩課的角度看，下列敘述何者最完整？",o:["這只和第1課的法治政治有關","這是民意政治的實踐，也是民眾表達公共意見的方式之一","這代表政府已經決定政策，公聽會只是形式","這是政黨政治的展現"],a:1,e:"公聽會是<b>民意政治</b>的管道（第1課），也是<b>表達公共意見</b>的方式（第2課）。"},
+ {id:"q22",lv:"mix",s:"某部長的政策引發強烈民怨，媒體大量報導後，部長辭職下臺。這個事件最能同時說明？",o:["公共意見的影響性與責任政治","公共意見的議題性與法治政治","國家的主權與政府的統治權","媒體識讀與政黨輪替"],a:0,e:"民意迫使官員負責，是公共意見的<b>影響性</b>；官員因違背民意辭職，是負起<b>政治責任</b>。"},
+ {id:"q23",lv:"mix",s:"社群網站演算法只推送你常看的內容，讓你以為「大家都這麼想」。這對民主政治最可能造成什麼影響？",o:["使政府更容易掌握真實的多數民意","使人誤判公共意見，政府也可能依失真的民意施政","使國家主權消失","使政黨政治不需要選舉"],a:1,e:"同溫層會讓人誤判民意。民意政治以多數民意為依據，若民意被扭曲，<b>施政依據也會失真</b>。"}
+];
+var quizF="all",quizList=[],quizPos=0,quizRight=0;
+function buildQuiz(){
+  quizList=QS.filter(function(q){if(quizF==="wrong")return S.wrong[q.id];if(quizF==="all")return true;return q.lv===quizF});
+  quizList=shuffle(quizList);quizPos=0;quizRight=0;renderQ();
+}
+function lvTag(lv){return lv==="l1"?'<span class="tag l1">第1課</span>':lv==="l2"?'<span class="tag l2">第2課</span>':'<span class="tag mix">跨課</span>'}
+function renderQ(){
+  var box=document.getElementById("quizBox");
+  if(!quizList.length){box.innerHTML='<p>'+(quizF==="wrong"?"目前沒有錯題，太好了！":"沒有題目。")+'</p>';return}
+  if(quizPos>=quizList.length){box.innerHTML='<h3>完成！答對 '+quizRight+' / '+quizList.length+' 題</h3><p class="lede">答錯的題目已收進「易混淆 & 錯題」，可以選「重做錯題」再練一次。</p><div class="row"><button class="btn primary" id="qAgain">再做一輪</button></div>';
+    document.getElementById("qAgain").onclick=buildQuiz;return}
+  var q=quizList[quizPos],keys="ABCD";
+  var h='<div class="qhead"><span>第 '+(quizPos+1)+' / '+quizList.length+' 題</span><span>本輪答對 '+quizRight+'</span></div><div class="progress"><i style="width:'+(quizPos/quizList.length*100)+'%"></i></div>';
+  h+='<div class="row">'+lvTag(q.lv)+(q.tag?'<span class="tag exam">'+esc(q.tag)+'</span>':'')+'</div><p class="stem">'+esc(q.s)+'</p><div class="opts">';
+  q.o.forEach(function(o,i){h+='<button class="opt" data-i="'+i+'"><span class="k">('+keys[i]+')</span><span>'+esc(o)+'</span></button>'});
+  h+='</div><div id="qExp"></div>';box.innerHTML=h;
+}
+document.getElementById("quizBox").addEventListener("click",function(e){
+  var b=e.target.closest(".opt");
+  if(b&&!b.disabled){
+    var q=quizList[quizPos],i=+b.dataset.i,ok=i===q.a;
+    this.querySelectorAll(".opt").forEach(function(x,j){x.disabled=true;if(j===q.a)x.classList.add("right")});
+    if(!ok)b.classList.add("wrong");else quizRight++;
+    S.ans[q.id]=ok;if(ok)delete S.wrong[q.id];else S.wrong[q.id]=1;save();
+    document.getElementById("qExp").innerHTML='<div class="explain"><p>'+(ok?"✓ 答對了。":"✗ 正確答案是 ("+"ABCD"[q.a]+")。")+' '+q.e+'</p></div><div class="row" style="margin-top:10px"><button class="btn primary" id="qNext">'+(quizPos+1<quizList.length?"下一題":"看結果")+'</button></div>';
+    document.getElementById("qNext").focus({preventScroll:true});
+  }
+  if(e.target.id==="qNext"){quizPos++;renderQ()}
+});
+document.getElementById("quizFilter").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;quizF=b.dataset.f;
+  this.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x===b)});buildQuiz()});
+buildQuiz();
+
+/* ---------- integrated cases ---------- */
+var CASES=[
+ {t:"行人地獄與交通新制",src:"改寫自課本 p.151 學習會考情境",
+  story:'民國 111 年臺灣約有三千人因交通事故死亡，被外國媒體形容為「行人地獄」。在<mark>民眾要求改善交通安全的壓力</mark>下，政府於 112 年 6 月實施交通新制，嚴格記點並放寬民眾可檢舉的違規項目。<mark class="b">職業駕駛團體</mark>擔心違規臨停被檢舉影響生計，<mark class="b">路權團體</mark>則主張政府應改善道路設計、不應放任違規。交通部再次提出修法草案後，<mark>立法院</mark>綜合各方意見通過修正，將開放民眾檢舉的項目由 10 項改為 5 項。',
+  qs:[
+   {s:"職業駕駛團體與路權團體對修法看法不同，凸顯公共意見的哪一項特性？",o:["議題性","複雜性","影響性","變動性"],a:1,e:"不同群體對同一議題意見有差異，是<b>複雜性</b>。"},
+   {s:"最後由立法院通過修正，而不是交通部自己決定。這最符合第1課民主政治的哪一項特色？",o:["法治政治","政黨政治","責任政治","主權的對外獨立性"],a:0,e:"法律由民意代表依法定程序制定，政府依法行政，屬<b>法治政治</b>。公共意見要變成規範，仍要經過法定程序。"},
+   {s:"修法內容因各團體意見而調整，顯示？",o:["公共意見的影響性","國家永久存在","媒體報導有特定立場","政黨輪替"],a:0,e:"公共意見影響政府施政與立法，是<b>影響性</b>。"}],
+  think:"如果你是交通部長，新制實施後兩種團體都不滿意。請用「民意政治」和「公共意見的複雜性」說明，你會怎麼做決策？",
+  ref:"民意政治要求以多數民意作為施政依據，但公共意見具有複雜性，不同團體的需求不同。可以先透過公聽會、民意調查蒐集各方意見，找出多數人可接受的方案（例如縮小檢舉項目、同時改善道路設計），並向民眾說明理由。若決策錯誤引發民怨，還要準備負起政治責任。"},
+ {t:"打詐專法的誕生",src:"改寫自備課用書素養試題情境（2024 年）",
+  story:'臺灣詐騙案猖獗，民眾一年財產損失高達上千億元，引發<mark class="b">社會大眾積極討論</mark>。有詐騙被害人在<mark class="b">民間團體陪同下召開記者會</mark>，要求政府加強打詐；也有愈來愈多民眾<mark class="b">在社群媒體上發聲</mark>，希望提高詐騙刑責。立法院因此<mark>召開公聽會</mark>，邀請專家學者與民眾參與，最後三讀通過《詐欺犯罪危害防制條例》。新法也要求一定規模的網路廣告平臺業者，不得刊登涉及詐欺的廣告，知悉後應移除。',
+  qs:[
+   {s:"「詐騙問題引發社會大眾積極討論」最能說明公共意見的哪一項特性？",o:["議題性","複雜性","影響性","變動性"],a:0,e:"受到民眾關注與討論的議題，才能形成公共意見，是<b>議題性</b>。"},
+   {s:"被害人透過民間團體召開記者會、民眾在社群媒體發聲，屬於？",o:["表達公共意見的方式","政府行使統治權","國家的組成要素","政治責任"],a:0,e:"透過<b>利益團體（民間團體）</b>與<b>媒體</b>發聲，都是表達公共意見的方式。"},
+   {s:"立法院召開公聽會、廣納各方意見後再制定法律，同時展現了哪兩項民主政治特色？",o:["民意政治、法治政治","政黨政治、責任政治","民意政治、政黨政治","法治政治、責任政治"],a:0,e:"公聽會是確認民意的管道（<b>民意政治</b>）；法律由民意代表依法定程序制定（<b>法治政治</b>）。"}],
+  think:"詐騙常透過假廣告、假訊息傳播。請從「媒體識讀能力」說明，一般民眾可以怎麼保護自己？",
+  ref:"可以先辨識訊息是事實或意見，不被聳動說法帶走；再主動思辨與查證，例如確認訊息來源、查閱事實查核報告；發現假訊息或錯誤報導時，也可以檢舉、要求更正，或自己製作正確訊息分享，這是使用媒體表達意見。"},
+ {t:"波多黎各要獨立還是成為美國一州？",src:"改寫自課本 p.141 學習會考情境",
+  story:'波多黎各位於加勒比海，1898 年美西戰爭後由西班牙割讓給美國。美國在當地設立政府，波多黎各人擁有美國公民身分，可以選舉當地的行政首長與議會代表，卻<mark>無權投票選舉美國總統</mark>。當地的貨幣、國防、外交屬美國聯邦政府管轄。對於要<mark>獨立建國</mark>或<mark>成為美國的一州</mark>，當地民眾<mark class="b">抱持不同想法</mark>，也曾舉辦公投表達意見。',
+  qs:[
+   {s:"波多黎各有自己的政府與人民，為什麼仍不算一個國家？",o:["沒有人民","沒有政府","缺乏完整的主權（國防、外交由美國管轄）","沒有土地"],a:2,e:"國防、外交不能自主，缺乏主權的<b>對外獨立性</b>，所以不是國家。四要素缺一不可。"},
+   {s:"「要獨立建國還是成為美國一州」的爭議，主要涉及國家的哪一項組成要素？",o:["人民","領土","政府","主權"],a:3,e:"獨立與否，爭的是<b>主權</b>。"},
+   {s:"當地民眾對前途抱持不同想法，從第2課看是公共意見的？",o:["議題性","複雜性","影響性","變動性"],a:1,e:"對同一議題有多種意見，是<b>複雜性</b>。"}],
+  think:"波多黎各曾舉辦公投，多數投票者支持成為美國一州，但需要美國國會同意才能執行，一直沒有進展。請用「主權」說明為什麼當地民意無法自己決定結果。",
+  ref:"主權是國家最高的權力，對內具最高性、能決定與執行政策。波多黎各沒有主權，最終決定權在美國聯邦（國會），所以當地公共意見即使形成多數，也只能表達訴求，無法自行決定前途。這也說明公共意見要發揮影響力，前提是能影響真正握有權力的機關。"},
+ {t:"一次大選，兩課重點",src:"改寫自課本 p.140 圖 3-1-6 及備課用書廣角鏡",
+  story:'西元 2024 年英國舉行國會大選，<mark>原本的執政黨敗選</mark>，工黨勝選，黨魁施凱爾獲國王任命為新任首相，<mark>組成新政府</mark>。不少選民<mark class="b">對原執政黨的表現不滿</mark>，和上一次大選相比，支持度出現明顯改變。',
+  qs:[
+   {s:"工黨取代原執政黨組成新政府，英國這個國家會怎樣？",o:["國家滅亡，重新建國","國家持續存在，國際地位不受影響","主權轉移給工黨","領土範圍改變"],a:1,e:"國家永久、政府短暫。<b>政府更替≠國家滅亡</b>。"},
+   {s:"選民的支持度和上一次大選相比明顯改變，顯示公共意見的？",o:["議題性","複雜性","影響性","變動性"],a:3,e:"民意如流水，是<b>變動性</b>。"},
+   {s:"原執政黨因表現不佳而敗選下臺，最能說明？",o:["負起政治責任","負起法律責任","國家主權的最高性","媒體隱含偏見"],a:0,e:"<b>選舉敗選</b>是政治責任的展現方式之一，也是政黨政治中的<b>政黨輪替</b>。"}],
+  think:"請把這次大選串成一條因果鏈：公共意見 → 選舉 → 政黨政治 → 國家與政府。至少用到三個兩課的概念。",
+  ref:"選民對原執政黨不滿，公共意見發生變動（變動性），透過定期選舉表達出來（主權在民）。原執政黨敗選，負起政治責任（責任政治）；工黨成為執政黨組織政府，原執政黨成為在野黨監督政府（政黨政治、政黨輪替）。改變的是政府，英國這個國家持續存在（國家與政府的持續性不同）。"}
+];
+var caseIdx=0,caseAns={};
+var nav=document.getElementById("caseNav");
+nav.innerHTML=CASES.map(function(c,i){return '<button class="btn'+(i===0?" primary":"")+'" data-i="'+i+'">案例 '+(i+1)+'</button>'}).join("");
+nav.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;caseIdx=+b.dataset.i;
+  nav.querySelectorAll("button").forEach(function(x){x.classList.toggle("primary",x===b)});renderCase()});
+function renderCase(){
+  var c=CASES[caseIdx],keys="ABCD";
+  var h='<div class="row"><span class="tag mix">跨課</span><h3>'+esc(c.t)+'</h3></div><p class="src">'+esc(c.src)+'</p><div class="story">'+c.story+'</div><p class="src">底色：<mark style="background:var(--l1-soft);color:var(--ink)">第1課線索</mark>　<mark style="background:var(--l2-soft);color:var(--ink)">第2課線索</mark></p>';
+  c.qs.forEach(function(q,qi){
+    h+='<div class="q" data-q="'+qi+'"><p class="stem"><b>'+(qi+1)+'.</b> '+esc(q.s)+'</p><div class="opts">';
+    q.o.forEach(function(o,i){h+='<button class="opt" data-i="'+i+'"><span class="k">('+keys[i]+')</span><span>'+esc(o)+'</span></button>'});
+    h+='</div><div class="cexp"></div></div>';
+  });
+  h+='<div class="think"><p class="stem"><b>寫寫看：</b>'+esc(c.think)+'</p><label for="think-'+caseIdx+'" class="src">你的回答（只存在這台裝置上）</label><textarea id="think-'+caseIdx+'"></textarea><div class="row" style="margin-top:8px"><button class="btn" data-ref="1">看參考答案</button></div><div class="ref" hidden>'+esc(c.ref)+'<p class="src" style="margin-top:6px">自我檢查：你有沒有用到課本的關鍵詞？有沒有說出「因為…所以…」？</p></div></div>';
+  var box=document.getElementById("caseBox");box.innerHTML=h;
+  var ta=document.getElementById("think-"+caseIdx);
+  try{ta.value=localStorage.getItem(KEY+"-think-"+caseIdx)||""}catch(e){}
+  ta.addEventListener("input",function(){try{localStorage.setItem(KEY+"-think-"+caseIdx,ta.value)}catch(e){}});
+}
+document.getElementById("caseBox").addEventListener("click",function(e){
+  if(e.target.closest("[data-ref]")){var r=this.querySelector(".ref");r.hidden=!r.hidden;return}
+  var b=e.target.closest(".opt");if(!b||b.disabled)return;
+  var qd=b.closest(".q"),q=CASES[caseIdx].qs[+qd.dataset.q],i=+b.dataset.i,ok=i===q.a;
+  qd.querySelectorAll(".opt").forEach(function(x,j){x.disabled=true;if(j===q.a)x.classList.add("right")});
+  if(!ok)b.classList.add("wrong");
+  var id="c"+caseIdx+"-"+qd.dataset.q;S.ans[id]=ok;save();
+  qd.querySelector(".cexp").innerHTML='<div class="explain"><p>'+(ok?"✓ ":"✗ 正確答案是 ("+"ABCD"[q.a]+")。")+q.e+'</p></div>';
+});
+renderCase();
+
+/* ---------- pitfalls ---------- */
+var PITS=[
+ ["領海 vs 專屬經濟海域","領海：基線起 12 浬內，屬於領土。","專屬經濟海域：領海外側至 200 浬，不屬於領土。","陷阱：看到「我國的海域」就以為是領土。"],
+ ["主權 vs 統治權","主權：國家的最高權力，屬於國家。","統治權：政府處理國家事務的權力，用來彰顯主權。","陷阱：說「政府擁有主權」是錯的。"],
+ ["國家 vs 政府的持續性","國家：永久、持續發展。","政府：短暫、可因選舉或革命更替。","陷阱：政黨輪替 ≠ 國家滅亡或國際地位改變。"],
+ ["政治責任 vs 法律責任","政治責任：違背民意、不符選民期待 → 下臺、敗選、罷免、黨內處分。","法律責任：違法失職 → 判刑、罰款、行政處分。","判斷關鍵：有沒有「違法」。"],
+ ["複雜性 vs 變動性","複雜性：同一時間，不同人（甚至同一陣營）看法不同。","變動性：同一群人的看法隨時間、空間改變。","判斷關鍵：題目有沒有「時間前後」的變化。"],
+ ["議題性 vs 影響性","議題性：民眾關注、討論某個議題。","影響性：意見讓政府、政黨、政治人物改變政策或主張。","判斷關鍵：政府或政治人物有沒有「做出回應」。"],
+ ["公共意見的三個「不是」","不是個人私下的意見（要公開表達）。","不是所有人都一樣的看法（是集體意見，可有差異）。","陷阱：「全民一致同意」才叫民意 → 錯。"],
+ ["報導有特定立場 vs 隱含偏見歧視","特定立場：透過議題設定、內容選擇「帶風向」。","偏見歧視：強化對性別、族群、階級的刻板印象。","判斷關鍵：是在推動某個觀點，還是在貶低某群人。"],
+ ["事實 vs 意見","事實：客觀、可測量、可驗證（數據、事件）。","意見：加入主觀判斷或價值評價。","陷阱：「經濟成長趨緩」沒有比較基準，是意見。"]
+];
+document.getElementById("pits").innerHTML=PITS.map(function(p){return '<div class="pit"><h4>'+esc(p[0])+'</h4><div>'+esc(p[1])+'</div><div>'+esc(p[2])+'</div><div class="trap">'+esc(p[3])+'</div></div>'}).join("");
+function renderWrong(){
+  var w=QS.filter(function(q){return S.wrong[q.id]});var el=document.getElementById("wrongList");
+  if(!w.length){el.innerHTML='<p class="lede">還沒有錯題。去「情境選擇題」做一輪吧。</p>';return}
+  el.innerHTML='<div style="display:flex;flex-direction:column;gap:12px">'+w.map(function(q){return '<div><div class="row">'+lvTag(q.lv)+'</div><p style="margin-top:4px">'+esc(q.s)+'</p><p class="explain" style="margin-top:4px">答案：'+esc(q.o[q.a])+'。'+q.e+'</p></div>'}).join("")+'</div>';
+}
+var resetArm=false;
+document.getElementById("resetBtn").addEventListener("click",function(){
+  var m=document.getElementById("resetMsg");
+  if(!resetArm){resetArm=true;this.textContent="再按一次確定清除";m.className="msg bad";m.textContent="會清掉答題紀錄和錯題本。";return}
+  S={ans:{},wrong:{}};save();renderWrong();resetArm=false;this.textContent="清除作答紀錄";m.className="msg ok";m.textContent="已清除。";
+});
+
+updScore();
+var t0="map";try{t0=localStorage.getItem(KEY+"-tab")||"map"}catch(e){}
+if(!document.getElementById("p-"+t0)) t0="map";
+showTab(t0);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(drawLinks);
+})();
+</script>
+</body></html>
